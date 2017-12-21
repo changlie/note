@@ -11,4 +11,5 @@ https://github.com/secbr/drools
 https://github.com/zxh0/jvmgo-book
 ### 自制搜索引擎 (《自制搜索引擎》源码)
 https://github.com/huoshan12345/wiser
-
+### 算法
+https://github.com/wangkuiwu/datastructs_and_algorithm
