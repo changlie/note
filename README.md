@@ -13,3 +13,6 @@ https://github.com/zxh0/jvmgo-book
 https://github.com/huoshan12345/wiser
 ### 算法
 https://github.com/wangkuiwu/datastructs_and_algorithm
+
+### play web框架
+https://github.com/playframework/playframework
