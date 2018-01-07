@@ -21,3 +21,7 @@ https://github.com/ReactiveX/RxJava
 https://goquiz.github.io/#toolchain
 ### 正则表达式生成器
 https://github.com/VerbalExpressions/JavaVerbalExpressions
+
+
+### hashkell 写web的例子
+https://github.com/jekor/vocabulink
