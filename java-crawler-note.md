@@ -3,6 +3,8 @@ HttpUnit -- 相当于一个没有UI的浏览器
 
 Jsoup -- 一款比较好的Java版HTML解析器
 
+Selenium -- java webdriver.
+
 ### -----------
 ## httpclient：支持HTTP协议的客户端编程工具包. 
 > 1）封装实现了所有HTTP的方法，如GET，POST，PUT，HEAD   
