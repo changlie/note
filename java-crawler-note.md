@@ -1,4 +1,6 @@
 ### java 爬虫技术：
+-- 知乎：https://www.zhihu.com/question/31427895
+
 HttpUnit -- 相当于一个没有UI的浏览器
 
 Jsoup -- 一款比较好的Java版HTML解析器
