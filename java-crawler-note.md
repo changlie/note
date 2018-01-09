@@ -3,7 +3,7 @@ HttpUnit -- 相当于一个没有UI的浏览器
 
 Jsoup -- 一款比较好的Java版HTML解析器
 
-Selenium java -- java webdriver.
+Selenium java -- Selenium WebDriver java.
 
 Crawler4j -- java open source web crawler
 
