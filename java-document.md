@@ -8,6 +8,9 @@ http://blog.csdn.net/tzdwsy/article/details/50595313
 ## Jxl:JExcelApi is a java library which provides the ability to read, write, and modify Microsoft Excel spreadsheets.
 http://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl
 
+## JFreeChart是JAVA平台上的一个开放的图表绘制类库。
+http://blog.csdn.net/lvyuan30276/article/details/53612363
+
 ## poi
 #### POI和JFreeChart框架实现生成Excel文件（生成 统计图）
 http://blog.csdn.net/baiyangok/article/details/41956859
