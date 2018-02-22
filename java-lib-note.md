@@ -5,3 +5,6 @@
 
 ## Vert.x 文档
 https://vertxchina.github.io/vertx-translation-chinese/start/FAQ.html
+
+## AKKa  教程
+http://blog.csdn.net/liubenlong007/article/details/53782966
