@@ -13,6 +13,8 @@ https://github.com/zxh0/jvmgo-book
 https://github.com/huoshan12345/wiser
 ### 算法
 https://github.com/wangkuiwu/datastructs_and_algorithm
+https://wizardforcel.gitbooks.io/the-art-of-programming-by-july/content/01.05.html
+
 ### play javaweb框架
 https://github.com/playframework/playframework
 ### java 响应式编程框架
