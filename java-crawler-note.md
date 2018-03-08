@@ -1,7 +1,10 @@
 ### java 爬虫技术：
--- 知乎：https://www.zhihu.com/question/31427895
+- 知乎：https://www.zhihu.com/question/31427895
 
--- https://github.com/biezhi/elves?utm_campaign=explore-email&utm_medium=email&utm_source=newsletter&utm_term=weekly
+- https://github.com/biezhi/elves?utm_campaign=explore-email&utm_medium=email&utm_source=newsletter&utm_term=weekly
+
+- http://www.cnblogs.com/Fang3s/p/4592372.html
+
 
 #### Selenium文档
 > https://www.seleniumhq.org/docs/03_webdriver.jsp
