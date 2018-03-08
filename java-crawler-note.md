@@ -5,6 +5,8 @@
 
 - http://www.cnblogs.com/Fang3s/p/4592372.html
 
+- https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver
+
 
 #### Selenium文档
 > https://www.seleniumhq.org/docs/03_webdriver.jsp
