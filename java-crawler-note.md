@@ -3,6 +3,11 @@
 
 -- https://github.com/biezhi/elves?utm_campaign=explore-email&utm_medium=email&utm_source=newsletter&utm_term=weekly
 
+#### Selenium文档
+> https://www.seleniumhq.org/docs/03_webdriver.jsp
+- 
+
+
 
 HttpUnit -- 相当于一个没有UI的浏览器
 
