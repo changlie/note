@@ -1,4 +1,6 @@
 环境：ubuntu17
+>  reference: http://www.ruanyifeng.com/blog/2013/12/getting_started_with_postgresql
+
 ## 安装
 1. 首先，安装PostgreSQL客户端。
 ```
