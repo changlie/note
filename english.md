@@ -14,7 +14,7 @@ public class DemoServiceImpl implements DemoService {
 }
 ```
 
-```
+```xml
 <dependency>
 	<groupId>com.baidu.unbiz</groupId>
 	<artifactId>fluent-validator</artifactId>
