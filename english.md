@@ -1,3 +1,15 @@
 
 ## good guide of english
 https://github.com/byoungd/English-level-up-tips-for-Chinese/
+
+
+```java
+package com.alibaba.dubbo.demo.provider;
+import com.alibaba.dubbo.demo.DemoService;
+
+public class DemoServiceImpl implements DemoService {
+    public String sayHello(String name) {
+        return "Hello " + name;
+    }
+}
+```
