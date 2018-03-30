@@ -26,3 +26,17 @@ public class DemoServiceImpl implements DemoService {
 	</exclusions>
 </dependency>
 ```
+
+```java
+public class CarSeatCountValidator extends ValidatorHandler<Integer> implements Validator<Integer> {
+
+    @Override
+    public boolean validate(ValidatorContext context, Integer t) {
+        if (t < 2) {
+            context.addErrorMsg(String.format("Seat count is not valid, invalid value=%s", t));
+            return false;
+        }
+        return true;
+    }
+}
+```
