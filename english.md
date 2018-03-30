@@ -13,3 +13,16 @@ public class DemoServiceImpl implements DemoService {
     }
 }
 ```
+
+```
+<dependency>
+	<groupId>com.baidu.unbiz</groupId>
+	<artifactId>fluent-validator</artifactId>
+	<exclusions>
+		<exclusion>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+```
