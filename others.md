@@ -4,3 +4,6 @@ https://github.com/jekor/vocabulink
 
 ### github 漫游指南
 > https://github.com/phodal/github
+
+### blogs
+1. http://www.chairis.cn
