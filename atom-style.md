@@ -1,6 +1,6 @@
 1. 打开 “Edit”–> “Preferences”
-2. 在Settings选项卡下面点击”Open Config Folder”即.atom 目录
-3. 将下面复制到.atom文件夹下style.less文件保存按需要修改即可.
+2. 在Settings选项卡下面点击”Open Config Folder”即`.atom` 目录
+3. 将下面复制到`.atom`文件夹下`style.less`文件保存按需要修改即可.
 ```css
 /*
  * Your Stylesheet
@@ -21,10 +21,12 @@
  //顶部tab选项卡字体调节
  .tab-bar .tab {
   font-size: 12px;
+  font-family: "Consolas";
 }
 //顶部选中时的tab选项卡字体
 .tab.active .title {
-font-size: 14px;
+ font-size: 14px;
+ font-family: "Consolas";
 }
 
 //左边目录列表字体样式
