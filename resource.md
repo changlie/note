@@ -7,3 +7,6 @@ https://www.kancloud.cn/explore
 > https://www.kancloud.cn/kancloud/essential-netty-in-action/52631
 
 > https://github.com/waylau/essential-netty-in-action
+
+### hadoop book
+https://github.com/chu888chu888/HadoopAndSparkDataStudy
