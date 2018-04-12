@@ -1,6 +1,7 @@
 # interesting blog
 ### react
 - https://github.com/hujiulong/blog
+- http://www.chairis.cn
 
 # 电子书
 ### free book site
