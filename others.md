@@ -6,7 +6,7 @@ https://github.com/jekor/vocabulink
 > https://github.com/phodal/github
 
 ### blogs
-1. http://www.chairis.cn
+
 
 ### jetbrains 激活
 > https://blog.csdn.net/u014044812/article/details/78727496
