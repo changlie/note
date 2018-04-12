@@ -11,6 +11,6 @@
 - https://github.com/waylau/essential-netty-in-action
 
 ### hadoop book
-1 https://github.com/chu888chu888/HadoopAndSparkDataStudy
-2 https://github.com/longyinzaitian/HadoopDemo
-3 https://github.com/anjijava16/HadoopRelatedBooks
+1. https://github.com/chu888chu888/HadoopAndSparkDataStudy
+2. https://github.com/longyinzaitian/HadoopDemo
+3. https://github.com/anjijava16/HadoopRelatedBooks
