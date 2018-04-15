@@ -1,3 +1,7 @@
+## 设计模式
+菜鸟教程
+- http://www.runoob.com/design-pattern/composite-pattern.html
+
 
 ### hashkell 写web的例子
 https://github.com/jekor/vocabulink
