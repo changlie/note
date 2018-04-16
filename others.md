@@ -1,3 +1,6 @@
+## chrome
+- https://github.com/sxei/chrome-plugin-demo
+
 ## 设计模式
 菜鸟教程
 - http://www.runoob.com/design-pattern/composite-pattern.html
