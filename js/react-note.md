@@ -1,7 +1,4 @@
 
-
-
-
 > https://www.cnblogs.com/yexiaochai/p/6042112.html
 
 # react
@@ -11,3 +8,6 @@
 - https://www.jianshu.com/p/53ff78168acc
 - https://www.zhihu.com/question/35126306
 - https://github.com/crazycodeboy/RNStudyNotes/
+
+# react native 扫码
+- https://juejin.im/post/5abd98bdf265da2373148d16
