@@ -5,7 +5,7 @@
 
 
 # 分布式
-- c 
+- rpc
 - dubbo
 - rabbitMQ   
 - Kafka
