@@ -1,4 +1,4 @@
-## chrome
+## chrome Extension
 - https://github.com/sxei/chrome-plugin-demo
 
 ## 设计模式
