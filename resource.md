@@ -2,6 +2,8 @@
 
 
 # interesting blog
+### 
+- https://halfrost.com
 ### interesting tool
 - https://haoji.me/
 ### react
