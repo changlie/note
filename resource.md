@@ -6,8 +6,9 @@
 
 # interesting blog
 ### js engine Nashorn  in java8
-> http://winterbe.com/posts/2014/04/05/java8-nashorn-tutorial/
-###  
+1. http://winterbe.com/posts/2014/04/05/java8-nashorn-tutorial/
+2. http://www.cnblogs.com/IcanFixIt/p/6387759.html
+###  something other
 - https://halfrost.com
 ### interesting tool
 - https://haoji.me/
