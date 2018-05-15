@@ -5,6 +5,12 @@
 - https://github.com/flyway/flyway
 
 # interesting blog
+### 负载均衡
+http://www.cnblogs.com/edisonchou/category/585873.html
+### 大型网站技术
+http://www.cnblogs.com/edisonchou/p/3773828.html
+### java 技术图谱
+https://mp.weixin.qq.com/s/UIg98kmGKxnpW8hh_6yxeg
 ### js engine Nashorn  in java8
 1. http://winterbe.com/posts/2014/04/05/java8-nashorn-tutorial/
 2. http://www.cnblogs.com/IcanFixIt/p/6387759.html
