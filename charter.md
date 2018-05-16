@@ -3,5 +3,6 @@
 ## http请求中客户端真实的ip 
 - http://www.cnblogs.com/zwdx/p/8989663.html
 ## 发布jar包到maven中央仓库
+0. https://issues.sonatype.org/browse/OSSRH-39833?focusedCommentId=480989&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-480989
 1. https://blog.csdn.net/tiger435/article/details/50470316
 2. https://my.oschina.net/u/2335754/blog/476676
