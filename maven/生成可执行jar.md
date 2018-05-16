@@ -1,4 +1,4 @@
-> reference: https://blog.csdn.net/xiao__gui/article/details/47341385
+>  转载自: https://blog.csdn.net/xiao__gui/article/details/47341385
 
 # Maven生成可以直接运行的jar包的多种方式
 
