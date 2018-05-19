@@ -1,3 +1,8 @@
+###
+github emoji 支持
+1. https://www.webpagefx.com/tools/emoji-cheat-sheet/
+2. https://github.com/scotch-io/All-Github-Emoji-Icons
+
 # Vue component
 1. [vue的拖拉组件](https://github.com/SortableJS/Vue.Draggable)
 
