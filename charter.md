@@ -7,3 +7,4 @@
 1. https://blog.csdn.net/tiger435/article/details/50470316
 2. https://my.oschina.net/u/2335754/blog/476676
 3. https://blog.csdn.net/ssrc0604hx/article/details/51513414
+## [servlet3示例](https://github.com/zhangkaitao/servlet3-showcase)
