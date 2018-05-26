@@ -17,23 +17,23 @@ jps是jdk提供的一个查看当前java进程的小工具， 可以看做是Jav
 lvmid [ [ classname| JARfilename | "Unknown"] [ arg* ] [ jvmarg* ] ]
 
 1）jps
-
+![jps]()
  
 
 2）jps –l:输出主类或者jar的完全路径名
-
+![jps –l](https://github.com/changlie/note/blob/master/java/img/20140830104140824.png)
 
 
 3）jps –v :输出jvm参数
-
+![jps –v](https://github.com/changlie/note/blob/master/java/img/20140830104154505.png?raw=true)
 
 
 4）jps –q ：仅仅显示java进程号
-
+![jps –q](https://github.com/changlie/note/blob/master/java/img/20140830104223865.png)
  
 
-5)jps -mlv10.134.68.173
-
+5)jps -mlv 10.134.68.173
+![jps -mlv](https://github.com/changlie/note/blob/master/java/img/20140830104019250.png)
 
 
 
