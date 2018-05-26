@@ -1,10 +1,15 @@
-# intereating site
-### [可译网](https://coyee.com/)
-
-
-### github emoji 支持
+# github emoji 支持
 1. https://www.webpagefx.com/tools/emoji-cheat-sheet/
 2. https://github.com/scotch-io/All-Github-Emoji-Icons
+
+# Series of tutorials
+1. ### [kafka中文教程](http://orchome.com/kafka/index)
+
+# intereating site
+1. ### [可译网](https://coyee.com/)
+
+
+
 
 # Vue component
 1. [vue的拖拉组件](https://github.com/SortableJS/Vue.Draggable)
@@ -25,6 +30,7 @@
 6. ### [interesting tool](https://haoji.me/)
 7. ### [react](https://github.com/hujiulong/blog)
 8. ### [go, vue](http://www.chairis.cn)
+
 
 
 # 电子书
