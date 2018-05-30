@@ -142,6 +142,16 @@ new ThreadFactory() {
 3. 队列已满，新建线程(非核心线程)执行任务
 4. 队列已满，总线程数又达到了maximumPoolSize，就会由上面那位星期天(RejectedExecutionHandler)抛出异常
 
+# ThreadPoolExecutor类中有几个非常重要的方法：
+1. public void execute(Runnable command)  
+  - 执行一个线程
+2. public <T> Future<T> submit(Callable<T> task)
+  - 执行一个线程并返回一个结果
+3. shutdown()
+  - 不会立即终止线程池，而是要等所有任务缓存队列中的任务都执行完后才终止，但再也不会接受新的任务
+4. shutdownNow() 
+  - 立即终止线程池，并尝试打断正在执行的任务，并且清空任务缓存队列，返回尚未执行的任务
+
 # 常见四种线程池
 如果你不想自己写一个线程池，那么你可以从下面看看有没有符合你要求的(一般都够用了)，如果有，那么很好你直接用就行了，如果没有，那你就老老实实自己去写一个吧
 
