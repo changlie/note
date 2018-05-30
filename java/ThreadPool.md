@@ -1,5 +1,10 @@
 > 转自： https://liuzho.github.io/2017/04/17/%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%8C%E8%BF%99%E4%B8%80%E7%AF%87%E6%88%96%E8%AE%B8%E5%B0%B1%E5%A4%9F%E4%BA%86/
 
+> 参考  
+1. https://www.cnblogs.com/dolphin0520/p/3932921.html
+2. http://www.infoq.com/cn/articles/java-threadPool
+
+
 # 为什么用线程池
 1. 创建/销毁线程伴随着系统开销，过于频繁的创建/销毁线程，会很大程度上影响处理效率
 
