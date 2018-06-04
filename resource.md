@@ -18,6 +18,8 @@
 1. ### [开源地图引擎](http://openlayers.org/)
 2. ### [数据库版本控制](https://github.com/flyway/flyway)
 
+# Interesting chapter
+1. ### [资源推荐](https://zhuanlan.zhihu.com/p/28406406)
 
 # interesting blog
 1. ### [负载均衡](http://www.cnblogs.com/edisonchou/category/585873.html)
