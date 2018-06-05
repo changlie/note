@@ -1,6 +1,6 @@
 # vpn  资源
-https://www.vultr.com/pricing/
-[搬瓦工](https://bwh1.net/)
+1. https://www.vultr.com/pricing/
+2. [搬瓦工](https://bwh1.net/)
 
 # github emoji 支持
 1. https://www.webpagefx.com/tools/emoji-cheat-sheet/
