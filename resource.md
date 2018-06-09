@@ -40,6 +40,9 @@
 
 
 # 电子书
+### go 教程  web
+- https://astaxie.gitbooks.io/build-web-application-with-golang/zh/05.5.html
+
 ### free book site
 - https://www.kancloud.cn/explore
 
