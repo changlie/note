@@ -32,42 +32,42 @@ func main(){
     key := k.Field(i)
     val := v.Field(i)
     var value interface{}
-		if val.CanInterface() { //CanInterface(): 判断该成员变量是否能被获取值
-			value = val.Interface()
-		}
-		fmt.Println("line",i, "--> ", key.Name, val.Type(), value)
+    if val.CanInterface() { //CanInterface(): 判断该成员变量是否能被获取值
+      value = val.Interface()
+    }
+    fmt.Println("line",i, "--> ", key.Name, val.Type(), value)
   }
   //改变成员变量的值
   f := v.FieldByName("Name")
-	if f.CanSet() { //判断成员变量能否被直接改变。
-		f.Set(reflect.ValueOf("Changelie777"))
-	}
-	fmt.Println(obj.Name)
+  if f.CanSet() { //判断成员变量能否被直接改变。
+    f.Set(reflect.ValueOf("Changelie777"))
+  }
+  fmt.Println(obj.Name)
   
   //获取成员方法，并执行。（这个有点绕，共有两种情况）
   //1. 当成员方法 与对象 建立关系时（这种情况，方法改变不了成员变量的值）， 通过对象的指针就可以拿到
   v0 := reflect.ValueOf(&obj).Elem()
-	k0 := v1.Type()
-	for i := 0; i < v1.NumMethod(); i++ {
-		key := k0.Method(i)
-		val := v0.Method(i)
-		fmt.Println(key.Name, val.Type(), val.Interface())
-	}
+  k0 := v1.Type()
+  for i := 0; i < v1.NumMethod(); i++ {
+     key := k0.Method(i)
+     val := v0.Method(i)
+     fmt.Println(key.Name, val.Type(), val.Interface())
+  }
   //结果：有SetName(), GetName() 两个 方法
   //2. 当成员方法 与对象的指针 建立关系时（这种情况，方法可以改变成员变量的值）， 就要通过对象的指针 的指针 才可以拿到
   temp := &obj
   v1 := reflect.ValueOf(&temp).Elem()
-	k1 := v1.Type()
-	for i := 0; i < v1.NumMethod(); i++ {
-		key := k1.Method(i)
-		val := v1.Method(i)
-		fmt.Println(key.Name, val.Type(), val.Interface())
-	}
+  k1 := v1.Type()
+  for i := 0; i < v1.NumMethod(); i++ {
+    key := k1.Method(i)
+    val := v1.Method(i)
+    fmt.Println(key.Name, val.Type(), val.Interface())
+  }
   // 结果：只有SetAge()方法 
   //根据方法名调用方法
   m := v1.MethodByName("SetAge")
-	fmt.Println("method: SetAge,", m)
-	m.Call([]reflect.Value{reflect.ValueOf(911)})
+  fmt.Println("method: SetAge,", m)
+  m.Call([]reflect.Value{reflect.ValueOf(911)})
   
   //打印，obj的最终值
   fmt.Println("final:", obj)
