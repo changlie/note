@@ -36,6 +36,7 @@
 6. ### [interesting tool](https://haoji.me/)
 7. ### [react](https://github.com/hujiulong/blog)
 8. ### [go, vue](http://www.chairis.cn)
+9. ### [琼台博客](http://www.qttc.net/)
 
 
 
