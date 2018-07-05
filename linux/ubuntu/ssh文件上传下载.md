@@ -36,7 +36,7 @@ scp  -r local_dir username@servername:remote_dir
 # demo
 changlie@as:~$ `export dh=changlie@192.168.0.100:`
 changlie@as:~$ `echo $dh`
-- changlie@192.168.0.100:
+> changlie@192.168.0.100:
 changlie@as:~$ `scp $dh~/demo ~/`
 ```
 changlie@192.168.0.100's password: 
