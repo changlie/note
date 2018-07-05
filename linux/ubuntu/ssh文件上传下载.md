@@ -31,3 +31,14 @@ scp  -r local_dir username@servername:remote_dir
  
 
 > 注：目标服务器要开启写入权限。
+
+
+# demo
+changlie@as:~$ `export dh=changlie@192.168.0.100:`
+changlie@as:~$ `echo $dh`
+- changlie@192.168.0.100:
+changlie@as:~$ `scp $dh~/demo ~/`
+```
+changlie@192.168.0.100's password: 
+demo                                                    100%   26     0.0KB/s   00:00 
+```
