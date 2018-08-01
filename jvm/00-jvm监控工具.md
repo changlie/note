@@ -1,6 +1,7 @@
 # 参考
 ## - [jdk8 jstat使用](https://blog.csdn.net/maosijunzi/article/details/46049117)
-## - [JVM调优浅谈](https://www.cnblogs.com/xingzc/p/5756119.html)
+## - [JVM调优浅谈, 含总结](https://www.cnblogs.com/xingzc/p/5756119.html)
+## - [jvm调优0](https://www.cnblogs.com/csniper/p/5592593.html)
 
 ## jps
 - jps（JVM Process Status Tool，虚拟机进程监控工具），这个命令可以列出正在运行的虚拟机进程，并显示虚拟机执行主类名称，以及这些进程的本地虚拟机唯一ID。这个ID被称为本地虚拟机唯一ID（local virtual Machine Identifier，简写为LVMID）。如果你在linux的一台服务器上使用jps得到的LVMID其实就是和ps 命令得到的PID是一样的。
