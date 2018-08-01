@@ -1,4 +1,4 @@
-[java开发栈](https://my.oschina.net/u/3779583/blog/1862418)
+[java开发栈图](https://my.oschina.net/u/3779583/blog/1862418)
 
 # vpn  资源
 1. https://www.vultr.com/pricing/
