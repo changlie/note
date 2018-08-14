@@ -12,6 +12,3 @@ Kafka、RabbitMQ、RocketMQ，ActiveMQ
 - dubbo
 - rabbitMQ   
 - Kafka
-
-
-<font color="red">我是红色</font>  
