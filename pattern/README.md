@@ -1,7 +1,6 @@
 
 
-序号	模式 & 描述	包括
-1	创建型模式
+## 1	创建型模式
 这些设计模式提供了一种在创建对象的同时隐藏创建逻辑的方式，而不是使用 new 运算符直接实例化对象。这使得程序在判断针对某个给定实例需要创建哪些对象时更加灵活。	  
 工厂模式（Factory Pattern）  
 抽象工厂模式（Abstract Factory Pattern）  
@@ -9,7 +8,7 @@
 建造者模式（Builder Pattern）  
 原型模式（Prototype Pattern）  
 
-2	结构型模式
+## 2	结构型模式
 这些设计模式关注类和对象的组合。继承的概念被用来组合接口和定义组合对象获得新功能的方式。	
 适配器模式（Adapter Pattern）  
 桥接模式（Bridge Pattern）  
@@ -20,7 +19,7 @@
 享元模式（Flyweight Pattern）  
 代理模式（Proxy Pattern）  
 
-3	行为型模式  
+## 3	行为型模式  
 这些设计模式特别关注对象之间的通信。	  
 责任链模式（Chain of Responsibility Pattern）  
 命令模式（Command Pattern）  
@@ -35,7 +34,7 @@
 模板模式（Template Pattern）  
 访问者模式（Visitor Pattern）  
 
-4	J2EE 模式  
+## 4	J2EE 模式  
 这些设计模式特别关注表示层。这些模式是由 Sun Java Center 鉴定的。	  
 MVC 模式（MVC Pattern）  
 业务代表模式（Business Delegate Pattern）  
