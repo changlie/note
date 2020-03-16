@@ -13,7 +13,7 @@ https://github.com/jekor/vocabulink
 > https://github.com/phodal/github
 
 ### blogs
-
+> https://www.cnkirito.moe/rpc-serialize-2/
 
 ### jetbrains 激活
 > https://blog.csdn.net/u014044812/article/details/78727496
