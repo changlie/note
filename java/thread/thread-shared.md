@@ -9,17 +9,21 @@ System.out.println("Hello to see U!");
 
 <details>
   <summary>点击时的区域标题</summary>
+
   ```bash
   echo "hello shell"
   echo "hello python"
   ```
+  
 </details>
 
 <details>
   <summary>点击时的区域标题</summary>
+  
 ```
 这是折叠的代码1
 这是折叠的代码2
 ```
+
 </details>
 
