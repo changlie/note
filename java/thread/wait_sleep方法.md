@@ -1,3 +1,6 @@
+> 参考： https://juejin.im/post/5bbc9311f265da0ac6696d06#heading-6
+
+
 ```java
 /**
  *   测试wait和sleep释放锁的测试类
