@@ -52,7 +52,7 @@ public class NewThreadByExtendThread {
 
 
 <details>
-<summary>继续Callable,并结合Future使用，是runnable的一种补充，使线程执行后可以返回一个结果值</summary>
+<summary>继续Callable,并结合FutureTask使用，是runnable的一种补充，使线程执行后可以返回一个结果值</summary>
 
 ```java
 public class NewThreadByCallable {
