@@ -17,7 +17,8 @@ public class sleepWaitTest {
         //    执行sleep(1000)运行的结果是：1001
         //    执行wait(1000)运行的结果是：1100
 
-        //    总结： 使用 sleep(1000)不释放同步锁，执行的是10*100+1=1001，wait(1000)释放了锁，执行的顺序是(10+1)x100=1100，所以sleep不释放锁，wait释放锁。
+        //    总结： 使用 sleep(1000)不释放同步锁，执行的是10*100+1=1001，
+        //    wait(1000)释放了锁，执行的顺序是(10+1)x100=1100，所以sleep不释放锁，wait释放锁。
     }
 
     private static void action(String type) throws Exception {
