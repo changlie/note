@@ -33,3 +33,10 @@ jps是jdk提供的一个查看当前java进程的小工具， 可以看做是Jav
 > 注意：如果需要查看其他机器上的jvm进程，需要在待查看机器上启动jstatd。
 
 > 来自：http://blog.csdn.net/wisgood/article/details/38942449
+
+
+
+![title.go](./img/20140830104140824.png)
+
+
+
