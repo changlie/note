@@ -35,20 +35,22 @@ class HttpHandler implements Runnable {
             if(read>0){
                 System.out.println(new String(buf));
             }
+            String lineSeparator = "\r\n";
 
             PrintStream out = new PrintStream(req.getOutputStream());
 
-            String content = "<h1>hello world!</h1>";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String content = "<h1>hello world!</h1><br>"+sdf.format(new Date());
 
             StringBuilder headers = new StringBuilder();
-            headers.append("HTTP/1.1 200 OK").append(System.lineSeparator());
-            headers.append("Connection: keep-alive").append(System.lineSeparator());
-            headers.append("Content-Length: ").append(content.getBytes("utf-8").length).append(System.lineSeparator());
-            headers.append("Pragma: no-cache").append(System.lineSeparator());
-            headers.append(System.lineSeparator());
+            headers.append("HTTP/1.1 200 OK").append(lineSeparator);
+            headers.append("Connection: keep-alive").append(lineSeparator);
+            headers.append("Content-Length: ").append(content.getBytes("utf-8").length).append(lineSeparator);
+            headers.append("Pragma: no-cache").append(lineSeparator);
+            headers.append(lineSeparator);
 
             out.print(headers.toString());
-            out.println(content);
+            out.print(content);
 
             req.close();
         } catch (Exception e) {
