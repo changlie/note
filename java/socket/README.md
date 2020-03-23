@@ -1,9 +1,9 @@
 ### java 网络编程
 
 #### 相关概念
-1. TCP/IP是一个协议集
-2. socket是面向程序员的一套编程接口
-3. 两者关系：socket对传输层中的TCP/UDP协议进行了封装，对用户隐藏了内部TCP/UDP的具体实现，
+- TCP/IP是一个协议集
+- socket是面向程序员的一套编程接口
+- 两者关系：socket对传输层中的TCP/UDP协议进行了封装，对用户隐藏了内部TCP/UDP的具体实现，
 它与TCP/IP的关系就像windows系统与win32编程接口一样。通过win32编程接口我们可以调用windows系统提供的功能，而通过socket 我们可以实现网络编程。
 
 
