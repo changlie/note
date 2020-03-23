@@ -12,7 +12,16 @@ int main()
 {
     cout<<"Hello"<<'\n'<<"World"<<endl;
     cout<<"Hello"<<'\r'<<"World"<<endl;
-    system("pause");
+    //system("pause");
     return 0;
 }
 ```
+输出:
+```
+changlie@as:~/ws/tmp$ ./hey
+Hello
+World
+World
+
+```
+
