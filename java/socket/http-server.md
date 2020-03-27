@@ -106,7 +106,7 @@ public interface HttpMessage {
 
 
 <details>
-<summary>http请求数据解析类</summary>
+<summary>http请求类</summary>
 
 ```java
 /**
@@ -117,6 +117,11 @@ public class HttpRequest implements HttpMessage{
 
 	/** 请求头的第一行，包含请求方法，请求url, http协议 */
 	private String requestLine = null;
+
+	private String method;
+	private String url;
+	private String uri; // 不带queryString.
+	private String protocol;
 
 	private int contentLength = 0; // 请求体的长度
 	private boolean headerEnd = false; // 标记请求头的位置。
@@ -133,7 +138,23 @@ public class HttpRequest implements HttpMessage{
 	public HttpRequest(InputStream inputStream) {
 		this.inputStream=inputStream;
 	}
-	
+
+	public String getMethod() {
+		return method;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public String getUri() {
+		return uri;
+	}
+
+	public String getProtocol() {
+		return protocol;
+	}
+
 	public void parseRequest() throws IOException{
 		byte[] buffer=new byte[2048]; //临时缓冲区。
 
@@ -166,6 +187,11 @@ public class HttpRequest implements HttpMessage{
 				entity.add(buffer[i]);
 			}
 		}
+
+		//解析请求体。
+		if(entity!=null && entity.size()>0){
+			parseParams();
+		}
 	}
 
 	/**
@@ -177,6 +203,19 @@ public class HttpRequest implements HttpMessage{
 	private void doParseRequest(int length) {
 		if(requestLine==null){//第一个CRLF是请求行
 			requestLine=header.toString();
+			// 解析首行信息。
+			String[] strings = requestLine.split("\\s+");
+			method = strings[0];
+			url = strings[1];
+
+			int queryStringStartIndex = url.indexOf("?");
+			if(queryStringStartIndex > -1){
+				uri = url.substring(0, queryStringStartIndex);
+			}else{
+				uri = url;
+			}
+
+			protocol = strings[2];
 			return;
 		}
 
@@ -291,10 +330,6 @@ public class HttpRequest implements HttpMessage{
 			buf[i] = entity.get(i);
 		}
 		return buf;
-	}
-	
-	public String getUri(){
-		return requestLine.split(" ")[1];
 	}
 }
 ```
@@ -562,3 +597,118 @@ public class FormDataBytesParser implements HttpMessage {
 ```
 
 </details>
+
+
+<details>
+	<summary>http响应类</summary>
+
+```java
+public class HttpResponse implements ResponseCode, HttpMessage{
+    private HttpRequest req;
+
+    private OutputStream os = null;
+    private Map<String, String> headers = new HashMap<>();
+    private String textBody;
+    private byte[] binaryBody;
+
+    public HttpResponse(OutputStream out) {
+        this.os = out;
+    }
+
+    public void setReq(HttpRequest req) {
+        this.req = req;
+    }
+
+    public void setHeader(String name, String value){
+        headers.put(name, value);
+    }
+
+    public void setEntity(String entity){
+        this.textBody = entity;
+    }
+
+    public void setEntity(byte[] entity){
+        this.binaryBody = entity;
+    }
+
+    public void success() throws Exception {
+        doResponse(SUCCESS);
+    }
+
+    public void notFound() throws IOException {
+        doResponse(NOT_FOUND);
+    }
+
+    public void error() throws IOException {
+        doResponse(ERROR);
+    }
+
+    /**
+     * 向客户端发送响应。
+     * @param statusCode
+     * @throws IOException
+     */
+    private void doResponse(String statusCode) throws IOException {
+        headers.put(STATUS, statusCode);
+        sendHeaders();
+        sendBody();
+    }
+
+    private void sendBody() throws IOException {
+        if(textBody==null && binaryBody==null){
+            return;
+        }
+
+        byte[] body;
+        if(textBody!=null){
+            body = textBody.getBytes(DEFAULT_CHARSET);
+        }else{
+            body = binaryBody;
+        }
+
+        os.write(body);
+        os.flush();
+    }
+
+    private void sendHeaders() throws IOException {
+        if(os == null) {
+            return ;
+        }
+        int contentLength = getContentLength();
+        String protocol = req.getProtocol();
+        String statusCode = headers.get(STATUS);
+
+
+        StringBuilder headers = new StringBuilder();
+        headers.append(protocol).append(" ").append(statusCode).append(" OK").append(CRLF);
+        headers.append("Content-Length: ").append(contentLength).append(CRLF);
+        headers.append("Content-Type: text/html").append(CRLF);
+        headers.append("Server: TK").append(CRLF);
+        headers.append(CRLF);
+
+        os.write(headers.toString().getBytes());
+        os.flush();
+    }
+
+    public int getContentLength() throws UnsupportedEncodingException {
+        if(textBody==null && binaryBody==null){
+            return 0;
+        }
+        if(textBody!=null){
+            return textBody.getBytes(DEFAULT_CHARSET).length;
+        }
+        return binaryBody.length;
+    }
+
+}
+
+interface ResponseCode {
+    String SUCCESS = "200";
+    String ERROR = "500";
+    String NOT_FOUND = "404";
+}
+```
+	
+</details>
+
+
