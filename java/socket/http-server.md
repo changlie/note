@@ -685,6 +685,8 @@ public class HttpResponse implements ResponseCode, HttpMessage{
     private HttpRequest req;
 
     private OutputStream os = null;
+    /** http响应码 */
+    private String statusCode;
     private Map<String, String> headers = new HashMap<>();
     private String textBody;
     private byte[] binaryBody;
@@ -727,7 +729,7 @@ public class HttpResponse implements ResponseCode, HttpMessage{
      * @throws IOException
      */
     private void doResponse(String statusCode) throws IOException {
-        headers.put(STATUS, statusCode);
+        this.statusCode = statusCode;
         sendHeaders();
         sendBody();
     }
@@ -754,8 +756,6 @@ public class HttpResponse implements ResponseCode, HttpMessage{
         }
         int contentLength = getContentLength();
         String protocol = req.getProtocol();
-        String statusCode = headers.get(STATUS);
-
 
         StringBuilder headers = new StringBuilder();
         headers.append(protocol).append(" ").append(statusCode).append(" OK").append(CRLF);
