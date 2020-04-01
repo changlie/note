@@ -142,7 +142,6 @@ public class FileInfo{
  * 解决数据用的常量定义集合
  */
 public interface HttpMessage {
-
 	/** 回车 */
 	char CR='\r';
 	/** 换行 */
@@ -150,11 +149,18 @@ public interface HttpMessage {
 	/** 回车换行 */
 	String CRLF="\r\n";
 
-	/** 请求body长度(头名称) */
+	/** 请求/响应 body长度(头名称) */
 	String CONTENT_LENGTH="Content-Length";
+
+	/** 响应分块头 的名称 */
+	String TRANSFER_ENCODING = "Transfer-Encoding";
+
+	/** 响应分块头 的值 */
+	String BODY_TYPE = "chunked";
 
 	/** 请求body参数类型(头名称) */
 	String CONTENT_TYPE = "Content-Type";
+
 
 	/** 默认编码 */
 	String DEFAULT_CHARSET = "utf-8";
@@ -176,7 +182,6 @@ public interface HttpMessage {
 		}
 		return origin;
 	}
-
 }
 ```
 
