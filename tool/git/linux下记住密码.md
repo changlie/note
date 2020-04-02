@@ -2,6 +2,8 @@
 >>> https://www.cnblogs.com/liangweiping/p/10277604.html
 >>>> https://blog.csdn.net/yaorongke/article/details/88208780
 
+- 用命令`man git-credential-store`可查看git保存密码的方式.
+
 1. 在终端输入
 ```shell
 vim ~/.gitconfig
