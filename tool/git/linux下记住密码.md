@@ -16,7 +16,11 @@ vim ~/.gitconfig
 
 然后再次输入密码时,密码会保存在`~/.git-credentials`文件中.
 格式如下:
+```
 http://username:password@gitlab.xxx.com.cn
+```
+
+
 也可以在`~/.git-credentials`文件中直接添加.
 然后再运行命令:
 ```
