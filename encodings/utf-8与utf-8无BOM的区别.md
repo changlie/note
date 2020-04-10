@@ -2,7 +2,7 @@ BOM——Byte Order Mark，就是字节序标记
 
 BOM签名的意思就是告诉编辑器当前文件采用何种编码,是小字节序还是大字节序
 
-BOM对UFT-8没有作用,是为了支持UTF-16,UTF-32才加上的
+BOM对UFT-8没有作用,是为了兼容UTF-16,UTF-32才加上的
 
 所以说，utf-8无BOM才是真正的utf8
 
