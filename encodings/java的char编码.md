@@ -37,13 +37,16 @@
 ```
 假设你的类叫 Main，那么在命令行中用 java 执行这个类时可以通过 file.encoding 参数设置一个缺省编码。
 比如这样：java -Dfile.encoding=GBK Main
-这时，你再执行不带参数的 getBytes() 方法时，new String(“字”).getBytes().length 返回的就是 2 了，因为现在缺省编码变成 GBK 了。
+这时，你再执行不带参数的 getBytes() 方法时，
+new String(“字”).getBytes().length 返回的就是 2 了，因为现在缺省编码变成 GBK 了。
 当然，如果这时你显式地指定编码，new String(“字”).getBytes(“UTF-8“).length 返回的则依旧是 3.
 ```
 否则，会使用所在操作系统环境下的缺省编码。
 ```
 通常，Windows 系统下是 GBK，Linux 和 Mac 是 UTF-8.
-但有一点要注意，在 Windows 下使用 IDE 来运行时，比如 Eclipse，如果你的工程的缺省编码是 UTF-8，在 IDE 中运行你的程序时，会加上上述的 -Dfile.encoding=UTF-8 参数，这时，即便你在 Windows 下，缺省编码也是 UTF-8，而不是 GBK。
+但有一点要注意，在 Windows 下使用 IDE 来运行时，比如 Eclipse，
+如果你的工程的缺省编码是 UTF-8，在 IDE 中运行你的程序时，会加上上述的 -Dfile.encoding=UTF-8 参数，
+这时，即便你在 Windows 下，缺省编码也是 UTF-8，而不是 GBK。
 ```
 由于受启动参数及所在操作系统环境的影响，不带参数的 getBytes 方法通常是不建议使用的，最好是显式地指定参数以此获得稳定的预期行为。
 
