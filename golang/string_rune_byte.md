@@ -1,3 +1,6 @@
+golang 的字符串默认是用utf-8编码保存的.
+rune 是int32的别名, 用于单个字符储存, 相当于java中的char类型.
+
 
 实例代码:
 ```golang
