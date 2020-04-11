@@ -53,5 +53,9 @@ way3 spend: 0.007166595 1200000
 ```
 性能对比结论
 ```
-buf > + > join 
+buf > + > join
 ```
+
+> 参考:
+
+[字符串常用操作](https://studygolang.com/articles/11388)
