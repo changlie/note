@@ -13,7 +13,7 @@ find [path...] [expression]
   path：        find命令所查找的目录路径。例如用.来表示当前目录，用/来表示系统根目录
   expression：  expression可以分为——“-options [-print -exec -ok ...]”
   -options:     指定find命令的常用选项，下节详细介绍
-  -print:       find命令将匹配的文件输出到标准输出
+  -print:       find命令将匹配的文件输出到标准输出，为默认操作，不需要添加。
   -exec:        find命令对匹配的文件执行该参数所给出的shell命令。相应命令的形式为'command' {} \;，
                 注意{}和\；之间的空格
   -ok:          和-exec的作用相同，只不过以一种更为安全的模式来执行该参数所给出的shell命令，
@@ -132,3 +132,8 @@ find . -name "*.XC" -mount –print
 ```
 
 14. -follow：如果find命令遇到符号链接文件，就跟踪至链接所指向的文件。
+
+
+> 参考
+
+[【日常小记】linux中强大且常用命令：find](https://www.cnblogs.com/skynet/archive/2010/12/25/1916873.html)
