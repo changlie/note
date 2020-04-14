@@ -137,3 +137,7 @@ find . -type f -name "*.jpg" -print | xargs tar -czvf images.tar.gz
 ```bash
 # cat url-list.txt | xargs wget -c
 ```
+
+> 参考
+
+[xargs](https://www.runoob.com/linux/linux-comm-xargs.html)
