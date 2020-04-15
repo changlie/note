@@ -137,3 +137,5 @@ find . -name "*.XC" -mount –print
 > 参考
 
 [【日常小记】linux中强大且常用命令：find](https://www.cnblogs.com/skynet/archive/2010/12/25/1916873.html)
+
+[find命令用法全汇总](https://cloud.tencent.com/developer/article/1348438)
