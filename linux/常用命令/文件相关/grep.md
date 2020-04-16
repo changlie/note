@@ -24,7 +24,7 @@ Regexp selection and interpretation:
 
 Miscellaneous:
   -s, --no-messages         suppress error messages
-  -v, --invert-match        select non-matching lines
+  -v, --invert-match        select non-matching lines(反向匹配)
   -V, --version             display version information and exit
       --help                display this help text and exit
 
@@ -70,8 +70,10 @@ Context control:
   -u, --unix-byte-offsets   report offsets as if CRs were not there
                             (MSDOS/Windows)
 ```
-'egrep' means 'grep -E'.  'fgrep' means 'grep -F'.
+'egrep' means 'grep -E'.  
+'fgrep' means 'grep -F'.
 Direct invocation as either 'egrep' or 'fgrep' is deprecated.
+
 When FILE is -, read standard input.  With no FILE, read . if a command-line
 -r is given, - otherwise.  If fewer than two FILEs are given, assume -h.
 Exit status is 0 if any line is selected, 1 otherwise;
