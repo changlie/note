@@ -71,7 +71,7 @@ Context control:
                             (MSDOS/Windows)
 ```
 'egrep' means 'grep -E'.  
-'fgrep' means 'grep -F'.
+'fgrep' means 'grep -F'. 
 Direct invocation as either 'egrep' or 'fgrep' is deprecated.
 
 When FILE is -, read standard input.  With no FILE, read . if a command-line
