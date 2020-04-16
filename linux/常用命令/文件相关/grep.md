@@ -1,4 +1,11 @@
+Search for PATTERN in each FILE or standard input.
+PATTERN is, by default, a basic regular expression (BRE).
+Example: grep -i 'hello world' menu.h main.c
 
+### 格式
+```
+grep [OPTION]... PATTERN [FILE]...
+```
 
 
 
