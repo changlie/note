@@ -16,14 +16,15 @@ var index = `
 <html>
 <head>
 <title>my server</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
-<body>
-<form action="/" method="post" style="margin-bottom:233px;">
+<body style="margin:0; padding:0; width:100%;">
+<form action="/" method="post" style="margin-bottom:233px;margin:0; padding:0; width:100%;">
 title:<br/>
-<input type="text" name="title" size="45" style="width:999px;line-height: 60px;" /><br/>
+<input type="text" name="title"  style="width:100%;line-height: 60px;margin:0;" /><br/>
 content:<br/>
-<textarea name="content" style="width:999px;line-height: 200px;" ></textarea><br/>
-<input type="submit" value="submit" style="width:444px;font-size:100px;line-height: 90px;height: 100px;background-color: rgb(244,244,244);margin-left:150px;"/>	
+<textarea name="content" rows="10" cols="55" ></textarea><br/>
+<input type="submit" value="submit" style="width:200px;font-size:30px;line-height: 90px;height: 100px;background-color: rgb(244,244,244);"/>	
 </form>
 </body>
 </html>
@@ -76,6 +77,4 @@ func UserLoginHandler(response http.ResponseWriter,request *http.Request)  {
 	fmt.Println("Handler Hello")
 	fmt.Fprintf(response,"Login Success")
 }
-
-
 ```
