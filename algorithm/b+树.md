@@ -18,3 +18,7 @@
 [动态了解b树](https://www.cs.usfca.edu/~galles/visualization/BTree.html)
 
 [动态了解b+树](https://www.cs.usfca.edu/~galles/visualization/BPlusTree.html)
+
+[图解B+树的插入和删除](https://yq.aliyun.com/articles/9280)
+
+[B树和B+树的插入、删除图文详解](https://www.cnblogs.com/nullzx/p/8729425.html)
