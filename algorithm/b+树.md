@@ -22,3 +22,6 @@
 [图解B+树的插入和删除](https://yq.aliyun.com/articles/9280)
 
 [B树和B+树的插入、删除图文详解](https://www.cnblogs.com/nullzx/p/8729425.html)
+
+[B+树的实现，主要讲解删除操作](https://blog.csdn.net/popvip44/article/details/53454996)
+
