@@ -1081,8 +1081,34 @@ import java.util.Set;
 public class testBTreeV2 {
 
     public static void main(String[] args) {
-        randomTest();
+
+        deleteTest();
+        // randomTest();
         // reShowTest();
+    }
+
+    static void deleteTest() {
+        int[] inputs = {250, 49, 674, 654, 901, 334, 263, 434, 467, 929, 183, 404, 469, 395, 697, 35, 339, 672, 435};
+        Btree tree = new Btree(5);
+        // tree.setPrintWithParent(true);
+        // tree.setDebug(true);
+        for (int i = 0; i < inputs.length; i++) {
+            tree.insert(inputs[i]);
+        }
+
+        System.out.println(tree);
+        System.out.println("===========================");
+
+        deleteAndPrint(tree, 435);
+        deleteAndPrint(tree, 467);
+        deleteAndPrint(tree, 469);
+    }
+
+    private static void deleteAndPrint(Btree tree, int k) {
+        tree.delete(k);
+        System.out.println("delete: " + k);
+        System.out.println(tree);
+        System.out.println("===========================");
     }
 
     static void reShowTest() {
