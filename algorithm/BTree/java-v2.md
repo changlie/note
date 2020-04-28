@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * <p>这是第一个版本：只实现了插入功能
+ * <p>这是第二个版本：实现了插入，删除两个关键功能
  * <p>对于一个m阶的b树,假设节点的关键字数量为k:
  * <p>根节点的关键字数量范围: 1 <= k <= m-1
  * <p>非根节点的关键字数量范围: (m-1)/2 <= k <= m-1
@@ -98,9 +98,7 @@ public class Btree implements Config {
             resetParent(rightDatas, rightNode);
 
             Data leftLink = Data.newLinkObj(leftNode);
-            leftLink.rightBrother = rightNode;
             Data rightLink = Data.newLinkObj(rightNode);
-            rightLink.leftBrother = leftNode;
 
             if (insertNode.isRoot()) {
                 List<Data> middleDatas = clearExclude(middleIndex, datas);
@@ -208,7 +206,7 @@ public class Btree implements Config {
     }
 
     // 一. 所有的删除操作都会对叶节点执行删除操作(遵循最小改动原则)
-    // 二. 所有非叶节点的删除操作操作都会转化为对叶节点的删除操作
+    // 二. 所有非叶节点的删除操作都会转化为对叶节点的删除操作
     // 三. 叶节点操作如下:
     // 1. 最右侧叶节点大于最小关键字数时, 直接删除
     // 2. 最右侧叶节点等于最小关键字数时, 转化为对左兄弟叶节点的删除操作
@@ -217,7 +215,7 @@ public class Btree implements Config {
     // 5. 最右侧或最左侧叶节点等于最小关键字数且其兄弟节点也等于最小关键字时, 删除操作后进行节点合并
     // 四. 叶节点发生节点合并后, 可能会导致非叶节点小于最小关键字数, 进行关键字左移, 右移, 或合并即可.(需要注意父子节点的关系更新)
     public void delete(int k) {
-        DelInfo info = findDeleteNode(k);
+        KeyInfo info = findKeyInfo(k);
         if (info == null) {
             System.out.println("nothing for delete");
             return;
@@ -226,12 +224,110 @@ public class Btree implements Config {
         doDelete(info, k);
     }
 
-    private void doDelete(DelInfo info, int k) {
-        if (info.delNode.isLeaf()) {
-            leafNodeDataDel(info.delNode, info.dataIndex);
-        } else {
+    private void doDelete(KeyInfo info, int k) {
+        Node waitCheckNode = null;
+        if (info.node.isLeaf()) {
+            leafNodeDataDel(info.node, info.dataIndex);
 
+            waitCheckNode = info.node.parent;
+        } else {
+            // 二. 所有非叶节点的删除操作都会转化为对叶节点的删除操作
+            Node subNode = findLeftSubTreeMaxData(info.node, info.dataIndex);
+            List<Data> datas = subNode.getDatas();
+            int tailIndex = datas.size() - 1;
+            Data data = datas.get(tailIndex);
+
+            // 把左子树最大的关键字替换掉当前要删除的关键字，实现删除
+            info.node.replace(info.dataIndex, data);
+
+            // 然后删除左子树最大的关键字，实现删除操作转化
+            leafNodeDataDel(subNode, tailIndex);
+
+            waitCheckNode = subNode.parent;
         }
+
+        // 四. 叶节点发生节点合并后, 可能会导致非叶节点小于最小关键字数, 进行关键字左移, 右移, 或合并即可.(需要注意父子节点的关系更新)
+        keyBalance(waitCheckNode);
+    }
+
+    private void keyBalance(Node node) {
+        if (node == null || node.isRoot() || node.isBalance()) {
+            return;
+        }
+        LinkInfo pl = getParentLink(node);
+        if (pl.index == 0) {
+            // 当前节点为父节点的最左侧子节点时
+            Node rightBrother = pl.datas.get(pl.index + 2).child;
+            if (rightBrother.isRich()) {
+                // 兄弟节点关键字富余，关键字左移
+                DoubleData rightDoubleData = rightBrother.popupDoubleDataHead();
+                Data midData = pl.datas.get(pl.index + 1);
+
+                DoubleData leftDoubleData = new DoubleData();
+                leftDoubleData.setLeft(midData);
+                leftDoubleData.setRight(rightDoubleData.left);
+
+                node.tailInsert(leftDoubleData.list);
+                rightDoubleData.left.child.parent = node; // 重置父节点
+                node.parent.replace(pl.index + 1, rightDoubleData.right);
+                return;
+            }
+            if (rightBrother.isPoor()) {
+                // 兄弟节点关键字不足，节点合并到兄弟节点
+                Data midData = pl.datas.get(pl.index + 1);
+                rightBrother.headInsert(midData);
+                rightBrother.headInsert(node.getDatas());
+                resetParent(node.getDatas(), rightBrother);// 重置父节点
+
+                if (node.parent.isRoot() && root.isPoor()) {
+                    rightBrother.parent = null;
+                    root = rightBrother;
+                } else {
+                    node.parent.popupDoubleDataHead();
+                }
+                return;
+            }
+        } else {// 当前节点不是父节点的最左侧的其他子节点时
+            Node leftBrother = pl.datas.get(pl.index - 2).child;
+            if (leftBrother.isRich()) {
+                // 左兄弟节点关键字富余，关键字右移
+                DoubleData leftDoubleData = leftBrother.popupDoubleDataTail();
+                Data midData = pl.datas.get(pl.index - 1);
+
+                DoubleData rightDoubleData = new DoubleData();
+                rightDoubleData.setLeft(leftDoubleData.right);
+                rightDoubleData.setRight(midData);
+
+                node.headInsert(rightDoubleData.list);
+                leftDoubleData.right.child.parent = node; // 重置父节点
+                node.parent.replace(pl.index - 1, leftDoubleData.left);
+                return;
+            }
+            if (leftBrother.isPoor()) {
+                // 左兄弟节点关键字不足，节点合并到左兄弟节点
+                Data midData = pl.datas.get(pl.index - 1);
+                leftBrother.tailInsert(midData);
+                leftBrother.tailInsert(node.getDatas());
+                resetParent(node.getDatas(), leftBrother); // 重置父节点
+
+                if (node.parent.isRoot() && root.isPoor()) {
+                    leftBrother.parent = null;
+                    root = leftBrother;
+                } else {
+                    node.parent.popupDoubleData(pl.index - 1);
+                }
+                return;
+            }
+        }
+    }
+
+    private Node findLeftSubTreeMaxData(Node delNode, int dataIndex) {
+        Node subNode = delNode.getDatas().get(dataIndex - 1).child;
+        while (!subNode.isLeaf()) {
+            List<Data> datas = subNode.getDatas();
+            subNode = datas.get(datas.size() - 1).child;
+        }
+        return subNode;
     }
 
     // 三. 叶节点删除操作如下:
@@ -240,13 +336,13 @@ public class Btree implements Config {
     // 3. 中间叶节点删除操作转化为左兄弟叶节点的删除操作, 当两者都等于最小关键字数时,删除后进行节点合并
     // 4. 叶节点右兄弟为最右侧节点且右兄弟节点大于最小关键字数时, 删除操作后关键字左移即可, 否则按情况3处理
     // 5. 最右侧或最左侧叶节点等于最小关键字数且其兄弟节点也等于最小关键字时, 删除操作后进行节点合并
-    private DelInfo leafNodeDataDel(Node delNode, int dataIndex) {
+    private void leafNodeDataDel(Node delNode, int dataIndex) {
 
         // 删除节点为根节点时，直接删除后返回。
         // 1. 最右侧叶节点大于最小关键字数时, 直接删除
         if (delNode.isRoot() || delNode.isRich()) {
             delNode.delete(dataIndex);
-            return null;
+            return;
         }
 
         LinkInfo pl = getParentLink(delNode);
@@ -255,7 +351,7 @@ public class Btree implements Config {
             Node leftBrother = pl.datas.get(pl.index - 2).child;
             if (leftBrother.isRich()) {
                 keyDeleteAndRightMove(delNode, dataIndex, pl, leftBrother);
-                return null;
+                return;
             } else if (leftBrother.isPoor()) {
                 // 5. 最右侧或最左侧叶节点等于最小关键字数且其兄弟节点也等于最小关键字时, 删除操作后进行节点合并
                 delNode.delete(dataIndex);
@@ -266,10 +362,11 @@ public class Btree implements Config {
 
                 delNode.parent.popupDoubleDataTail();
 
-                if (delNode.parent.isRoot()) {
+                if (delNode.parent.isRoot() && root.isPoor()) {
                     leftBrother.parent = null;
+                    root = leftBrother;
                 }
-                return null;
+                return;
             }
         }
 
@@ -277,7 +374,7 @@ public class Btree implements Config {
             Node rightBrother = pl.datas.get(pl.index + 2).child;
             if (rightBrother.isRich()) {
                 keyDeleteAndLeftMove(delNode, dataIndex, pl, rightBrother);
-                return null;
+                return;
             } else if (rightBrother.isPoor()) {
                 // 5. 最右侧或最左侧叶节点等于最小关键字数且其兄弟节点也等于最小关键字时, 删除操作后进行节点合并
                 delNode.delete(dataIndex);
@@ -288,10 +385,11 @@ public class Btree implements Config {
 
                 delNode.parent.popupDoubleDataHead();
 
-                if (delNode.parent.isRoot()) {
+                if (delNode.parent.isRoot() && root.isPoor()) {
                     rightBrother.parent = null;
+                    root = rightBrother;
                 }
-                return null;
+                return;
             }
         }
 
@@ -302,10 +400,10 @@ public class Btree implements Config {
                 // 3. 中间叶节点删除操作时，左兄弟叶节点大于最小关键字数，删除操作后关键字右移; 当两者都等于最小关键字数时,删除后进行节点合并
                 if (leftBrother.isRich()) {
                     keyDeleteAndRightMove(delNode, dataIndex, pl, leftBrother);
-                    return null;
+                    return;
                 } else if (leftBrother.isPoor()) {
                     keyDeleteAndMergeNodeInternal(delNode, dataIndex, pl, leftBrother);
-                    return null;
+                    return;
                 }
             }
             Node rightBrother = pl.datas.get(pl.index + 2).child;
@@ -313,13 +411,13 @@ public class Btree implements Config {
                 // 4. 叶节点右兄弟为最右侧节点且右兄弟节点大于最小关键字数时, 删除操作后关键字左移即可, 否则按情况3处理
                 if (leftBrother.isRich()) {
                     keyDeleteAndRightMove(delNode, dataIndex, pl, leftBrother);
-                    return null;
+                    return;
                 } else if (leftBrother.isPoor() && rightBrother.isRich()) {
                     keyDeleteAndLeftMove(delNode, dataIndex, pl, rightBrother);
-                    return null;
+                    return;
                 } else if (leftBrother.isPoor() && rightBrother.isPoor()) {
                     keyDeleteAndMergeNodeInternal(delNode, dataIndex, pl, leftBrother);
-                    return null;
+                    return;
                 }
             }
         }
@@ -356,19 +454,26 @@ public class Btree implements Config {
         delNode.headInsert(midData);
     }
 
-    private LinkInfo getParentLink(Node delNode) {
-        List<Data> datas = delNode.parent.getDatas();
+    /**
+     * 获取当前节点与父节点的连结点信息
+     * @author c84112937
+     * @since Apr 28, 2020
+     * @param delNode
+     * @return
+     */
+    private LinkInfo getParentLink(Node node) {
+        List<Data> datas = node.parent.getDatas();
         int len = datas.size();
         for (int i = 0; i < len; i++) {
             Data data = datas.get(i);
-            if (data.isLink() && data.child == delNode) {
-                return new LinkInfo(i, data, datas);
+            if (data.isLink() && data.child == node) {
+                return new LinkInfo(i, datas);
             }
         }
-        throw new RuntimeException("getParentLink Exception: " + delNode);
+        throw new RuntimeException("getParentLink Exception: " + node.getDatas() + " p.datas: " + datas);
     }
 
-    private DelInfo findDeleteNode(int delKey) {
+    private KeyInfo findKeyInfo(int delKey) {
         Node currentNode = root;
         int dataIndex = -1;
         nodeLoop: while (true) {
@@ -416,7 +521,12 @@ public class Btree implements Config {
             return null;
         }
 
-        return new DelInfo(currentNode, dataIndex);
+        return new KeyInfo(currentNode, dataIndex);
+    }
+
+    public Node find(int key) {
+        KeyInfo info = findKeyInfo(key);
+        return info.node;
     }
 
     @Override
@@ -519,10 +629,6 @@ public class Data implements IData {
 
     public Node child;
 
-    public Node leftBrother;
-
-    public Node rightBrother;
-
     public Integer key;
 
     public Object value;
@@ -555,10 +661,6 @@ public class Data implements IData {
         return !isLink;
     }
 
-    public boolean isEdge() {
-        return isLink && (leftBrother == null || rightBrother == null);
-    }
-
     public boolean isSingle() {
         return true;
     }
@@ -570,25 +672,6 @@ public class Data implements IData {
     @Override
     public String toString() {
         return "" + key;
-    }
-
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-
-package com.huawei.it.demo.ari.btree.v2;
-
-public class DelInfo {
-
-    public Node delNode;
-
-    public int dataIndex;
-
-    public DelInfo(Node delNode, int dataIndex) {
-        super();
-        this.delNode = delNode;
-        this.dataIndex = dataIndex;
     }
 
 }
@@ -640,19 +723,35 @@ public interface IData {
 
 package com.huawei.it.demo.ari.btree.v2;
 
+public class KeyInfo {
+
+    public Node node;
+
+    public int dataIndex;
+
+    public KeyInfo(Node node, int dataIndex) {
+        super();
+        this.node = node;
+        this.dataIndex = dataIndex;
+    }
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+package com.huawei.it.demo.ari.btree.v2;
+
 import java.util.List;
 
 public class LinkInfo {
     public int index;
 
-    public Data link;
-
     public List<Data> datas;
 
-    public LinkInfo(int index, Data link, List<Data> datas) {
+    public LinkInfo(int index, List<Data> datas) {
         super();
         this.index = index;
-        this.link = link;
         this.datas = datas;
     }
 
@@ -814,8 +913,6 @@ public class Node {
         this.datas = datas;
         maxKeyNum = factor - 1;
         commonMinKeyNum = (factor - 1) / 2;
-
-        fixEdgeData();
     }
 
     public void addData(IData newData) {
@@ -845,8 +942,6 @@ public class Node {
                 continue;
             }
         }
-
-        fixEdgeData();
     }
 
     private void datasInsert(int index, IData d) {
@@ -855,38 +950,9 @@ public class Node {
             Data data = (Data) d;
             datas.add(index, data);
         } else {
-
-            // eg.
-            // link data link data link
-            // 0___ 1___ 2___ 3___ 4___
-            // index=3
             int i = index - 1;
-            boolean isEnd = datas.size() == index;
-            boolean isStart = 0 == i;
-
-            Data removeData = datas.remove(i);
+            datas.remove(i);
             TupleData tupleData = (TupleData) d;
-
-            // eg.
-            // link data data link
-            // 0___ 1___ 2___ 3___
-            // index=3
-            LogUtil.a("datasInsert#removeData.rightBrother: %s", removeData.rightBrother);
-            if (isEnd) {
-                tupleData.tail.rightBrother = null;
-            } else {
-                tupleData.tail.rightBrother = removeData.rightBrother;
-                Data data = datas.get(index);
-                data.leftBrother = tupleData.tail.child;
-            }
-            LogUtil.a("datasInsert#removeData.leftBrother: %s", removeData.leftBrother);
-            if (isStart) {
-                tupleData.head.leftBrother = null;
-            } else {
-                tupleData.head.leftBrother = removeData.leftBrother;
-                Data data = datas.get(index - 3);
-                data.rightBrother = tupleData.head.child;
-            }
 
             datas.addAll(i, tupleData.list);
         }
@@ -910,7 +976,8 @@ public class Node {
      * @return
      */
     public boolean isRich() {
-        return countKey() > commonMinKeyNum;
+        int min = isRoot() ? 1 : commonMinKeyNum;
+        return countKey() > min;
     }
 
     /**
@@ -921,12 +988,23 @@ public class Node {
      * @return
      */
     public boolean isPoor() {
-        return countKey() <= commonMinKeyNum;
+        int min = isRoot() ? 1 : commonMinKeyNum;
+        return countKey() <= min;
+    }
+
+    /**
+     * 关键字数量大于等于最小值
+     * <p>用于非叶节点的自平衡判断
+     * @author c84112937
+     * @since Apr 28, 2020
+     * @return
+     */
+    public boolean isBalance() {
+        return countKey() >= commonMinKeyNum;
     }
 
     public Data popupLeafDataTail() {
         Data data = datas.remove(datas.size() - 1);
-        fixEdgeData();
         return data;
     }
 
@@ -939,7 +1017,6 @@ public class Node {
         DoubleData res = new DoubleData();
         res.setLeft(datas.remove(datas.size() - 1));
         res.setRight(datas.remove(datas.size() - 1));
-        fixEdgeData();
         return res;
     }
 
@@ -947,7 +1024,6 @@ public class Node {
         DoubleData res = new DoubleData();
         res.setLeft(datas.remove(0));
         res.setRight(datas.remove(0));
-        fixEdgeData();
         return res;
     }
 
@@ -956,7 +1032,6 @@ public class Node {
         res.setHead(datas.remove(datas.size() - 1));
         res.setMiddle(datas.remove(datas.size() - 1));
         res.setTail(datas.remove(datas.size() - 1));
-        fixEdgeData();
         return res;
     }
 
@@ -994,8 +1069,6 @@ public class Node {
 
     public void setDatas(List<Data> datas) {
         this.datas = datas;
-
-        fixEdgeData();
     }
 
     @Override
@@ -1034,18 +1107,9 @@ public class Node {
         return res.toString();
     }
 
-    public void fixEdgeData() {
-        if (isLeaf() && datas.size() < 1) {
-            return;
-        }
-        datas.get(0).leftBrother = null;
-        datas.get(datas.size() - 1).rightBrother = null;
-    }
-
     public void replace(int i, Data newData) {
-        Data oldData = datas.get(i);
-        oldData.key = newData.key;
-        oldData.value = newData.value;
+        datas.remove(i);
+        datas.add(i, newData);
     }
 
     public Data delete(int index) {
@@ -1075,7 +1139,9 @@ public class Node {
 
 package com.huawei.it.demo.ari.btree.v2;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class testBTreeV2 {
@@ -1088,7 +1154,11 @@ public class testBTreeV2 {
     }
 
     static void deleteTest() {
-        int[] inputs = {250, 49, 674, 654, 901, 334, 263, 434, 467, 929, 183, 404, 469, 395, 697, 35, 339, 672, 435};
+        int[] inputs =
+            // {250, 49, 674, 654, 901};
+            {26, 28, 34, 35, 39, 40, 44, 45, 47, 48, 52, 53, 56, 60, 61, 62, 63, 68, 70, 30, 32, 33, 71, 73, 74, 75, 76,
+                79, 80, 83, 86, 0, 1, 5, 8, 9, 11, 87, 88, 90, 94, 95, 13, 16, 17, 18, 22, 23, 24, 25};
+        // {250, 49, 674, 654, 901, 334, 263, 434, 467, 929, 183, 404, 469, 395, 697, 35, 339, 672, 435, 998};
         Btree tree = new Btree(5);
         // tree.setPrintWithParent(true);
         // tree.setDebug(true);
@@ -1099,16 +1169,65 @@ public class testBTreeV2 {
         System.out.println(tree);
         System.out.println("===========================");
 
-        deleteAndPrint(tree, 435);
-        deleteAndPrint(tree, 467);
-        deleteAndPrint(tree, 469);
+        findAndPrint(tree, 28);
+
+        // commonTest(tree, "not found test", 1);
+        // leaf node test
+        // commonTest(tree, "mid test", 435, 467, 469, 434);
+        // commonTest(tree, "special test", 672, 674, 654, 697);
+        // commonTest(tree, "right test", 901, 929, 998);
+        // commonTest(tree, "left test", 35, 183, 49, 250, 263, 334);
+        // commonTest(tree, "root test", 250, 654, 901, 49, 674);
+        // not leaf node test
+        // commonTest(tree, "2 level not leaf node test1", 697, 674, 901);
+        // commonTest(tree, "2 level not leaf node test2", 263, 250, 183, 334, 339);
+        commonTest(tree, "3 level left not leaf node test3.1", 23, 24, 25, 22, 18, 17, 16, 13, 11);
+        commonTest(tree, "3 level left not leaf node test3.2", 40, 39, 35, 34, 33, 32, 30, 28, 26);
+        commonTest(tree, "3 level left not leaf node test3.3", 61, 60, 56, 53, 52, 48, 47, 45, 44);
+        commonTest(tree, "3 level left not leaf node test3.4", 68, 63, 62, 73, 71, 70, 0, 1, 5, 8, 79, 80);
+    }
+
+    private static void findAndPrint(Btree tree, int key) {
+        Node node = tree.find(key);
+        System.out.println(node.getDatas());
+        System.out.println(node.parent.getDatas());
+        System.out.println("_________________________");
+    }
+
+    static void commonTest(Btree tree, String title, int... args) {
+        System.out.println(title);
+        System.out.println("+++++++++++++++++++++++++++++");
+        for (int arg : args) {
+            deleteAndPrint(tree, arg);
+        }
     }
 
     private static void deleteAndPrint(Btree tree, int k) {
         tree.delete(k);
         System.out.println("delete: " + k);
         System.out.println(tree);
+        // specialPrint(tree, k);
+        // findAndPrint(tree, 0);
         System.out.println("===========================");
+    }
+
+    static void specialPrint(Btree tree, int k) {
+        if (k == 35) {
+            List<Integer> list = Arrays.asList(28, 33);
+            for (int key : list) {
+                Node node = tree.find(key);
+                System.out.println(node.getDatas());
+                System.out.println(node.parent.getDatas());
+                System.out.println("_________________________");
+            }
+
+        }
+        if (k == 34) {
+            Node node = tree.find(32);
+            System.out.println(node.getDatas());
+            System.out.println(node.parent.getDatas());
+
+        }
     }
 
     static void reShowTest() {
@@ -1136,7 +1255,7 @@ public class testBTreeV2 {
         Set<Integer> cache = new HashSet<Integer>();
         try {
             long start = System.currentTimeMillis();
-            for (int i = 1; i < 100000; i++) {
+            for (int i = 0; i < 50; i++) {
                 int input = getRandom(cache);
                 tree.insert(input);
                 // res.append(input + ", ");
@@ -1154,7 +1273,7 @@ public class testBTreeV2 {
     static int getRandom(Set<Integer> cache) {
         int input;
         do {
-            input = (int) (Math.random() * 1000000);
+            input = (int) (Math.random() * 100);
         } while (cache.contains(input));
         cache.add(input);
         return input;
