@@ -221,10 +221,6 @@ public class Btree implements Config {
             return;
         }
 
-        doDelete(info, k);
-    }
-
-    private void doDelete(KeyInfo info, int k) {
         Node waitCheckNode = null;
         if (info.node.isLeaf()) {
             leafNodeDataDel(info.node, info.dataIndex);
@@ -246,14 +242,16 @@ public class Btree implements Config {
             waitCheckNode = subNode.parent;
         }
 
-        // 四. 叶节点发生节点合并后, 可能会导致非叶节点小于最小关键字数, 进行关键字左移, 右移, 或合并即可.(需要注意父子节点的关系更新)
-        keyBalance(waitCheckNode);
+        while (true) {
+            if (waitCheckNode == null || waitCheckNode.isRoot() || waitCheckNode.isBalance()) {
+                break;
+            }
+            // 四. 叶节点发生节点合并后, 可能会导致非叶节点小于最小关键字数, 进行关键字左移, 右移, 或合并即可.(需要注意父子节点的关系更新)
+            waitCheckNode = keyBalance(waitCheckNode);
+        }
     }
 
-    private void keyBalance(Node node) {
-        if (node == null || node.isRoot() || node.isBalance()) {
-            return;
-        }
+    private Node keyBalance(Node node) {
         LinkInfo pl = getParentLink(node);
         if (pl.index == 0) {
             // 当前节点为父节点的最左侧子节点时
@@ -270,7 +268,7 @@ public class Btree implements Config {
                 node.tailInsert(leftDoubleData.list);
                 rightDoubleData.left.child.parent = node; // 重置父节点
                 node.parent.replace(pl.index + 1, rightDoubleData.right);
-                return;
+                return null;
             }
             if (rightBrother.isPoor()) {
                 // 兄弟节点关键字不足，节点合并到兄弟节点
@@ -284,8 +282,9 @@ public class Btree implements Config {
                     root = rightBrother;
                 } else {
                     node.parent.popupDoubleDataHead();
+                    return node.parent;
                 }
-                return;
+
             }
         } else {// 当前节点不是父节点的最左侧的其他子节点时
             Node leftBrother = pl.datas.get(pl.index - 2).child;
@@ -301,7 +300,7 @@ public class Btree implements Config {
                 node.headInsert(rightDoubleData.list);
                 leftDoubleData.right.child.parent = node; // 重置父节点
                 node.parent.replace(pl.index - 1, leftDoubleData.left);
-                return;
+                return null;
             }
             if (leftBrother.isPoor()) {
                 // 左兄弟节点关键字不足，节点合并到左兄弟节点
@@ -315,10 +314,11 @@ public class Btree implements Config {
                     root = leftBrother;
                 } else {
                     node.parent.popupDoubleData(pl.index - 1);
+                    return node.parent;
                 }
-                return;
             }
         }
+        return null;
     }
 
     private Node findLeftSubTreeMaxData(Node delNode, int dataIndex) {
