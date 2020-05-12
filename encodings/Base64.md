@@ -1,3 +1,5 @@
+> 转： [Base64笔记](http://www.ruanyifeng.com/blog/2008/06/base64.html)
+
 1.
 
 昨天的《MIME笔记》中提到，MIME主要使用两种编码转换方式----Quoted-printable和Base64----将8位的非英语字符转化为7位的ASCII字符。
