@@ -15,7 +15,7 @@ System.out.println((byte)((head<<4 | tail)));
 
 System.out.println("\nbit show: ");
 System.out.println(Integer.toBinaryString((head<<4 | tail)));
-System.out.println(-1 >>> 8); // 无符号位移对int类型才有效。
+System.out.println(-1 >>> 8); // 无符号位移对int类型才有效。对byte无效
 System.out.println(Integer.toBinaryString(-1 & 0xff));
 System.out.println(Integer.toBinaryString(-2 & 0xff));
 System.out.println(Integer.toBinaryString(-3));
