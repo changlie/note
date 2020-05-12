@@ -1,7 +1,7 @@
 java 代码
 ```java
 byte raw = (byte) 0b11101010;
-System.out.println("init raw: " + raw);
+System.out.println("init raw: " + raw+", binary: "+Integer.toBinaryString(raw & 0xff));
 
 byte head = (byte) (raw >>> 4 & 0x0f);
 byte tail = (byte) (((byte)(raw <<  4)) >>>  4 & 0b00001111);
@@ -25,7 +25,7 @@ System.out.println((char)0b11101010);
 
 输出
 ```
-init raw: -22
+init raw: -22, binary: 11101010
 
 split: 
 head: 14, 1110
