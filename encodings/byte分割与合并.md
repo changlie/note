@@ -4,7 +4,7 @@ byte raw = (byte) 0b11101010;
 System.out.println("init raw: " + raw+", binary: "+Integer.toBinaryString(raw & 0xff));
 
 byte head = (byte) (raw >>> 4 & 0x0f);
-byte tail = (byte) (((byte)(raw <<  4)) >>>  4 & 0b00001111);
+byte tail = (byte) (raw & 0b00001111);
 System.out.println("\nsplit: ");
 System.out.println("head: " + head + ", " + Integer.toBinaryString(head));
 System.out.println("tail: " + tail + ", " + Integer.toBinaryString(tail));
