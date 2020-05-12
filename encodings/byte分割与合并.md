@@ -2,17 +2,20 @@ java 代码
 ```java
 byte raw = (byte) 0b11101010;
 System.out.println("init raw: " + raw);
+
 byte head = (byte) (raw >>> 4 & 0x0f);
 byte tail = (byte) (((byte)(raw <<  4)) >>>  4 & 0b00001111);
 System.out.println("\nsplit: ");
 System.out.println("head: " + head + ", " + Integer.toBinaryString(head));
 System.out.println("tail: " + tail + ", " + Integer.toBinaryString(tail));
+
 System.out.println("\nmerge: ");
 System.out.println((byte)((head<<4 | tail) & 0xff));
 System.out.println((byte)((head<<4 | tail)));
+
 System.out.println("\nbit show: ");
 System.out.println(Integer.toBinaryString((head<<4 | tail)));
-System.out.println(-1 >>> 8);
+System.out.println(-1 >>> 8); // 无符号位移对int类型才有效。
 System.out.println(Integer.toBinaryString(-1 & 0xff));
 System.out.println(Integer.toBinaryString(-2 & 0xff));
 System.out.println(Integer.toBinaryString(-3));
