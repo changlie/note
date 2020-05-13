@@ -10,7 +10,7 @@ Unicode 问题
 - the fourth method consists in escaping the whole string (with UTF-8, see encodeURIComponent) and then encode it (portable, non-standard)
 - the fifth method is similar to the second method, but uses third party libraries
 
-###　Solution #1 – JavaScript's UTF-16 => base64
+### Solution 1 – JavaScript's UTF-16 => base64
 
 A very fast and widely useable way to solve the unicode problem is by encoding JavaScript native UTF-16 strings directly into base64. Please visit the URL data:text/plain;charset=utf-16;base64,OCY5JjomOyY8Jj4mPyY= for a demonstration (copy the data uri, open a new tab, paste the data URI into the address bar, then press enter to go to the page). This method is particularly efficient because it does not require any type of conversion, except mapping a string into an array. The following code is also useful to get an ArrayBuffer from a Base64 string and/or viceversa (see below).
 ```javascript
