@@ -77,12 +77,12 @@ b）能够对文本进行简单的加密。
 
 举一个具体的实例，演示英语单词Man如何转成Base64编码。
 ```
-|Text content    |M	       |a        |n  |
-|ASCII	         |77	     |97	     |110|
-|Bit pattern	   |01001101 |01100001 |01101110 |
+|Text content    |M        |a        |n  |
+|ASCII           |77       |97       |110|
+|Bit pattern     |01001101 |01100001 |01101110 |
 |split 4 group   |00010011 |00010110 |00000101 |00101110 |
-|Index	         |19	     |22	     |5	       |46|
-|Base64-Encoded	 |T	       |W	       |F	       |u |
+|Index           |19       |22       |5        |46|
+|Base64-Encoded  |T        |W        |F        |u |
 ```
 
 
