@@ -4,12 +4,14 @@
 Unicode 问题
 由于 DOMString 是16位编码的字符串，所以如果有字符超出了8位ASCII编码的字符范围时，在大多数的浏览器中对Unicode字符串调用 window.btoa 将会造成一个 Character Out Of Range 的异常。有很多种方法可以解决这个问题：
 
-the first method consists in encoding JavaScript's native UTF-16 strings directly into base64 (fast, portable, clean)
-the second method consists in converting JavaScript's native UTF-16 strings to UTF-8 and then encode the latter into base64 (relatively fast, portable, clean)
-the third method consists in encoding JavaScript's native UTF-16 strings directly into base64 via binary strings (very fast, relatively portable, very compact)
-the fourth method consists in escaping the whole string (with UTF-8, see encodeURIComponent) and then encode it (portable, non-standard)
-the fifth method is similar to the second method, but uses third party libraries
-Solution #1 – JavaScript's UTF-16 => base64
+- the first method consists in encoding JavaScript's native UTF-16 strings directly into base64 (fast, portable, clean)
+- the second method consists in converting JavaScript's native UTF-16 strings to UTF-8 and then encode the latter into base64 (relatively fast, portable, clean)
+- the third method consists in encoding JavaScript's native UTF-16 strings directly into base64 via binary strings (very fast, relatively portable, very compact)
+- the fourth method consists in escaping the whole string (with UTF-8, see encodeURIComponent) and then encode it (portable, non-standard)
+- the fifth method is similar to the second method, but uses third party libraries
+
+###　Solution #1 – JavaScript's UTF-16 => base64
+
 A very fast and widely useable way to solve the unicode problem is by encoding JavaScript native UTF-16 strings directly into base64. Please visit the URL data:text/plain;charset=utf-16;base64,OCY5JjomOyY8Jj4mPyY= for a demonstration (copy the data uri, open a new tab, paste the data URI into the address bar, then press enter to go to the page). This method is particularly efficient because it does not require any type of conversion, except mapping a string into an array. The following code is also useful to get an ArrayBuffer from a Base64 string and/or viceversa (see below).
 ```javascript
 "use strict";
