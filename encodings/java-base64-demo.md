@@ -133,17 +133,6 @@ public class BinaryFileConvertByBase64 {
         fos.close();
     }
 
-    static int afterAddLineSeperatorLength(byte[] src) {
-        int length = src.length;
-        int lineLen = 120;
-        int blockCount = length / lineLen;
-        if (length % lineLen > 0) {
-            blockCount++;
-        }
-        int accumulate = blockCount - 1;
-        return length + accumulate;
-    }
-
     static byte[] addLineSeperator(byte[] src) {
         int length = src.length;
         int lineLen = 128;
@@ -194,6 +183,5 @@ public class BinaryFileConvertByBase64 {
         System.out.println(new String(res));
     }
 }
-
 
 ```
