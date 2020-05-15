@@ -2,7 +2,6 @@
 
 import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
-import java.net.URLEncoder;
 
 public class Base64 {
     // 第一步，将每三个字节作为一组，一共是24个二进制位。
@@ -60,16 +59,11 @@ public class Base64 {
     static String fileToBase64(String filePath) throws Exception {
         RandomAccessFile file = new RandomAccessFile(filePath, "r");
         int len = (int) file.length();
-        System.out.println("length: " + len);
         byte[] buf = new byte[len];
-        int read = file.read(buf, 0, len);
-        System.out.println("read: " + read);
+        file.read(buf, 0, len);
 
         String res = base64Encode(buf);
-
-        System.out.println(res);
         file.close();
-
         return res;
     }
 
@@ -84,7 +78,6 @@ public class Base64 {
     static byte[] base64Decode(String string) {
         byte[] buf = base64ToBytes(string);
         int len = buf.length;
-        System.out.println(len);
         byte[] res = new byte[len / 4 * 3];
         for (int i = 0; i < len; i += 4) {
             int resIndex = i / 4 * 3;
@@ -99,6 +92,33 @@ public class Base64 {
             res[resIndex + 2] = (byte) ((b3 << 6 | b4) & 0xff);
         }
         return res;
+    }
+
+    static byte[] base64Decode(byte[] buf) {
+        buf = base64ToBytes(buf);
+        int len = buf.length;
+        byte[] res = new byte[len / 4 * 3];
+        for (int i = 0; i < len; i += 4) {
+            int resIndex = i / 4 * 3;
+
+            byte b1 = buf[i];
+            byte b2 = buf[i + 1];
+            byte b3 = buf[i + 2];
+            byte b4 = buf[i + 3];
+
+            res[resIndex] = (byte) ((b1 << 2 | ((b2 >> 4) & 0x03)) & 0xff);
+            res[resIndex + 1] = (byte) ((b2 << 4 | ((b3 >> 2) & 0x0f)) & 0xff);
+            res[resIndex + 2] = (byte) ((b3 << 6 | b4) & 0xff);
+        }
+        return res;
+    }
+
+    static byte[] base64ToBytes(byte[] buf) {
+        int length = buf.length;
+        for (int i = 0; i < length; i++) {
+            buf[i] = getVal(buf[i]);
+        }
+        return buf;
     }
 
     static byte[] base64ToBytes(String s) {
@@ -159,12 +179,20 @@ public class Base64 {
         // System.out.println("============");
         // batchBase64DecodeTest();
 
-        String string = fileToBase64("D:\\ator.png");
-        System.out.println(URLEncoder.encode(string));
-        base64ToFile(string, "d:/gaodao.png");
+        // String string = fileToBase64("D:\\ator.png");
+        // System.out.println(string);
+        // base64ToFile(string, "d:/gaodao.png");
+        System.out.println((byte) '\n');
+        System.out.println("hello".getBytes().length);
+        System.out.println("hello".getBytes("utf-8").length);
+        System.out.println("hello".getBytes("utf-16").length);
+
+        String s = base64Encode("hello".getBytes());
+        System.out.println(s);
+        System.out.println(s.length());
     }
 
-    private static void batchBase64DecodeTest() {
+    static void batchBase64DecodeTest() {
         base64DecodeTest("changlie");
         System.out.println("=================");
         base64DecodeTest("JS");
