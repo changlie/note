@@ -7,25 +7,16 @@ interface 实例是不允许修改其成员变量的, 所以方法的receiver是
 type animal interface {
 	eat()
 }
+```
 
+正确的实现
+```golang
 type dog struct {
 	name string
 }
-
 func (this dog) eat() {
 	fmt.Println("dog("+this.name+") eat bone")
 }
-
-type cat struct {
-	name string
-}
-
-func (this *cat) eat() {
-	fmt.Println("cat("+this.name+") eat fish")
-}
-```
-
-```golang
 func implTest() {
 	var p animal 
 	p = dog{"tom"}
@@ -37,8 +28,14 @@ func implTest() {
 dog(tom) eat bone
 ```
 
-
+错误的实现
 ```golang
+type cat struct {
+	name string
+}
+func (this *cat) eat() {
+	fmt.Println("cat("+this.name+") eat fish")
+}
 func implTest() {
 	var p animal 
 	p = cat{"jerry"}
