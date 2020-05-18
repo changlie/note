@@ -9,7 +9,7 @@ type animal interface {
 }
 ```
 
-正确的实现
+### 正确的实现
 ```golang
 type dog struct {
 	name string
@@ -28,7 +28,7 @@ func implTest() {
 dog(tom) eat bone
 ```
 
-错误的实现
+### 错误的实现
 ```golang
 type cat struct {
 	name string
