@@ -71,6 +71,71 @@ src\demo\demo.go:75:4: cannot use cat literal (type cat) as type animal in assig
         cat does not implement animal (eat method has pointer receiver)
 ```
 
+<details>
+	<summary> 其他例子 </summary>
+
+```golang
+func valuePtrReceiverTest()  {
+  var p animal
+  var c1 lion
+  var c2 *lion
+
+  p = cat{}
+  fmt.Println("p type:", reflect.TypeOf(p))
+  p = &cat{}
+  fmt.Println("p type:", reflect.TypeOf(p))
+
+
+  p = &lion{}
+  // p = lion{} // error
+  c1 = lion{}
+  c2 = &lion{}
+  fmt.Println("p type:", reflect.TypeOf(p))
+  fmt.Println("c1 type:", reflect.TypeOf(c1))
+  fmt.Println("c2 type:", reflect.TypeOf(c2))
+}
+
+type animal interface {
+  setName(name string)
+  eat()
+}
+
+type cat struct {
+  name string
+}
+
+func (this cat) setName(name string)  {
+  this.name = name
+}
+
+func (this cat) eat() {
+  fmt.Printf("cat(%s) eat fish\n", this.name)
+}
+
+type lion struct {
+  name string
+}
+
+func (this *lion) setName(name string)  {
+  this.name = name
+}
+
+func (this lion) eat() {
+  fmt.Printf("lion(%s) eat rabbit\n", this.name)
+}
+```
+输出
+```
+p type: main.cat
+p type: *main.cat
+p type: *main.lion
+c1 type: main.lion
+c2 type: *main.lion
+```
+
+</details>
+
+
 ### 二. 概念
 含value receiver: `(this dog)` 的是value method
 ```golang
