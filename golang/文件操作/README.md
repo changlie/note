@@ -11,7 +11,7 @@ str, _ := os.Getwd()
 dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
 ```
 
-按任意键继续 的功能实现 (允许window 可执行文件的程序完成后不会马上关闭)
+按任意键继续 的功能实现 (允许程序在window下，执行完成后不会马上关闭)
 ```golang
 func pause() {
 	fmt.Println("press any key to continue...")
