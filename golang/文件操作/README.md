@@ -10,3 +10,15 @@ str, _ := os.Getwd()
 ```golang
 dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
 ```
+
+按任意键继续 的功能实现
+```golang
+func pause() {
+	fmt.Println("press any key to continue...")
+	var input string
+	for {
+		fmt.Scan(&input)
+		fmt.Println("input: ", input)
+	}
+}
+```
