@@ -41,6 +41,24 @@ type Writer
     func (b *Writer) WriteString(s string) (int, error)  // 写出一个字符串
 ```
 
+<details>
+	<summary> ReadLine方法的按行读取 </summary>
+
+```golang
+input := "Now is the winter of our discontent,\nMade glorious summer by this sun of York.\ngood day"
+br := bufio.NewReader(strings.NewReader(input))
+for {
+	a, _, c := br.ReadLine()
+	if c == io.EOF {
+			break
+	}
+	fmt.Println(string(a))
+}
+```
+
+</details>
+
+
 > Scanner的  `Split`,`Scan`,`Text` 这三个方法是结合使用的。     
 默认的Split函数是`ScanLines`
 ```golang
