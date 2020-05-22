@@ -98,4 +98,8 @@ type FileInfo interface {
 ```
 
 
->  参考：[os包](https://cloud.tencent.com/developer/article/1342799)
+>  参考：
+
+[os包 腾讯云社区](https://cloud.tencent.com/developer/article/1342799)
+
+[官方文档](https://golang.org/pkg/os/)
