@@ -68,7 +68,7 @@ br := bufio.NewReader(strings.NewReader(input))
 for {
 	a, _, c := br.ReadLine()
 	if c == io.EOF {
-			break
+	    break
 	}
 	fmt.Println(string(a))
 }
