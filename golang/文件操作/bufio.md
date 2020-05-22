@@ -42,6 +42,24 @@ type Writer
 ```
 
 <details>
+	<summary> ReadString('\n')方法的按行读取 </summary>
+
+```golang
+input := "Now is the winter of our discontent,\nMade glorious summer by this sun of York.\ngood day\nMaybe"
+br := bufio.NewReader(strings.NewReader(input))
+for {
+	line, err := br.ReadString('\n')
+	fmt.Println(line+"---new line")
+
+	if err == io.EOF {
+	    break
+	}
+}
+```
+
+</details>
+
+<details>
 	<summary> ReadLine方法的按行读取 </summary>
 
 ```golang
