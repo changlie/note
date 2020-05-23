@@ -1,3 +1,5 @@
+> 参考: [官方文档](https://golang.org/pkg/fmt)
+
 ### fmt包一共有五个主要功能:
 从标准输入读取信息
 ```golang
