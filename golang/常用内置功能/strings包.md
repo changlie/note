@@ -2,7 +2,7 @@
 
 
 <details>
-  <summary> Index <?summary>
+  <summary> Index </summary>
 
 ```golang
 func Compare(a, b string) int
