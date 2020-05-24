@@ -79,4 +79,4 @@ type Replacer
     func (r *Replacer) WriteString(w io.Writer, s string) (n int, err error)
 ```
 
-<?details>
+</details>
