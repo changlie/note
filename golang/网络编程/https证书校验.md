@@ -1,3 +1,5 @@
+> 参考 [Go和HTTPS|Tony Bai](https://tonybai.com/2015/04/30/go-and-https/)
+
 ### 服务端私钥与证书
 1. 根证书可以签发新的证书
 2. 校验证书时需要加载根证书
