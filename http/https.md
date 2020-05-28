@@ -46,7 +46,7 @@ openssl req -new -key server.key -subj "/CN=localhost" -out server.csr
 openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 5000
 ```
 ### 证书信任链
-![Graphic][Chain_of_trust_svg]
+![image][Chain_of_trust_svg]
 1. 从左往右，用户证书指向签署它的中级证书，并且，用户证书的摘要经由中级证书的私钥加密，密文作为该用户的证书签名(signature)记录在用户证书上。以百度为例，上一节说的签名就是了。
 2. 中级证书相应的，指向签署它的根证书，同时，中级证书的摘要经由根证书的私钥加密，密文作为中级证书的签名记录在中级证书上
 3. 根证书在签署的时候，使用签发机构的私钥对证书的摘要进行加密，密文作为根证书的签名记录在根证书上。
