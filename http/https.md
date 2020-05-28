@@ -45,6 +45,13 @@ openssl req -new -key server.key -subj "/CN=localhost" -out server.csr
 ```
 openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 5000
 ```
+### 证书校验
+```
+1. 取上级证书的公钥，对下级证书的签名进行解密得出下级证书的摘要digest1
+2. 对下级证书进行信息摘要digest2
+3. 判断digest1是否等于digest2，相等则说明下级证书校验通过
+4. 依次对各个相邻级别证书实施1～3步骤，直到根证书（或者可信任锚点[trusted anchor]）
+```
 
 
 > 参考：
