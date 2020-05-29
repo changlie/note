@@ -5,3 +5,7 @@ golang 相关
 [Go 语言教程](https://www.runoob.com/go/go-tutorial.html)
 
 [a tour of Go](https://tour.golang.org/list)
+
+[go 语言规范](https://learnku.com/docs/go-specification)
+
+[The Go Programming Language Specification](https://golang.org/ref/spec)
