@@ -2,6 +2,9 @@ Go supports first class functions, higher-order functions, user-defined function
 
 This rich feature set supports a functional programming style in a strongly typed language.
 
+### first class functions
+头等函数（first-class function）是指在程序设计语言中，函数被当作头等公民。这意味着，函数可以作为别的函数的参数、函数的返回值，赋值给变量或存储在数据结构中。 有人主张应包括支持匿名函数（函数字面量，function literals）。在这样的语言中，函数的名字没有特殊含义，它们被当作具有函数类型的普通的变量对待。1960年代中期，克里斯托弗·斯特雷奇在“functions as first-class citizens”中提出这一概念
+
 ### User-defined function types
 > In Go, functions can be passed around just like any other value. A function's type signature describes the types of its arguments and return values.
 
