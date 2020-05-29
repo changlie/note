@@ -1,3 +1,5 @@
+> 参考： [Defer, Panic, and Recover](https://blog.go-zh.org/defer-panic-and-recover)
+
 A ***defer statement*** pushes a function call onto a list. The list of saved calls is executed after the surrounding function returns. Defer is commonly used to simplify functions that perform various clean-up actions.      
 defer声明会将一个函数调用暂存至一个列表。列表中的函数调用会在函数返回后被执行。defer通常用于简化各种清理操作      
 e.g.
