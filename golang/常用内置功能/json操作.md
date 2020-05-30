@@ -17,9 +17,9 @@ type Encoder
 ```golang
 func main() {
 	type Message struct {
-			Name string
-			Body string
-			Time int64
+		Name string
+		Body string
+		Time int64
 	}
 
 	m := Message{"Alice", "Hello", 1294706395881547000}
@@ -232,9 +232,9 @@ func main() {
 ```golang
 func main() {
 	type Message struct {
-			Name string `json:"name"`
-			Body string `json:"content"`
-			Time int64 `json:"createtime"`
+		Name string `json:"name"`
+		Body string `json:"content"`
+		Time int64 `json:"createtime"`
 	}
 
 	m := Message{"Alice", "Hello", 1294706395881547000}
