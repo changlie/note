@@ -24,3 +24,7 @@ func recv(c <-chan int) {
     }
 }
 ```
+
+
+
+> 参考： [Go 只读/只写channel](https://www.cnblogs.com/baiyuxiong/p/4545028.html)
