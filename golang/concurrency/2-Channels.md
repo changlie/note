@@ -37,3 +37,9 @@ func main() {
 	fmt.Println(x, y, x+y)
 }
 ```
+
+> 参考：
+
+[Golang 漫谈之channel妙法](https://juejin.im/entry/5da165c9f265da5b8f107dbf)
+
+[channel的使用场景](https://segmentfault.com/a/1190000017958702)
