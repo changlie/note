@@ -1,4 +1,4 @@
-创建自定义配置文件
+创建自定义配置文件`ssl.cnf`
 ```
 [req]
 distinguished_name = req_distinguished_name
@@ -10,7 +10,7 @@ stateOrProvinceName = province
 localityName = city
 organizationName = company name
 commonName =  domain name or ip
- 
+
 [v3_req]
 subjectAltName = @alt_names
 
