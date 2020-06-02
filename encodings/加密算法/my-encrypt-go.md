@@ -1,6 +1,7 @@
 
 ```golang
 
+
 package main
 
 import (
@@ -39,7 +40,7 @@ func doEncrypt(arg info) {
   inputLen := len(inputBuf)
   keyBuf, randomArr := getKeyBuf4Encrypt(arg.key)
   keyLen := len(arg.key)
-  
+
   // log := make([]string, inputLen, inputLen)
   outBuf := make([]byte, inputLen, inputLen)
   for _, key := range keyBuf {
@@ -100,7 +101,7 @@ func printLog(msgs []string) {
 
 
 func doDecrypt(arg info) {
-  
+
   inputBuf := getInput(arg)
   inputBuf = clearLineSeperator(inputBuf)
   inputBuf = hash.Base64Decode2Byte(inputBuf)
@@ -109,24 +110,24 @@ func doDecrypt(arg info) {
   keyBuf := getKeyBuf(keyBytes)
   randomKeyArr := getRandomKeyArr(keyBytes, randomArr)
   keyBuf = append(keyBuf, randomKeyArr)
-  keyLen := len(keyBytes)
   msgLen := len(inputBuf)
 
 
   // log := make([]string, msgLen, msgLen)
   res := make([]byte, msgLen, msgLen)
   for _, key := range keyBuf {
+    keyLen := len(key)
     for i, b := range inputBuf {
       keyIndex := i % keyLen
       res[i] = b ^ key[keyIndex]
-      
+
       // if keysIndex == 0 {
       //   log[i] += fmt.Sprintf(" %v:", strconv.Itoa(i))
       // }
       // log[i] += fmt.Sprintf("  %s|", string(key[keyIndex]))
     }
   }
-  
+
   // printLog(log)
 
   if arg.is4File() {
@@ -189,6 +190,10 @@ func getRandomKeyArr(keyBytes, randomArr []byte) []byte {
     if i>= keyLen {
       break
     }
+    if index >= byte(keyLen) {
+      randomKeyArr = append(randomKeyArr, 'x')
+      continue
+    }
     randomKeyArr = append(randomKeyArr, keyBytes[index])
   }
   return randomKeyArr
@@ -196,7 +201,7 @@ func getRandomKeyArr(keyBytes, randomArr []byte) []byte {
 
 func getKeyBuf(keyBytes []byte) ([][]byte) {
   length := len(keyBytes)
-  
+
   var res [][]byte
   res = append(res, keyBytes)
 
@@ -259,5 +264,6 @@ func getRandomArr(length int) []byte {
   }
   return arr
 }
+
 
 ```
