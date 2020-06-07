@@ -1,3 +1,5 @@
+> 参考: [ubuntu启动器和dash里应用图标不正常](https://www.cnblogs.com/kylinfish/p/5044624.html)
+
 ### 问题描述
 atom在启动器中的图标显示不正常,显示成了一个问号
 
