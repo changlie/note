@@ -11,7 +11,7 @@ ubuntu中, 启动器与dash上的应用信息是记录在以下两个目录中
 ~/.local/share/applications
 ```
 在这两个目录中找到atom应用的`.desktop`文件  
-把`Icon`配置正确即可
+把`Icon`配置正确即可  
 `atom.desktop`配置前
 ```
 [Desktop Entry]
