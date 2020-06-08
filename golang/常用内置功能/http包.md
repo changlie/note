@@ -1,3 +1,4 @@
+http Method常量定义在文件`net\http\method.go`中  
 http状态码在文件`net\http\status.go`定义   
 错误处理可使用`net\http\server.go`定义好的`func Error(w ResponseWriter, error string, code int)`
 ```golang
