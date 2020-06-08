@@ -358,3 +358,22 @@ func main() {
 ```
 
 </details>
+
+
+<details>
+	<summary> simple server </summary>
+
+```golang
+func simpleServer() {
+	http.HandleFunc("/", mainHandler)
+	log.Fatal(http.ListenAndServe(":8888", nil))
+}
+
+func mainHandler(w http.ResponseWriter,r *http.Request)  {
+	fmt.Println(r.URL)
+
+	fmt.Fprintf(w, "response for %v \n", r.URL)
+}
+```
+
+</details>
