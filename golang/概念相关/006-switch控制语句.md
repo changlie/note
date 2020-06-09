@@ -99,3 +99,37 @@ func main() {
     fmt.Println("6、默认 case")
   }
 ```
+
+### Type switches   对interace{}进行类型判断
+A type switch is a construct that permits several type assertions in series.  
+对interface{}进行一系列类型判断  
+```golang
+switch v := i.(type) {
+case T:
+    // here v has type T
+case S:
+    // here v has type S
+default:
+    // no match; here v has the same type as i
+}
+```
+
+```golang
+func do(i interface{}) {
+	switch v := i.(type) {
+	case int:
+		fmt.Printf("Twice %v is %v\n", v, v*2)
+	case string:
+		fmt.Printf("%q is %v bytes long\n", v, len(v))
+	default:
+		fmt.Printf("I don't know about type %T!\n", v)
+	}
+}
+
+func main() {
+	do(21)
+	do("hello")
+	do(true)
+}
+```
+
