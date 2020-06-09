@@ -36,7 +36,7 @@ case 0:
 case f():
 }
 ```
-does not call f if i==0.)
+does not call f if i==0.)  
 i变量为0时，函数f不会被调用
 ```golang
 import (
