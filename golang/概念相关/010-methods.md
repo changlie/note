@@ -255,10 +255,12 @@ func main() {
 ### Choosing a value or pointer receiver  
 There are two reasons to use a pointer receiver.   
 以下是选择使用指针receiver的两个理由：    
+```
 The first is so that the method can modify the value that its receiver points to.  
 1. 为了让方法可以修改receiver指向的值   
-The second is to avoid copying the value on each method call. This can be more efficient if the receiver is a large struct, for example.     
+The second is to avoid copying the value on each method call. This can be more efficient if the receiver is a large struct, for example. 
 2. 避免每次方法调用都复制一次receiver指向的值。而且当receiver是一个大结构体时，这种方式是更高效的   
+```
 In this example, both Scale and Abs are with receiver type *Vertex, even though the Abs method needn't modify its receiver.    
 下例中，方法`Scale`, `Abs`都是带`*Vertex`类型receiver的，尽管方法`Abs`并没有修改它的receiver   
 In general, all methods on a given type should have either value or pointer receivers, but not a mixture of both. (We'll see why over the next few pages.)     
