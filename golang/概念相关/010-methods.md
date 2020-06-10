@@ -254,7 +254,7 @@ func main() {
 
 ### Choosing a value or pointer receiver  
 There are two reasons to use a pointer receiver.   
-以下是选择使用指针receiver的两个理由： 
+以下是选择使用指针receiver的两个理由：    
 The first is so that the method can modify the value that its receiver points to.  
 1. 为了让方法可以修改receiver指向的值   
 The second is to avoid copying the value on each method call. This can be more efficient if the receiver is a large struct, for example.     
