@@ -1,0 +1,2 @@
+text/template  
+html/template
