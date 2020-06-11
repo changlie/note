@@ -4,7 +4,7 @@ An interface type is defined as a set of method signatures.
 A value of interface type can hold any value that implements those methods.  
 接口的值可以是任何实现了接口方法的类型的值  
 Note: There is an error in the example code on line 22. Vertex (the value type) doesn't implement Abser because the Abs method is defined only on *Vertex (the pointer type).  
-注意： 下例22行有个错误， `Vertex`并不实现`Abser`接口， 因为`Abs`方法定义在 `*Vertex` （指针）类型上
+注意： 下例22行有个错误， `Vertex`并没有实现`Abser`接口， 因为`Abs`方法定义在 `*Vertex` （指针）类型上
 ```golang
 package main
 
