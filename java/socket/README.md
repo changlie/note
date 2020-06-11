@@ -7,10 +7,10 @@
 它与TCP/IP的关系就像windows系统与win32编程接口一样。通过win32编程接口我们可以调用windows系统提供的功能，而通过socket 我们可以实现网络编程。
 
 
-> 参考： https://segmentfault.com/a/1190000014476924
->> https://blog.csdn.net/qq_30270931/article/details/80483124
-
->> https://blog.csdn.net/honghailiang888/article/details/51121257/
+> 参考：   
+https://segmentfault.com/a/1190000014476924  
+https://blog.csdn.net/qq_30270931/article/details/80483124  
+https://blog.csdn.net/honghailiang888/article/details/51121257/  
 
 
 引用：
