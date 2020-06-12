@@ -1,3 +1,4 @@
+```golang
 package main
 
 import (
@@ -96,3 +97,4 @@ func getRelativePath(rootDir, abspath string) string {
     rootDirLen := len(rootDir)
     return abspath[rootDirLen:]
 }
+```
