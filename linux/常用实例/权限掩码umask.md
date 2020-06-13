@@ -2,6 +2,7 @@
 
 权限掩码是用于指定文件,目录创建时的权限默认值的
 > Linux下的etc/profile和etc/bashrc中都有默认的umask设置    
+
 `umask`可以查看与设置权限掩码   
 查看权限掩码
 ```
