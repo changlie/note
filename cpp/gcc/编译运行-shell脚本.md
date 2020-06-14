@@ -41,9 +41,9 @@ done < "${dir}/${mf}.cpp"
 if [ ! -e gen ]; then
   mkdir gen
 fi
-rm -f gen/*
-cp -f `pwd`/header/* gen
-cp -f `pwd`/impl/* gen
+rm -f gen/* &> /dev/null
+cp -f `pwd`/header/* gen &> /dev/null
+cp -f `pwd`/impl/* gen &> /dev/null
 cp -f ${mf}.cpp gen
 
 # echo ${fnames}
