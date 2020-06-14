@@ -20,11 +20,13 @@
 > 函数库一般分为静态库和动态库两种。静态库是指编译链接时，把库文件的代码全部加入到可执行文件中，因此生成的文件比较大，但在运行时也就不再需要库文件 了。其后缀名一般为”.a”。动态库与之相反，在编译链接时并没有把库文件的代码加入到可执行文件中，而是在程序执行时由运行时链接文件加载库，这样可以 节省系统的开销。动态库一般后缀名为”.so”，如前面所述的libc.so.6就是动态库。gcc在编译时默认使用动态库。
 
 ### 常用参数
-- `-E` 只进行预处理,   
+- `-std=<standard>` 指定源码的c++版本, 例如: `-std=c++11`  
+Assume that the input sources are for <standard>
+- `-E` 只进行预处理    
 Preprocess only; do not compile, assemble or link   
 - `-S` 只进行预处理, 编译   
 Compile only; do not assemble or link   
-- `-c` 只进行预处理, 编译, 汇编
+- `-c` 只进行预处理, 编译, 汇编  
 Compile and assemble, but do not link   
 - `-o <file>`  把输出保存到指定文件   
 Place the output into <file>
