@@ -10,7 +10,7 @@ The loop `for i := range c` receives values from the channel repeatedly until it
 Note: Only the sender should close a channel, never the receiver. Sending on a closed channel will cause a panic.
 注意：通道应该被发送者关闭，而不是应该是接收者。向已关闭的通道发生数据会触发运行时异常。   
 Another note: Channels aren't like files; you don't usually need to close them. Closing is only necessary when the receiver must be told there are no more values coming, such as to terminate a range loop.   
-另一个需要注意的是：通道与文件是不同的，通常情况下，你是不需要关闭它们的。 只有接收者必须被告知数据已全部接收完毕时，关闭操作才是必要的。例如终止一个range循环    
+另一个需要注意的是：通道与文件是不同的，通常情况下，你是不需要关闭它们的。 只有接收者必须被告知数据已全部接收完毕时，关闭操作才是必要的。例如终止一个对通道的range循环    
 e.g.
 ```golang
 package main
