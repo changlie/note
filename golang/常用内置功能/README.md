@@ -24,5 +24,22 @@ var v interface{} = u
 if val, ok := v.(Json); ok {
    fmt.Println("type User implement interface Json")
 }
+```
 
+判断是否为Map，Slice，Struct类型
+```golang
+func isSlice(v interface{}) bool {
+	val := reflect.ValueOf(v)
+    return val.Kind() == reflect.Slice
+}
+
+func isMap(v interface{}) bool {
+	val := reflect.ValueOf(v)
+    return val.Kind() == reflect.Map
+}
+
+func isStruct(v interface{}) bool {
+	val := reflect.ValueOf(v)
+	return val.Kind() == reflect.Struct
+}
 ```
