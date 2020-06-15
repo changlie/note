@@ -1,7 +1,7 @@
-The select statement lets a goroutine wait on multiple communication operations.
-
-A select blocks until one of its cases can run, then it executes that case. It chooses one at random if multiple are ready.
-
+The select statement lets a goroutine wait on multiple communication operations.     
+`select`语句允许一个协程可以等待多个通信操作。   
+A select blocks until one of its cases can run, then it executes that case. It chooses one at random if multiple are ready.       
+`select`语句会一直阻塞，直到其中的一个case可以被执行，然后执行相应的case。如果同时多个case可以被执行， 它会随机选择一个case执行。
 
 e.g.
 ```golang
