@@ -21,6 +21,29 @@
 
 语法分析：
 Abstract Syntax Tree
+将词法分析好的token，通过语法分析，把token分析成
+可以被执行的对象。   
+由大到小分别为：
+语句列表（statement list）  
+语句（statement）    
+表达式（expression）  
+
+其中statement分类：
+Expression statement  
+If statement  
+For statement   
+Return statement  
+...
+
+其中expression分类：
+Value expression   
+Identify expression（变量）   
+Assign expression   
+Binary expression（语法树）   
+Function call expression   
+...
+
+
 
 
 
