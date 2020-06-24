@@ -20,10 +20,10 @@
 逐个读取字符，并标记状态，根据当前字符状态与上一个或下一个字符的状态，把一个大字符串分割成一个个token
 
 语法分析：
-Abstract Syntax Tree
+Abstract Syntax Tree   
 将词法分析好的token，通过语法分析，把token分析成
 可以被执行的对象。   
-由大到小分别为：
+由大到小分别为：    
 语句列表（statement list）  
 语句（statement）    
 表达式（expression）  
@@ -43,7 +43,7 @@ Binary expression（语法树）
 Function call expression   
 ...
 
-
+Binary expression在执行之前要先转换成AST
 
 
 
