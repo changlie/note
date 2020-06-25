@@ -45,6 +45,7 @@ Function call expression
 
 Binary expression在执行之前要先转换成AST
 
+归约，因式分解
 
 
 
