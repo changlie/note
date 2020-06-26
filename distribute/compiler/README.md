@@ -24,7 +24,7 @@ Abstract Syntax Tree
 将词法分析好的token，通过语法分析，把token分析成
 可以被执行的对象。   
 由大到小分别为：    
-语句列表（statement list）  
+语句列表（statement list，函数当做语句列表处理）  
 语句（statement）    
 表达式（expression）  
 
@@ -47,6 +47,8 @@ Binary expression在执行之前要先转换成AST
 
 归约，因式分解
 
+通过setjmp()/longjmp()深层次的break,continue,return.   
+它的实现给返回包裹一层返回值类型完成的。异常处理也可以通过这种方式实现
 
 
 
