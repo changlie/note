@@ -13,8 +13,10 @@ Unicode涵盖的数据除了视觉上的字形、编码方法、标准的字符�
 
 图 1 是 Unicode 平面分布图，图 2 是 Unicode 各个平面码点空间。
 ![图1](https://www.ibm.com/developerworks/cn/java/unicode-programming-language/image001.jpg)
+![backup](https://camo.githubusercontent.com/c45f1988586fdb3c1cdaa58c0b793cdd5b822df8/68747470733a2f2f7777772e69626d2e636f6d2f646576656c6f706572776f726b732f636e2f6a6176612f756e69636f64652d70726f6772616d6d696e672d6c616e67756167652f696d6167653030312e6a7067)
 图1
 ![图2](https://www.ibm.com/developerworks/cn/java/unicode-programming-language/image002.jpg)
+![backup2](https://camo.githubusercontent.com/462a9861cb3a3119fbaf615a3757753f8ffc8dd0/68747470733a2f2f7777772e69626d2e636f6d2f646576656c6f706572776f726b732f636e2f6a6176612f756e69636f64652d70726f6772616d6d696e672d6c616e67756167652f696d6167653030322e6a7067)
 图2
 
 
