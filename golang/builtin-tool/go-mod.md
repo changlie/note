@@ -9,6 +9,8 @@ go mod vendor      将依赖复制到vendor下
 go mod verify      校验依赖
 go mod why         解释为什么需要依赖
 ```
+IDE goland要启用go modules 否则相关依赖会报错
+> File > Settings > Go > Go Modules
 
-
-> reference: https://www.cnblogs.com/zhaohaiyu/p/11809394.html
+> reference: https://www.cnblogs.com/zhaohaiyu/p/11809394.html  
+https://zhuanlan.zhihu.com/p/103534192
