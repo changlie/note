@@ -24,7 +24,7 @@ go支持匿名函数。函数字面值是闭包，其继承了定义它的函数
 
 A function literal represents an anonymous function.  
 函数字面值就是匿名函数
-```golang
+```
 FunctionLit = "func" Signature FunctionBody .
 ```
 ```golang

@@ -18,7 +18,7 @@ func Error(w ResponseWriter, error string, code int) {
 A ResponseWriter interface is used by an HTTP handler to construct an HTTP response.  
 ResponseWriter接口用于构造一个http响应
 A ResponseWriter may not be used after the Handler.ServeHTTP method has returned.  
-ResponseWriter可能在handler后不再被使用。
+ResponseWriter可能在handler 返回后不再被使用。
 ```golang
 type ResponseWriter interface {
     // Header returns the header map that will be sent by
