@@ -5,7 +5,7 @@ v, ok := <-ch
 ```
 ok is false if there are no more values to receive and the channel is closed.   
 ok值为false, 表示所有值已接收完毕，通道已关闭。
-The loop `for i := range c` receives values from the channel repeatedly until it is closed.
+The loop `for i := range c` receives values from the channel repeatedly until it is closed.  
 循环表达式`for i := range c`会一直从通道接收值，直到通道被关闭后，退出循环。
 Note: Only the sender should close a channel, never the receiver. Sending on a closed channel will cause a panic.
 注意：通道应该被发送者关闭，而不是应该是接收者。向已关闭的通道发生数据会触发运行时异常。   
