@@ -2,7 +2,7 @@
 
 ## 注意: 使用scp上传下载文件, 不用ssh登录到远程终端.
 
-## 1、从服务器上下载文件
+## 1、从服务器下载文件
 ```
 scp username@servername:/path/filename /var/www/local_dir（本地目录）
 ```

@@ -1,0 +1,300 @@
+<div class="RichContent-inner"><span class="RichText ztext CopyrightRichText-richText css-yvdm7v" options="[object Object]" itemprop="text"><p data-first-child="" data-pid="ZPgvsjRz">寄存器分配有很多做法。当然有可以通过后序遍历表达式树来分配寄存器。</p><p data-pid="gr2Gojl2">引用</p><a href="https://link.zhihu.com/?target=https%3A//courses.cs.washington.edu/courses/cse401/" class=" wrap external" target="_blank" rel="nofollow noreferrer" data-za-detail-view-id="1043">University of Washington CSE401</a><p data-pid="zw1i08-c">里</p><a href="https://link.zhihu.com/?target=https%3A//courses.cs.washington.edu/courses/cse401/13wi/lectures/ra.pdf" class=" wrap external" target="_blank" rel="nofollow noreferrer" data-za-detail-view-id="1043">关于寄存器分配的课件</a><p data-pid="6xH81Wuf">：</p><blockquote data-pid="RwV5okW8">Varieties of register allocation<br><br>Register allocation may be performed at many levels:<br><ul><li data-pid="QLscm9n8">Expression tree<br></li><li data-pid="-pufpbC2">Local (basic block)<br></li><li data-pid="aVODfOCv">Loop<br></li><li data-pid="X_z7psjS">Global (routine)<br></li><li data-pid="wBridn-B">Interprocedural<br></li></ul><br>Global optimization suggests global register allocation.</blockquote><p data-pid="3swmL8KN">在表达式树层面上做寄存器分配是其中比较简单的一种，比local（在基本块内做分配）更弱一些。</p><p data-pid="GPAzCSbW">（这个回答的剩余部分其实并不长，只是列举了两种简易思路以及各自的小变种，文字很少，只是举例用的代码占篇幅多而已。请跟我一起默念三次“文章不长能读下去”然后读到底 &gt;_&lt;）</p><p data-pid="J9hWCZNm">===================================================</p><p data-pid="LQAimF2J">正统的做法大多是global的，例如：</p><ul><li data-pid="GUJOl3nd">图着色（graph coloring）；</li><li data-pid="2PoQnODV">线性扫描（linear-scan）；</li><li data-pid="E71hiHO_">以上两者的一些变种，像是Graph Fusion，Graph Coloring over SSA，Linear-Scan over SSA，Extended Linear Scan，Greedy Linear Scan（LLVM的Greedy<span><a data-za-not-track-link="true" href="https://www.zhihu.com/search?q=%E5%88%86%E9%85%8D%E5%99%A8&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A51935409%7D" target="_blank" class="css-pgtd2j">分配器<svg width="10px" height="10px" viewBox="0 0 15 15" class="css-1dvsrp"><path d="M10.89 9.477l3.06 3.059a1 1 0 0 1-1.414 1.414l-3.06-3.06a6 6 0 1 1 1.414-1.414zM6 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="currentColor"></path></svg></a></span>）；</li><li data-pid="nsmghvHB">以及一些比较新奇或暂时还比较冷门的，例如PBQP、puzzle solving之类，这些都有实现在一些编译器里。还有一些没怎么实现在编译器里的，像是王垠大大提出的Model Transformer Semantics之类。<br></li></ul><p data-pid="lmw1Zm-R">商用的编译到native code的编译器如果不好好做寄存器分配的话那都得是渣渣，不用找借口。</p><p data-pid="ssvNpdOR">渣渣的例子之一是Dalvik VM的JIT编译器：都什么年代了还用奇怪的local heuristic来做分配；而且更搞笑的是采用local heuristic之前其实实现过linear-scan，但是发现效果不好所以在产品里没启用——因为实现得太糟糕了orz</p><a href="https://link.zhihu.com/?target=https%3A//android.googlesource.com/platform/dalvik/%2B/23d95d0%255E%21/" class=" wrap external" target="_blank" rel="nofollow noreferrer" data-za-detail-view-id="1043">Remove vestiges of code intended for linear scan register allocation in the trace compiler.  New plan is to stick with local allocation for traces and build a new linear scan allocator for the method compiler.</a><br><p data-pid="XrMm__pv">========================================================</p><p data-pid="tYGJCRoL">然后有一些从现在的角度看不那么正统的、更为简易的做法。</p><p data-pid="Wuz2vsdY">自己出于学习目的写入门级编译器时，先从简单的做法开始未尝不可。有不少教学用的入门级编译器可以说是跳过了寄存器分配的这一环。</p><p data-pid="Tk7Nl9Tw">这里让我们先从看似简单但不太现实的做法开始，逐步进化到简单又现实的做法。</p><p data-pid="vHYJFQ-V">下面介绍的都是所谓“on-the-fly”寄存器分配的做法，因为它们不需要单独遍历一趟IR，而直接融合在代码生成（code generation）阶段就好了。</p><p data-pid="_KTrcgzg">最简单的就是：不分配！</p><p data-pid="SfhdoXpe">把目标平台提供的通用寄存器都用作特殊用途，而把函数的局部变量和表达式临时值都放在栈帧里。</p><p data-pid="jodkzQpD">就算目标平台的ABI要求的调用约定（calling convention）是通过寄存器来传递参数和返回值也没关系：在函数入口的地方就把所有通过寄存器传递的参数都存到栈上，然后在临返回之前把返回值读到返回用的寄存器里。</p><p data-pid="dD_2VweS">用一个例子来说明这种做法的效果：</p><div class="highlight"><pre><code class="language-c"><span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">,</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">e</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">d</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">e</span> <span class="o">+</span> <span class="n">d</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div><p data-pid="ipxQp6g0">这个函数有一个基本块，其中有两个语句，也就是说有两棵表达式树（每个语句有一棵）。</p><p data-pid="K1G8yxov">让我们把后序遍历表达式树的过程表现为线性代码，那么对应的遍历过程可以是：</p><div class="highlight"><pre><code class="language-c"><span class="c1">// int e = a * b + c * d;
+</span><span class="c1"></span><span class="n">_t0</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+<span class="n">_t1</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">d</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">_t0</span> <span class="o">+</span> <span class="n">_t1</span>
+<span class="c1">// return e + d;
+</span><span class="c1"></span><span class="n">_t0</span> <span class="o">=</span> <span class="n">e</span> <span class="o">+</span> <span class="n">d</span>
+<span class="k">return</span> <span class="n">_t0</span></code></pre></div><p data-pid="nfbual4i">其中_t开头的是计算表达式所产生的临时值。</p><p data-pid="azV6AhpM">语句之间可以复用临时变量，因为临时变量的生命期仅在一棵<span><a data-za-not-track-link="true" href="https://www.zhihu.com/search?q=%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A0%91&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A51935409%7D" target="_blank" class="css-pgtd2j">表达式树<svg width="10px" height="10px" viewBox="0 0 15 15" class="css-1dvsrp"><path d="M10.89 9.477l3.06 3.059a1 1 0 0 1-1.414 1.414l-3.06-3.06a6 6 0 1 1 1.414-1.414zM6 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="currentColor"></path></svg></a></span>内，而表达式树不会跨越语句的边界。所以上面例子提到的_t0、_t1这些临时变量都可以复用。</p><p data-pid="G5V_wOTF">如果我们把这个函数里出现的所有具名参数、局部变量，以及匿名的临时值，都划分到栈帧的固定位置上，那我们就可以得到这样的栈帧：</p><div class="highlight"><pre><code class="language-text"> sp -&gt; -56 [ tmp 1: _t1     ] ^ (lower address)
+       -48 [ tmp 0: _t0     ] |
+       -40 [ loc 0: e       ] |
+       -32 [ spill arg 3: d ] |
+       -24 [ spill arg 2: c ] | stack growth
+       -16 [ spill arg 1: b ] |
+       -8  [ spill arg 0: a ] |
+ fp -&gt; +0  [ old fp         ] |  
+       +8  [ return address ] | (higher address)
+</code></pre></div><p data-pid="Wh0tuNVp">（这里偷个懒用固定8字节宽的stack slot，无论是4字节还是8字节宽的值都占用一个slot）</p><p data-pid="r_WHP1k5">假定我们要遵循Linux x86-64的ABI（System V AMD64 ABI），那么传入的头4个整型参数会从寄存器RDI、RSI、RDX、RCX传入，而返回值会从RAX传出。</p><p data-pid="awAzWVPf">那么上述线性代码就可以生成为下面的伪代码：</p><div class="highlight"><pre><code class="language-c">  <span class="c1">// register usage:
+</span><span class="c1"></span>  <span class="c1">// rbp: frame pointer
+</span><span class="c1"></span>  <span class="c1">// rsp: stack pointer
+</span><span class="c1"></span>  <span class="c1">// arguments: rdi, rsi, rdx, rcx
+</span><span class="c1"></span>  <span class="c1">// temporary register: rax
+</span><span class="c1"></span>  <span class="c1">// return: rax
+</span><span class="c1"></span>
+  <span class="c1">// function prologue: frame setup
+</span><span class="c1"></span>  <span class="n">push</span> <span class="n">rbp</span>          <span class="c1">// save old fp
+</span><span class="c1"></span>  <span class="n">rbp</span> <span class="o">=</span> <span class="n">rsp</span>         <span class="c1">// set up new fp
+</span><span class="c1"></span>  <span class="n">rsp</span> <span class="o">-=</span> <span class="mi">56</span>         <span class="c1">// allocate new stack frame: 7 slots * 8 bytes per slot
+</span><span class="c1"></span>  <span class="c1">// spill incoming arguments from registers to stack
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">8</span><span class="p">]</span>  <span class="o">=</span> <span class="n">rdi</span>  <span class="c1">// spill a
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="n">rsi</span>  <span class="c1">// spill b
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">24</span><span class="p">]</span> <span class="o">=</span> <span class="n">rdx</span>  <span class="c1">// spill c
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">32</span><span class="p">]</span> <span class="o">=</span> <span class="n">rcx</span>  <span class="c1">// spill d
+</span><span class="c1"></span>
+  <span class="c1">// expression tree for:
+</span><span class="c1"></span>  <span class="c1">//  int e = a * b + c * d;
+</span><span class="c1"></span>
+  <span class="c1">// _t0 = a * b
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">8</span><span class="p">]</span>   <span class="c1">// load a into temp register
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">*=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">16</span><span class="p">]</span> <span class="c1">// load b and multiply to temp register
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">48</span><span class="p">]</span> <span class="o">=</span> <span class="n">eax</span>  <span class="c1">// store temp to stack _t0
+</span><span class="c1"></span>
+  <span class="c1">// _t1 = c * d
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">24</span><span class="p">]</span>  <span class="c1">// load c into temp register
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">*=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">32</span><span class="p">]</span> <span class="c1">// load d and multiply to temp register
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">56</span><span class="p">]</span> <span class="o">=</span> <span class="n">eax</span>  <span class="c1">// store temp to stack: _t1
+</span><span class="c1"></span>
+  <span class="c1">// e = _t0 + _t1
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">48</span><span class="p">]</span>  <span class="c1">// load _t0 into temp register
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">+=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">56</span><span class="p">]</span> <span class="c1">// load _t1 and add to temp register
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">40</span><span class="p">]</span> <span class="o">=</span> <span class="n">eax</span>  <span class="c1">// store temp to stack: e
+</span><span class="c1"></span>
+  <span class="c1">// expression tree for:
+</span><span class="c1"></span>  <span class="c1">//   return e + d;
+</span><span class="c1"></span>
+  <span class="c1">// _t0 = e + d
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">40</span><span class="p">]</span>  <span class="c1">// load e into temp register
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">+=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">32</span><span class="p">]</span> <span class="c1">// load d and add to temp register
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">48</span><span class="p">]</span> <span class="o">=</span> <span class="n">eax</span>  <span class="c1">// store temp to stack: _t0
+</span><span class="c1"></span>
+  <span class="c1">// return _t0
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">48</span><span class="p">]</span>  <span class="c1">// load _t0 into return register
+</span><span class="c1"></span>
+  <span class="c1">// function epilogue: tear down frame
+</span><span class="c1"></span>  <span class="n">rsp</span> <span class="o">=</span> <span class="n">rbp</span>         <span class="c1">// deallocate stack frame
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rbp</span>           <span class="c1">// restore old frame pointer
+</span><span class="c1"></span>  <span class="k">return</span></code></pre></div><p data-pid="hZ8utXxd">这样我们就可以完全不关心寄存器分配的问题，只要计算好栈帧布局，把参数、局部变量和临时值都放进去，就完事了。</p><p data-pid="2W3oDvCC">当然，上面生成的代码有些冗余，其中部分可以通过窥孔优化（peephole optimization）来消除。</p><p data-pid="2LHUT7QM">例如说我们特意选择使用RAX作为临时寄存器，而它同时也是返回值寄存器。所以在return _t0的时候，我们知道RAX其实还持有_t0的值，所以最后返回前的那个拷贝（eax = _t0）就可以消除掉。</p><p data-pid="oNL2jbDz">上面例子所使用的思路可以概括为“基于虚拟寄存器”：每个变量（包括参数、局部变量和临时值）都看作一个“虚拟寄存器”。</p><p data-pid="9UCbbhKe">虚拟寄存器映射到实际寄存器最简单的办法就是“不映射”——而是把每个虚拟寄存器都分配到栈帧上的一个slot里。外加把一个或多个实际寄存器固定分配为“临时寄存器”，在做实际运算时把虚拟寄存器的内容从栈帧的stack slot里读到临时寄存器，在临时寄存器上完成运算，然后再把结果保存回到栈帧上的虚拟寄存器里，代码生成完成了。</p><p data-pid="4zrK7VZ9">========================================================</p><p data-pid="ouWCurT_">自然的，既然我们都用上“虚拟寄存器”这个词了，为何不把它们（至少其中一些）映射到实际寄存器上呢？</p><p data-pid="AyYY5u-J">这就衍生出一种非常简单的寄存器分配策略：把临时变量分配到实际寄存器上。这里的假设是：表达式求值是频繁的操作，其中间结果应该尽量停留在实际寄存器里，这样就已经能提升代码性能了。</p><p data-pid="AwipvshE">上文已经提到，从表达式树生成出来的临时变量的生命期仅限于表达式树内；它们可以在语句间复用。所以这种分配思路就是一种在表达式树层面上做的寄存器分配。</p><p data-pid="3VroBDWA">这种思路下最简单的分配策略就是挑选若干个实际寄存器，把临时变量的头几个固定映射到这些寄存器上。</p><p data-pid="kX4tjKWE">假如我们用以下的固定映射：</p><div class="highlight"><pre><code class="language-text">_t0 =&gt; rcx
+_t1 =&gt; rdi
+_t2 =&gt; rsi
+...</code></pre></div><p data-pid="V61lPYzH">并且还是保留RAX作为临时寄存器，那么前面例子中的int e = a * b + c * d;就可以生成为：</p><div class="highlight"><pre><code class="language-text">  // _t0 = a * b
+  eax = [rbp - 8]   // load a into temp register
+  eax *= [rbp - 16] // load b and multiply to temp register
+  ecx = eax         // move temp to _t0
+
+  // _t1 = c * d
+  eax = [rbp - 24]  // load c into temp register
+  eax *= [rbp - 32] // load d and multiply to temp register
+  edi = eax         // move temp to _t1
+
+  // e = _t0 + _t1
+  eax = ecx         // move _t0 into temp register
+  eax += edi        // add _t1 to temp register
+  [rbp - 40] = eax  // store temp to stack: e</code></pre></div><p data-pid="aNmwJOhT">可以看到：</p><ul><li data-pid="21aq7cmR">之前把虚拟寄存器完全映射到栈上时，这棵表达式树有6次内存读，3次内存写，0次寄存器间移动（register shuffling）；<br></li><li data-pid="ro8xvS4Q">而把临时变量映射到固定寄存器上之后，就只有4次内存读，1次内存写，3次寄存器间移动了。<br></li></ul><p data-pid="ImLTX0H2">这样性能就已经比把虚拟寄存器完全映射到栈帧上要好了。</p><p data-pid="s0jA4yTp">把上面的foo()例子交给GCC 4.9.2做-O0编译，得到的代码是（Intel语法）：</p><div class="highlight"><pre><code class="language-text">// stack frame layout:
+//       -32 [ spilled d     ]
+//       -28 [ spilled c     ]
+//       -24 [ spilled b     ]
+//       -20 [ spilled a     ]
+//       ...
+//       -4  [ local   e     ]
+// fp -&gt; +0  [ old fp        ]
+//       +8  [ return address]
+
+foo(int, int, int, int):
+  // function prologue: setup frame
+  push	rbp
+  mov	rbp, rsp
+  // spill incoming arguments onto stack
+  mov	DWORD PTR [rbp-20], edi // a
+  mov	DWORD PTR [rbp-24], esi // b
+  mov	DWORD PTR [rbp-28], edx // c
+  mov	DWORD PTR [rbp-32], ecx // d
+
+  // expression tree for:
+  //  int e = a * b + c * d;
+
+  // _t0 = a * b
+  mov	eax, DWORD PTR [rbp-20]
+  imul	eax, DWORD PTR [rbp-24]
+  mov	edx, eax
+
+  // _t1 = c * d
+  mov	eax, DWORD PTR [rbp-28]
+  imul	eax, DWORD PTR [rbp-32]
+
+  // e = _t0 + _t1
+  add	eax, edx
+  mov	DWORD PTR [rbp-4], eax
+
+  // expression tree for:
+  //   return e + d;
+
+  // _t0 = e + d
+  mov	edx, DWORD PTR [rbp-4]  // e
+  mov	eax, DWORD PTR [rbp-32] // d
+  add	eax, edx
+
+  // function epilogue: tear down frame
+  pop	rbp
+  ret
+</code></pre></div><p data-pid="PkORgmKC">跟上述的简单映射方式得到的代码质量也差不多了。</p><p data-pid="E1TKDtWy">只看int e = a * b + c * d;的部分，GCC在-O0生成的代码用了4次内存读，1次内存写，1次寄存器间移动，略好于上面的简单映射法。</p><p data-pid="XnLKNjvZ">读到这里，如果再去看另一个问题应该就不会觉得陌生了：</p><a href="http://www.zhihu.com/question/30781172/answer/49494540" class="internal">Visual C++ 6以debug模式编译很拙笨，为何要做无用功？ - RednaxelaFX 的回答</a><br><br><p data-pid="OaLbS2zw">========================================================</p><p data-pid="8Cmz-Tta">在“基于虚拟寄存器”+“固定映射临时变量”的基础上，还可以进一步做一些改进：</p><ul><li data-pid="7wPPiI3A">尽可能把可用的实际寄存器都映射给临时变量；</li><li data-pid="CTEdYLst">如果在一个基本块里，临时变量并没有消耗完所有可用的实际寄存器，那么可以把一些局部变量也映射到寄存器上。映射策略可以用“先到先得、轮询分配”，也可以用“使用频度高者优先”，等等；</li><li data-pid="pREMfC_-">上一点可以进一步扩展到整个函数里；</li><li data-pid="E_f1I8Dy">…</li></ul><p data-pid="anTTQyNF">再要往上提高性能，如果继续沿着这种小补小改的做法走下去就可能会代码越来越混乱，夹杂着各种随意（ad-hoc）的局部小优化。所以再要继续下去还是转用本文开头说的那些正统算法比较好。</p><p data-pid="pFxjpRSo">========================================================</p><p data-pid="VsIgG2Ra">既然提到了“基于虚拟寄存器”的思路，接下来就该说说与其相对的另一种思路：“基于（表达式）栈”。</p><p data-pid="dowtusZI">所谓“表达式栈”就是用来存放表达式临时值的地方。“基于虚拟寄存器”的做法是给每个临时值都赋予一个“临时变量”的名字；而“基于表达式栈”则不赋予“临时变量”的名，总是通过栈来隐式操作临时值。</p><p data-pid="KSMptmq3">在这种思路下，我们还是可以把参数和局部变量都固定放在栈帧上，然后在栈帧里找块地方当作“表达式栈”来用。</p><p data-pid="wPIYsXV3">JVM以及不少高级语言虚拟机的字节码设计就是照这个思路走的。</p><p data-pid="AvZbtLQ-">以JVM字节码为例，它就是把局部变量和表达式临时值都放在栈帧里；其中局部变量放在栈帧的局部变量区（local variable area）里，而表达式临时值则放在栈帧的“操作数栈”（operand stack）或者叫“表达式栈”（expression stack）里。</p><p data-pid="REoT4enZ">要看图解的话，请参考</p><a href="https://link.zhihu.com/?target=http%3A//www.valleytalk.org/wp-content/uploads/2011/05/Java_Program_in_Action_20110727.pdf" class=" wrap external" target="_blank" rel="nofollow noreferrer">我之前做的一份讲义</a><p data-pid="jEBLvLhg">，从第76页开始的部分。</p><p data-pid="Qc4gRJdj">关于Java源码与JVM字节码的对应关系，我在另一个回答里举过些例子：</p><a href="http://www.zhihu.com/question/27831730/answer/38266643" class="internal">如何理解ByteCode、IL、汇编等底层语言与上层语言的对应关系？ - RednaxelaFX 的回答</a><br><p data-pid="AlkFD5Ez">继续用前面的代码来举例，我们可以看看这种思路的最基本实现是怎样的。</p><p data-pid="JbkwBijQ">首先，把后序遍历表达式树的结果从下面的线性代码来表示。这其实就是逆波兰记法（Reverse-Polish Notation）。</p><p data-pid="dx6mfao5">注释里是完成该语句后表达式栈里的内容，右边表示栈顶：</p><div class="highlight"><pre><code class="language-text">                   // expression stack:
+                   // [ ]
+
+// int e = a * b + c * d;
+
+load a             // [ a ]
+load b             // [ a, b ]
+mul                // [ _t0 ]      // _t0 = a * b
+
+load c             // [ _t0, c ]
+load d             // [ _t0, c, d ]
+mul                // [ _t0, _t1 ] // _t1 = c * d
+
+add                // [ _t2 ]      // _t2 = _t0 + _t1
+
+store e            // [ ]          // e = _t2
+
+// return e + d;
+
+load e             // [ e ]
+load d             // [ e, d ]
+add                // [ _t0 ]      // _t0 = e + d
+return             // [ ]          // return _t0</code></pre></div><p data-pid="uiRM-icp">清楚可见语句之间表达式栈会是空的。这个例子里表达式栈最大深度为3。</p><p data-pid="1fzdyVIK">表达式栈比起虚拟寄存器有个有趣的好处：前者明确的表达了临时值的生命期有多长——还在表达式栈上的临时值就是活的，离开了表达式栈就死掉了；后者则没有把这种信息直接表达出来，如果要知道临时值的生命期还得另外计算和记录。</p><p data-pid="y80c7WGw">然后让我们用最简单的方式生成代码。先是计算栈帧布局，跟之前的做法类似：</p><div class="highlight"><pre><code class="language-text">                                (lower address)
+       -64 [                ] ^ \ 
+       -56 [                ] | | reserved for expression stack
+       -48 [... exp stack...] | /
+ sp -&gt; -40 [ loc 0: e       ] |
+       -32 [ spill arg 3: d ] |
+       -24 [ spill arg 2: c ] | stack growth
+       -16 [ spill arg 1: b ] |
+       -8  [ spill arg 0: a ] |
+ fp -&gt; +0  [ old fp         ] |  
+       +8  [ return address ] | (higher address)
+
+// 4 spill slots, 1 local slot, max operand stack depth 3</code></pre></div><p data-pid="0jZiFlkm">然后用RAX和RDX作为固定的临时寄存器，按照Linux x86-64 ABI生成出来的代码就是（伪代码）：</p><div class="highlight"><pre><code class="language-c">  <span class="c1">// register usage:
+</span><span class="c1"></span>  <span class="c1">// rbp: frame pointer
+</span><span class="c1"></span>  <span class="c1">// rsp: stack pointer
+</span><span class="c1"></span>  <span class="c1">// arguments: rdi, rsi, rdx, rcx
+</span><span class="c1"></span>  <span class="c1">// temporary register: rax, rdx
+</span><span class="c1"></span>  <span class="c1">// return: rax
+</span><span class="c1"></span>
+  <span class="c1">// function prologue: frame setup
+</span><span class="c1"></span>  <span class="n">push</span> <span class="n">rbp</span>          <span class="c1">// save old fp
+</span><span class="c1"></span>  <span class="n">rbp</span> <span class="o">=</span> <span class="n">rsp</span>         <span class="c1">// set up new fp
+</span><span class="c1"></span>  <span class="n">rsp</span> <span class="o">-=</span> <span class="mi">40</span>         <span class="c1">// allocate new stack frame: 5 slots * 8 bytes per slot
+</span><span class="c1"></span>  <span class="c1">// spill incoming arguments from registers to stack
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">8</span><span class="p">]</span>  <span class="o">=</span> <span class="n">rdi</span>  <span class="c1">// spill a
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="n">rsi</span>  <span class="c1">// spill b
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">24</span><span class="p">]</span> <span class="o">=</span> <span class="n">rdx</span>  <span class="c1">// spill c
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">32</span><span class="p">]</span> <span class="o">=</span> <span class="n">rcx</span>  <span class="c1">// spill d
+</span><span class="c1"></span>
+  <span class="c1">// expression tree for:
+</span><span class="c1"></span>  <span class="c1">//  int e = a * b + c * d;
+</span><span class="c1"></span>
+  <span class="c1">// load a
+</span><span class="c1"></span>  <span class="n">push</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">8</span><span class="p">]</span>    <span class="c1">// push a onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// load b
+</span><span class="c1"></span>  <span class="n">push</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">16</span><span class="p">]</span>   <span class="c1">// push b onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// mul
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rdx</span>           <span class="c1">// pop rhs to temp register rdx
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rax</span>           <span class="c1">// pop lhs to temp register rax
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">*=</span> <span class="n">edx</span>        <span class="c1">// do mul
+</span><span class="c1"></span>  <span class="n">push</span> <span class="n">rax</span>          <span class="c1">// push result onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// load c
+</span><span class="c1"></span>  <span class="n">push</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">24</span><span class="p">]</span>   <span class="c1">// push c onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// load d
+</span><span class="c1"></span>  <span class="n">push</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">32</span><span class="p">]</span>   <span class="c1">// push d onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// mul
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rdx</span>           <span class="c1">// pop rhs to temp register rdx
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rax</span>           <span class="c1">// pop lhs to temp register rax
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">*=</span> <span class="n">edx</span>        <span class="c1">// do mul
+</span><span class="c1"></span>  <span class="n">push</span> <span class="n">rax</span>          <span class="c1">// push result onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// add
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rdx</span>           <span class="c1">// pop rhs to temp register rdx
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rax</span>           <span class="c1">// pop lhs to temp register rax
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">+=</span> <span class="n">edx</span>        <span class="c1">// do add
+</span><span class="c1"></span>  <span class="n">push</span> <span class="n">rax</span>          <span class="c1">// push result onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// store e
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">40</span><span class="p">]</span>    <span class="c1">// pop top of expression stack to e
+</span><span class="c1"></span>
+  <span class="c1">// expression tree for:
+</span><span class="c1"></span>  <span class="c1">//   return e + d;
+</span><span class="c1"></span>
+  <span class="c1">// load e
+</span><span class="c1"></span>  <span class="n">push</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">24</span><span class="p">]</span>   <span class="c1">// push c onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// load d
+</span><span class="c1"></span>  <span class="n">push</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">32</span><span class="p">]</span>   <span class="c1">// push d onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// add
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rdx</span>           <span class="c1">// pop rhs to temp register rdx
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rax</span>           <span class="c1">// pop lhs to temp register rax
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">*=</span> <span class="n">edx</span>        <span class="c1">// do add
+</span><span class="c1"></span>  <span class="n">push</span> <span class="n">rax</span>          <span class="c1">// push result onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// return
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rax</span>           <span class="c1">// pop top of expression stack to return register
+</span><span class="c1"></span>
+  <span class="c1">// function epilogue: tear down frame
+</span><span class="c1"></span>  <span class="n">rsp</span> <span class="o">=</span> <span class="n">rbp</span>         <span class="c1">// deallocate stack frame
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rbp</span>           <span class="c1">// restore old frame pointer
+</span><span class="c1"></span>  <span class="k">return</span>
+</code></pre></div><p data-pid="1n7Xb1xe">如果只看int e = a * b + c * d;的部分，这种做法用了10次内存读，8次内存写，0次寄存器间移动。push mem是1读1写，push reg是1写，pop mem是1读1写，pop reg是1读。</p><p data-pid="phwIviI5">…看起来有点糟糕？比之前“基于虚拟寄存器”的做法糟糕多了？</p><p data-pid="dINN5Jsn">这里显得很糟糕是因为x86的运算指令本质上还是倾向于使用寄存器的，不接受两个操作数都是内存操作数的形式，更没有内建的指令能直接把栈顶两个数弹出-&gt;做运算-&gt;压回栈顶，所以这里需要用临时寄存器来模拟一下，看起来就“糟糕”了。</p><p data-pid="Clc50kp_">另外我上面生成的代码严格保持了操作数的顺序。如果应用上整数的加法和乘法满足<span><a data-za-not-track-link="true" href="https://www.zhihu.com/search?q=%E4%BA%A4%E6%8D%A2%E5%BE%8B&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A51935409%7D" target="_blank" class="css-pgtd2j">交换律<svg width="10px" height="10px" viewBox="0 0 15 15" class="css-1dvsrp"><path d="M10.89 9.477l3.06 3.059a1 1 0 0 1-1.414 1.414l-3.06-3.06a6 6 0 1 1 1.414-1.414zM6 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="currentColor"></path></svg></a></span>，就可以把运算部分的代码略微简化。例如add的部分就可以变成：</p><div class="highlight"><pre><code class="language-c">  <span class="c1">// add
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rax</span>           <span class="c1">// pop rhs to temp register rax
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rsp</span> <span class="o">+</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">eax</span>  <span class="c1">// load lhs, do add, and store back to stack top
+</span></code></pre></div><p data-pid="ZvNdNJ8w">但是从内存读写次数看这跟原先的版本没任何区别。</p><p data-pid="dmqJGzSe">别着急，接下来稍做改进就好了。</p><p data-pid="TGGhs0lg">========================================================</p><p data-pid="GWPgwhDx">在最原始的“基于表达式栈”的基础上有两个变种，都是利用“栈顶缓存”（top-of-stack caching，简称stack-caching，或者TOSCA——Top-Of-Stack-CAching）的思路：</p><ul><li data-pid="ijkhSMa2">单状态栈顶缓存（1-top-of-stack caching，简称1-TOSCA）</li><li data-pid="QBCVLOXm">多状态栈顶缓存（n-top-of-stack caching，简称n-TOSCA）</li></ul><p data-pid="JU0ww16e">先看单状态栈顶缓存。这个思路是：总是把表达式栈的栈顶值放在一个实际寄存器里；如果表达式栈有多于一个值，则其余部分分配在栈帧上。</p><p data-pid="KiF5Zq3I">假如把RAX用作缓存表达式栈顶值的寄存器，那么上面的例子可以变成：（只看第一个语句的部分）</p><div class="highlight"><pre><code class="language-c">  <span class="c1">// expression tree for:
+</span><span class="c1"></span>  <span class="c1">//  int e = a * b + c * d;
+</span><span class="c1"></span>
+  <span class="c1">// load a
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">8</span><span class="p">]</span>   <span class="c1">// push a onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// load b
+</span><span class="c1"></span>  <span class="n">push</span> <span class="n">rax</span>
+  <span class="n">eax</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">16</span><span class="p">]</span>  <span class="c1">// push b onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// mul
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rdx</span>           <span class="c1">// pop lhs to temp register rdx
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">*=</span> <span class="n">edx</span>        <span class="c1">// do mul
+</span><span class="c1"></span>
+  <span class="c1">// load c
+</span><span class="c1"></span>  <span class="n">push</span> <span class="n">rax</span>
+  <span class="n">eax</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">24</span><span class="p">]</span>  <span class="c1">// push c onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// load d
+</span><span class="c1"></span>  <span class="n">push</span> <span class="n">rax</span>
+  <span class="n">eax</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">32</span><span class="p">]</span>  <span class="c1">// push d onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// mul
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rdx</span>           <span class="c1">// pop lhs to temp register rdx
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">*=</span> <span class="n">edx</span>        <span class="c1">// do mul
+</span><span class="c1"></span>
+  <span class="c1">// add
+</span><span class="c1"></span>  <span class="n">pop</span> <span class="n">rdx</span>           <span class="c1">// pop lhs to temp register rdx
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">+=</span> <span class="n">edx</span>        <span class="c1">// do add
+</span><span class="c1"></span>
+  <span class="c1">// store e
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">40</span><span class="p">]</span> <span class="o">=</span> <span class="n">eax</span>  <span class="o">//</span> <span class="n">pop</span> <span class="n">top</span> <span class="n">of</span> <span class="n">expression</span> <span class="n">stack</span> <span class="n">to</span> <span class="nl">stack</span><span class="p">:</span> <span class="n">e</span></code></pre></div><p data-pid="327BCcrE">有没有比原始版清爽多了？这个1-TOSCA版的int e = a * b * c * d;用了7次内存读，4次内存写，0次寄存器间移动，比原始版略有改进。</p><p data-pid="2-X4o74a">仔细看上面这段代码，可以发现在原始版里每次要把一个值压入表达式栈都是直接用push指令，而在这个版本里则是第一次（当表达式栈还是空的时候）压入时直接move到RAX里，等到要压入下一个值时才用push指令把当前在RAX里的值压到在栈帧里的表达式栈，然后下一个值move到RAX里。这就是栈顶缓存的体现。</p><p data-pid="e4G4OeMc">有不少简单的编译器都会选用这种设计，因为它简单实用：基于表达式栈的代码生成方式与表达式树的后序遍历可以轻松结合起来，实现简单；而通过栈顶缓存又可以让实际生成的代码利用上（少量）寄存器，还算实用。</p><a href="https://link.zhihu.com/?target=http%3A//www.loveruby.net/" class=" wrap external" target="_blank" rel="nofollow noreferrer">青木峰郎</a><p data-pid="LsaD-GHK">的编译器书</p><a href="https://link.zhihu.com/?target=http%3A//book.douban.com/subject/4117971/" class=" wrap external" target="_blank" rel="nofollow noreferrer">「ふつうのコンパイラをつくろう」</a><p data-pid="4uChjnwh">所讲述的</p><a href="https://link.zhihu.com/?target=https%3A//github.com/aamine/cbc" class=" wrap external" target="_blank" rel="nofollow noreferrer">C♭</a><p data-pid="GKUYp4rp">（读作C-flat）编译器用的就是这种1-TOSCA设计。</p><a href="https://link.zhihu.com/?target=https%3A//www.coursera.org/course/compilers" class=" wrap external" target="_blank" rel="nofollow noreferrer">斯坦福的编译器入门课（CS143）</a><p data-pid="M-3Pphht">教的入门编译器也是用1-TOSCA的设计。关于这个课请参考我另一个回答：</p><a href="http://www.zhihu.com/question/28679215/answer/43883727" class="internal">斯坦福大学编译原理课程质量怎么样？ - RednaxelaFX 的回答</a><p data-pid="xbQ-Loxs">这两者都把缓存栈顶值的寄存器称为“累加器”（accumulator）。在斯坦福编译器课Coursera版的</p><a href="https://link.zhihu.com/?target=https%3A//d2bk0s8yylvsxl.cloudfront.net/stanford-compilers/slides/11-06-stack-machines.pdf" class=" wrap external" target="_blank" rel="nofollow noreferrer">11-06</a><p data-pid="9fZtiObM">第7页开始的地方提到了top-of-stack caching，并提到1-TOSCA的那个缓存用寄存器叫做累加器。</p><p data-pid="kKKjzMXU">历史上确实存在过</p><a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Accumulator_%28computing%29%23Accumulator_machines" class=" wrap external" target="_blank" rel="nofollow noreferrer">“累加器计算机”</a><p data-pid="-fjKzNfk">，这里说的“累加器”可以说是从那种老式机器传承下来的叫法。有趣的是，x86家族里AX系列寄存器（AX / EAX / RAX）的“A”就是累加器的意思，暗示着这个寄存器原本的设计用途。</p><p data-pid="DScMlR1w">我的一个老帖里提到过累加器式的指令集与基于寄存器/基于栈的指令集之间的关系：</p><a href="https://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/blog/492667" class=" wrap external" target="_blank" rel="nofollow noreferrer">虚拟机随谈（一）：解释器，树遍历解释器，基于栈与基于寄存器，大杂烩</a><br><p data-pid="01TKpjjX">微软为研究目的公开的</p><a href="https://link.zhihu.com/?target=http%3A//www.microsoft.com/en-us/download/details.aspx%3Fid%3D4917" class=" wrap external" target="_blank" rel="nofollow noreferrer">Shared Source Common Language Infrastructure（SSCLI）</a><p data-pid="euWb-ePW">里带的JIT编译器，FJIT，也使用这种代码生成方式。关于FJIT的血缘，请参考：</p><a href="http://zhuanlan.zhihu.com/hllvm/19954031" class="internal">JIT编译器杂谈#1：JIT编译器的血缘（一） - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a><br><br><p data-pid="u5wRkHwZ">TOSCA在许多解释器中也相当流行。HotSpot VM、Strongtalk VM家族都是用1-TOSCA的。</p><p data-pid="GwSjYVRP">我在这里之所以用“TOSCA”这种缩写方式就是因为HotSpot VM的源码里是这么写的。</p><p data-pid="AJcTIUwn">以前写过一个笔记对比了HotSpot VM与Dalvik VM的解释器，前者是用1-TOSCA方式实现基于表达式栈的指令集（JVM<span><a data-za-not-track-link="true" href="https://www.zhihu.com/search?q=%E5%AD%97%E8%8A%82%E7%A0%81&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A51935409%7D" target="_blank" class="css-pgtd2j">字节码<svg width="10px" height="10px" viewBox="0 0 15 15" class="css-1dvsrp"><path d="M10.89 9.477l3.06 3.059a1 1 0 0 1-1.414 1.414l-3.06-3.06a6 6 0 1 1 1.414-1.414zM6 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="currentColor"></path></svg></a></span>），后者是用全部映射到栈帧上的方式实现基于虚拟寄存器的指令集（Dalvik字节码），如果抛去解释器的固有开销（fetch-dispatch），只看执行逻辑的话，其实两者差不了多少：</p><a href="https://link.zhihu.com/?target=https%3A//gist.github.com/759495/4c24eec4b05312e2043407e07fa205c55c40f8a7" class=" wrap external" target="_blank" rel="nofollow noreferrer">A code snippet to show some relationship between JVM/HotSpot's and Dalvik's interpreter</a><br><br><p data-pid="KFb9fw7Z">========================================================</p><p data-pid="o4quyn9N">多状态栈顶缓存有几种不同的做法。让我们就前面的例子看看3-TOSCA的版本可以是怎样的。</p><p data-pid="ifxsm1E6">假设我们用的变种是这样的：</p><p data-pid="Vj9O_RLS">表达式栈深度为0时：压栈 =&gt; 移至RAX，到达深度为1状态</p><p data-pid="aNxNtns_">表达式栈深度为1时：压栈 =&gt; 移至RDX，到达深度为2状态</p><p data-pid="2VfK0rY1">表达式<span><a data-za-not-track-link="true" href="https://www.zhihu.com/search?q=%E6%A0%88%E6%B7%B1%E5%BA%A6&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A51935409%7D" target="_blank" class="css-pgtd2j">栈深度<svg width="10px" height="10px" viewBox="0 0 15 15" class="css-1dvsrp"><path d="M10.89 9.477l3.06 3.059a1 1 0 0 1-1.414 1.414l-3.06-3.06a6 6 0 1 1 1.414-1.414zM6 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="currentColor"></path></svg></a></span>为2时：压栈 =&gt; 移至RCX，到达深度为3状态</p><p data-pid="OtxPecQb">后面的状态因为例子用不到所以留给大家作为课后作业 &gt;_&lt;</p><p data-pid="UDJdc16N">使用这种代码生成策略，再来看int e = a * b + c * d;的例子：</p><div class="highlight"><pre><code class="language-c">  <span class="c1">// expression tree for:
+</span><span class="c1"></span>  <span class="c1">//  int e = a * b + c * d;
+</span><span class="c1"></span>
+  <span class="c1">// load a
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">8</span><span class="p">]</span>   <span class="c1">// push a onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// load b
+</span><span class="c1"></span>  <span class="n">edx</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">16</span><span class="p">]</span>  <span class="c1">// push b onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// mul
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">*=</span> <span class="n">edx</span>        <span class="c1">// do mul
+</span><span class="c1"></span>
+  <span class="c1">// load c
+</span><span class="c1"></span>  <span class="n">edx</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">24</span><span class="p">]</span>  <span class="c1">// push c onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// load d
+</span><span class="c1"></span>  <span class="n">ecx</span> <span class="o">=</span> <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">32</span><span class="p">]</span>  <span class="c1">// push d onto expression stack
+</span><span class="c1"></span>
+  <span class="c1">// mul
+</span><span class="c1"></span>  <span class="n">edx</span> <span class="o">*=</span> <span class="n">ecx</span>        <span class="c1">// do mul
+</span><span class="c1"></span>
+  <span class="c1">// add
+</span><span class="c1"></span>  <span class="n">eax</span> <span class="o">+=</span> <span class="n">edx</span>        <span class="c1">// do add
+</span><span class="c1"></span>
+  <span class="c1">// store e
+</span><span class="c1"></span>  <span class="p">[</span><span class="n">rbp</span> <span class="o">-</span> <span class="mi">40</span><span class="p">]</span> <span class="o">=</span> <span class="n">eax</span>  <span class="c1">// pop top of expression stack to stack: e
+</span></code></pre></div><p data-pid="1CaKiPTp">这样就只有4次内存读，1次内存写，0次寄存器间移动，效果就跟GCC -O0差不多了，比上文提到的“基于虚拟寄存器”+“固定映射临时变量”还要好。</p><p data-pid="ewG5wwn5">可见，通过利用寄存器做栈顶缓存，从一个原本“基于表达式栈”的中间表示完全可以直接生成出利用实际寄存器的代码。上面的3-TOSCA例子生成的代码完全没用到x86的push/pop指令，纯利用寄存器就完成了运算。</p><p data-pid="kvHh4xc5">n-TOSCA其实就是一种非常简单实用的、适用于后序遍历表达式树的寄存器分配思路。</p><p data-pid="cVzYFa1p">像是说早期的JVM JIT编译器之一，</p><a href="https://link.zhihu.com/?target=http%3A//www.shudo.net/jit/" class=" wrap external" target="_blank" rel="nofollow noreferrer">shuJIT</a><p data-pid="qbBdSJQl">就用了n-TOSCA的思路来分配寄存器。</p><p data-pid="0hroiKdG">Jikes RVM、Harmony里也有应用。</p><p data-pid="sMasHzaq">V8的初级编译器full code generator采用的寄存器分配策略也是衍生自n-TOSCA。</p><p data-pid="6SH2UWVf">关于栈顶缓存，放个传送门：</p><a href="https://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/34814%23post-231982" class=" wrap external" target="_blank" rel="nofollow noreferrer">关于虚拟机里的stack caching（栈顶缓存）的随笔</a><br><br><p data-pid="Q8SCUvh5">========================================================</p><p data-pid="wVwS-aYV">（…待续…）</p><a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Strahler_number%23Register_allocation" class=" wrap external" target="_blank" rel="nofollow noreferrer">Strahler number</a><br><a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Sethi%25E2%2580%2593Ullman_algorithm" class=" wrap external" target="_blank" rel="nofollow noreferrer">Sethi–Ullman算法</a></span></div>

@@ -1,0 +1,2335 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://www.cnblogs.com/WCFGROUP/p/6511485.html -->
+<html lang="zh-cn" style="--olcb-folder-code-block-max-height:80vh;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="never">
+    <meta name="description" content="https://www.zhihu.com/people/rednaxelafx/answers http://hllvm.group.iteye.com/group/topic/44381#post">
+    <meta property="og:description" content="https://www.zhihu.com/people/rednaxelafx/answers http://hllvm.group.iteye.com/group/topic/44381#post">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>RednaxelaFX写的文章/回答的导航帖 - 暖风的风 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="https://common.cnblogs.com/favicon.svg" type="image/svg+xml">
+    
+    <style>#home :not(.cnblogs_code):not(.cnblogs_Highlighter)>pre:not([highlighted]):not([class*="brush:"]) code:not(.hljs), :not(.cnblogs_code):not(.cnblogs_Highlighter)>pre:not([highlighted]):not([class*="brush:"]) code:not(.hljs) {background: rgb(245, 245, 245);
+        padding: 12px;
+        border: 1px solid rgb(204, 204, 204);
+        border-radius: 3px;
+        border-color: transparent;
+        color: rgb(68, 68, 68);
+        font-family: "Courier New", sans-serif;
+        font-size: 12px</style><link rel="stylesheet" href="./RednaxelaFX-chapters_files/blog-common.min.css">
+    <link id="MainCss" rel="stylesheet" href="./RednaxelaFX-chapters_files/bundle-anothereon001.min.css">
+        <link id="highlighter-theme-cnblogs" type="text/css" rel="stylesheet" href="./RednaxelaFX-chapters_files/cnblogs.css">
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./RednaxelaFX-chapters_files/bundle-anothereon001-mobile.min.css">
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/WCFGROUP/rss">
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/WCFGROUP/rsd.xml">
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/WCFGROUP/wlwmanifest.xml">
+    <script type="text/javascript" async="" src="./RednaxelaFX-chapters_files/analytics.js"></script><script>
+        var currentBlogId = 35082;
+        var currentBlogApp = 'WCFGROUP';
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'AnotherEon001';
+        var visitorUserId = '';
+        var hasCustomScript = false;
+        try {
+            if (hasCustomScript && document.referrer && document.referrer.indexOf('baidu.com') >= 0) {
+                Object.defineProperty(document, 'referrer', { value: '' });
+                Object.defineProperty(Document.prototype, 'referrer', { get: function(){ return ''; } });
+            }
+        } catch(error) { }
+        window.cb_enable_mathjax = false;
+        window.mathEngine = 0;
+        window.codeHighlightEngine = 1;
+        window.enableCodeLineNumber = false;
+        window.codeHighlightTheme = 'cnblogs';
+        window.darkModeCodeHighlightTheme = 'vs2015';
+        window.isDarkCodeHighlightTheme = false;
+        window.isDarkModeCodeHighlightThemeDark = true;
+        window.isDisableCodeHighlighter = false;
+        window.enableCodeThemeTypeFollowSystem = false;
+    </script>
+        <script>
+            var currentPostDateAdded = '2017-03-06 19:20';
+        </script>
+    <script src="./RednaxelaFX-chapters_files/jquery-2.2.0.min.js"></script>
+    <script src="./RednaxelaFX-chapters_files/blog-common.min.js"></script><style>.medium-zoom-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 300ms;
+  will-change: opacity;
+}
+
+.medium-zoom--opened .medium-zoom-overlay {
+  cursor: pointer;
+  cursor: zoom-out;
+  opacity: 1;
+}
+
+.medium-zoom-image {
+  cursor: pointer;
+  cursor: zoom-in;
+  /*
+    The `transition` is marked as "!important" for the animation to happen
+    even though it's overriden by another inline `transition` style attribute.
+
+    This is problematic with frameworks that generate inline styles on their
+    images (e.g. Gatsby).
+
+    See https://github.com/francoischalifour/medium-zoom/issues/110
+   */
+  transition: transform 300ms cubic-bezier(0.2, 0, 0.2, 1) !important;
+}
+
+.medium-zoom-image--hidden {
+  visibility: hidden;
+}
+
+.medium-zoom-image--opened {
+  position: relative;
+  cursor: pointer;
+  cursor: zoom-out;
+  will-change: transform;
+}
+</style><script id="hljs-script" src="./RednaxelaFX-chapters_files/highlight.min.js" type="text/javascript" async=""></script>
+    
+<style>hcfy-result.__hcfy__result__loaded__.__hcfy__result__both__{border: 1px dotted}</style><meta http-equiv="origin-trial" content="A+cA2PUOfIOKAdSDJOW5CP9ZlxONy1yu+hqAq72zUtKw4rLdihqRp6Nui/jUyCyegr+BUtH+C+Elv0ufn05yBQEAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjY5NzY2Mzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+zsdH3aNZT/bkjT8U/o5ACzyaeNYzTvtoVmwf/KOilfv39pxY2AIsOwhQJv+YnXp98i3TqrQibIVtMWs5UHjgoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjY5NzY2Mzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="AxceVEhIegcDEHqLXFQ2+vPKqzCppoJYsRCZ/BdfVnbM/sUUF2BXV8lwNosyYjvoxnTh2FC8cOlAnA5uULr/zAUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjY5NzY2Mzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><script src="./RednaxelaFX-chapters_files/pubads_impl_2022082302.js" async=""></script><link rel="preload" href="./RednaxelaFX-chapters_files/f(2).txt" as="script"><script type="text/javascript" src="./RednaxelaFX-chapters_files/f(2).txt"></script></head>
+<body class="skin-anothereon001 has-navbar">
+<a name="top"></a>
+<div id="top_nav" class="navbar forpc">
+    <nav id="nav_main" class="navbar-main">
+        <ul id="nav_left" class="navbar-list navbar-left">
+            <li class="navbar-branding">
+                <a href="https://www.cnblogs.com/" title="开发者的网上家园" role="banner">
+                    <img src="./RednaxelaFX-chapters_files/logo.svg" alt="博客园Logo">
+                </a>
+            </li>
+            <li>
+                <a href="https://www.cnblogs.com/" onclick="countClicks(&#39;skin-navbar-sitehome&#39;)">首页</a>
+            </li>
+            <li>
+                <a href="https://news.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-news&#39;)">新闻</a>
+            </li>
+            <li>
+                <a href="https://q.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-q&#39;)">博问</a>
+            </li>
+            <li>
+                <a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-brands&#39;)">专区</a>
+            </li>
+            <li>
+                <a href="https://ing.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-ing&#39;)">闪存</a>
+            </li>
+            <li>
+                <a href="https://edu.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-edu&#39;)">班级</a>
+            </li>
+        </ul>
+        <ul id="nav_right" class="navbar-list navbar-right">
+            <li>
+                <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get" role="search">
+                    <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="search" tabindex="3">
+                    <button type="submit" id="zzk_search_button">
+                        <img src="./RednaxelaFX-chapters_files/search.svg" alt="搜索">
+                    </button>
+                </form>
+            </li>
+            <li id="navbar_login_status" class="navbar-list">
+                <a class="navbar-user-info navbar-blog" href="https://i.cnblogs.com/EditPosts.aspx?opt=1" alt="写随笔" title="写随笔" style="display: none;">
+                    <img id="new_post_icon" class="navbar-icon" src="./RednaxelaFX-chapters_files/newpost.svg" alt="写随笔">
+                </a>
+                <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客" style="display: none;">
+                    <img id="myblog_icon" class="navbar-icon" src="./RednaxelaFX-chapters_files/myblog.svg" alt="我的博客">
+                </a>
+                <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息" style="display: none;">
+                    <img id="msg_icon" class="navbar-icon" src="./RednaxelaFX-chapters_files/message.svg" alt="短消息">
+                    <span id="msg_count" style="display: none"></span>
+                </a>
+                <a id="navbar_lite_mode_indicator" data-current-page="blog" style="display: none" href="javascript:void(0)" alt="简洁模式" title="简洁模式启用，您在访问他人博客时会使用简洁款皮肤展示">
+                    <img class="navbar-icon" src="./RednaxelaFX-chapters_files/lite-mode-on.svg" alt="简洁模式">
+                </a>
+                <div id="user_info" class="navbar-user-info dropdown" style="display: none;">
+                    <a class="dropdown-button" href="https://home.cnblogs.com/">
+                        <img id="user_icon" class="navbar-avatar" src="./RednaxelaFX-chapters_files/avatar-default.svg" alt="用户头像">
+                    </a>
+                    <div class="dropdown-menu">
+                        <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                        <a href="https://home.cnblogs.com/">我的园子</a>
+                        <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                        <a href="javascript:void(0)" id="navbar_lite_mode_toggle" title="简洁模式会使用简洁款皮肤显示所有博客">
+    简洁模式 <img id="navbar_lite_mode_on" src="./RednaxelaFX-chapters_files/lite-mode-check.svg" class="hide"><span id="navbar_lite_mode_spinner" class="hide">...</span>
+</a>
+                        <a href="javascript:void(0)" onclick="account.logout();">退出登录</a>
+                    </div>
+                </div>
+                <a class="navbar-anonymous" href="https://account.cnblogs.com/signup" style="display: inline;">注册</a>
+                <a class="navbar-anonymous" href="javascript:void(0);" onclick="account.login()" style="display: inline;">登录</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+
+<div id="wrapper">
+<div id="header">
+
+<div id="top">
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/WCFGROUP/">魔都浪子</a>
+</h1>
+<div id="subtitle">Interested in .NET&amp;Java platform,CLR and JVM internal,C# ,JIT compiler,software architecture design,windows kernel/CLR debugging skills,SQL Server 、MySQL,Database architecture、Query Optimization、troubleshooting and high availability, parallel/multi-threaing programming,distributed computing,cloud computing ,Apache Storm, Spark,  Flink,Machine Learning, Deep Learning ,TensorFlow and all AI related things.</div>
+</div>
+<div id="sub"><div class="BlogStats">随笔 - 777, 文章 - 1, 评论 - 77, 阅读 - 
+<span title="总阅读数: 299583">
+29万</span></div>
+
+</div>
+
+
+
+
+</div>
+<div id="main_container">
+<div id="main_content">
+<div id="content">
+	<div id="post_detail">
+    <div class="post">
+        <h2>
+            
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/WCFGROUP/p/6511485.html">
+    <span role="heading" aria-level="2">RednaxelaFX写的文章/回答的导航帖</span>
+    
+</a>
+
+        </h2>
+        <div class="postbody">
+            <div id="cnblogs_post_body" class="blogpost-body blogpost-body-html">
+<p><a href="https://www.zhihu.com/people/rednaxelafx/answers" target="_blank" rel="noopener"><span style="font-size: 12px">https://www.zhihu.com/people/rednaxelafx/answers</span></a></p>
+<p><span style="font-size: 12px"><a href="http://hllvm.group.iteye.com/group/topic/44381#post-272188" target="_blank" rel="noopener">http://hllvm.group.iteye.com/group/topic/44381#post-272188</a></span></p>
+<p><span style="font-size: 12px"><a href="https://www.cnblogs.com/group/topic/38293" rel="noopener">eden区没有发生minor gc，对象直接分配在了old gen</a></span></p>
+<p><a href="https://www.cnblogs.com/blog/1042471" rel="noopener">答复: HotSpot VM 内存堆的两个Survivor区</a></p>
+<h1 class="PostIndex-title">[资料合集] RednaxelaFX写的文章/回答的导航帖（work in progress）</h1>
+<div class="PostIndex-author"><a href="https://www.zhihu.com/people/rednaxelafx" target="_blank" rel="noopener"><img class="Avatar PostIndex-authorAvatar Avatar--xs" src="./RednaxelaFX-chapters_files/ee07454da2fc6d007c29ca9b393f94ac_xs.jpg" alt="RednaxelaFX"></a><a class="PostIndex-authorName" href="https://www.zhihu.com/people/rednaxelafx" target="_blank" rel="noopener">RednaxelaFX</a>
+<div class="HoverTitle Badge-wrapper" data-hover-title="优秀回答者"><a class="Badge" href="https://www.zhihu.com/question/48509984/answer/111228361" target="_blank" rel="noopener">优秀回答者&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; </a></div>
+<div class="HoverTitle" data-hover-title="2017 年 1月 29 日星期日下午 4 点 41 分">1 个月前</div>
+</div>
+<div class="RichText PostIndex-content">
+<p>——终极meta大坑？</p>
+<p>——嗯，对我来说可能是吧。</p>
+<p>我以前在ItEye写的博客，<a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/" rel="noopener" target="_blank">Script Ahead, Code Behind</a>，已经长草好长时间了。但我其实并没有停止写作，只是更倾向于以跟人讨论的方式来写作。知乎这种问答形式的网站就很吸引我，所以我后来逐渐转向主要<a class="internal" href="https://www.zhihu.com/people/rednaxelafx/answers" rel="noopener">在知乎以写回答的形式来写作</a>了——也被一些朋友吐槽“你又拿回答当博客写啦”orz</p>
+<p>但在知乎写的回答毕竟不像自己的博客那样有更规整的主干、更有相关性的时间线。我常常发现自己要多次回答以前已经回答过的、基本上一模一样的问题。有时候一偷懒，就直接放个以前的回答的传送门过去当答案。想来，如果能有更方便的入口找到我以前发过的东西的话，或许能减少一些重复提问，然后在遇到重复提问的时候也更方便我自己找到自己的传送门 &gt;_&lt;</p>
+<p>（所以我现在是如何找到自己的传送门的？有些是我记得自己写的东西的关键字然后放狗去搜一把；有些是我知道我大概什么时候写的，然后直接在“我的回答”里慢慢找出来…）</p>
+<p>接下来我会把我的一些文章和回答的传送门按照一定知识脉络整合到这帖来。请静候更新～ 下面的链接组织方式在施工完成前会随时改变，还请见谅。</p>
+关于我的各种链接大入口：
+<ul>
+<li>旧博客ITeye：<a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/" rel="noopener" target="_blank">Script Ahead, Code Behind</a></li>
+<li>ITeye HLLVM群组：<a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/" rel="noopener" target="_blank">高级语言虚拟机 - ITeye技术社区</a></li>
+<li>豆瓣：<a class=" wrap external" href="http://link.zhihu.com/?target=https%3A//www.douban.com/people/RednaxelaFX/" rel="noopener" target="_blank">RednaxelaFX</a></li>
+<li>SlideShare：<a class=" external" href="http://link.zhihu.com/?target=http%3A//www.slideshare.net/RednaxelaFX" rel="noopener" target="_blank"><span class="invisible">http://www.<span class="visible">slideshare.net/Rednaxel<span class="invisible">aFX</span></span></span></a></li>
+</ul>
+<p>我以前发的跟高级语言虚拟机相关的文章/回答有过一个老的合集帖：<a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/blog/362738" rel="noopener" target="_blank">自己关于VM的帖的目录 - Script Ahead, Code Behind</a></p>
+<p>============================================</p>
+<p><strong>书单推荐</strong></p>
+<ul>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/20130808" rel="noopener">学习编程语言与编译优化的一个书单 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=https%3A//www.douban.com/doulist/2545443/" rel="noopener" target="_blank">从表到里学习JVM实现 - 豆列 - 豆瓣</a></li>
+</ul>
+<p><strong>书籍评论</strong></p>
+<ul>
+<li>推荐度★★★★★：《The Garbage Collection Handbook》</li>
+<li>推荐度★★★★★：『ガベージコレクションのアルゴリズムと実装』 / 《垃圾回收的算法与实现》</li>
+<li>推荐度★★★★☆：『プログラミング言語を作る』 / 《自制编程语言》</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/39194" rel="noopener" target="_blank">《自制编程语言》集中讨论帖 - 高级语言虚拟机 - ITeye群组</a></li>
+</ul>
+<li>推荐度★★★☆☆：《编译系统透视：图解编译原理》</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/43538570/answer/95997787" rel="noopener">如何评价《编译系统透视：图解编译原理》一书？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>建议抵制：<a class=" wrap external" href="http://link.zhihu.com/?target=https%3A//www.douban.com/doulist/42057979/" rel="noopener" target="_blank">[请勿购]清华大学出版社的抄袭书</a></li>
+</ul>
+<p><strong>学习经历</strong></p>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/37994622/answer/79839802" rel="noopener">你对自己玩的游戏研究到了什么程度？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/34589661/answer/79792354" rel="noopener">准大三，计算机专业如何确定工作方向？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<p><strong>编译器，编译原理</strong></p>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/55209741/answer/143329882" rel="noopener">什么语言最适合写编译器/解释器？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/55925831/answer/146935513" rel="noopener">如何在C++中抛出一个编译错误？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/56060253/answer/147892125" rel="noopener">应该怎样把值传给一段被编译后的机器码? - RednaxelaFX 的回答 - 知乎</a></li>
+<li>语法制导翻译（Syntax-Directed Translation，SDT）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/27594539/answer/43441044" rel="noopener">语法制导翻译是干什么的？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/28249756/answer/84307453" rel="noopener">有哪些关于c4 - C in four function 编译器的文章？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/28992261/answer/43400987" rel="noopener">如何对C语言的FOR语句给出一个生成中间代码的语法制导定义？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>中间表示（Intermediate Representation）</li>
+<ul>
+<li>IR综合问题</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/33518780/answer/56731699" rel="noopener">如何设计三地址中间代码的数据结构，以便于基本块分析和代码优化？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/47485041/answer/106956106" rel="noopener">IR和ByteCode有什么区别？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/22508731" rel="noopener">[OMR/TR] Testarossa的IL设计 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+<li>SSA形式（Static Single Assignment Form）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/24992774/answer/29740949" rel="noopener">Phi node 是如何实现它的功能的？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/20467802/answer/29790560" rel="noopener">问:SSA静态单赋值。如果没有分支，顺序执行的代码上，例如int a;........; a = 3;.......;a = 4; 最终可能会变成a_1,a_2.但是如果直接使用变量a会怎样呢？ssa有什么优势(顺序执行代码) - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/40032931/answer/84547659" rel="noopener">有没有可能直接遍历AST生成SSA形式的中间代码，而不是先生成quad四元式，再转换为SSA形式？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/41999500/answer/93243408" rel="noopener">对于LLVM之类的编译器是如何实现在构造SSA形式的IR的时候，计算出def-use链？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/41959902/answer/93087273" rel="noopener">过程间和过程内的数据流分析算法在类似LLVM的IR或HotSpot C1的HIR中，是如何实现的？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+</ul>
+<li>编译优化综合问题</li>
+<ul>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/23326776" rel="noopener">[科普] 一个演示简单编译器循环优化的例子 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/23261395/answer/42426957" rel="noopener">编译器生成的汇编语句执行顺序为什么与C代码顺序不同？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/55976094/answer/147302764" rel="noopener">对于一个很复杂的常量表达式，编译器会算出结果再编译吗？ - RednaxelaFX的回答 - 知乎</a></li>
+</ul>
+<li>寄存器分配（register allocation）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/29355187/answer/51935409" rel="noopener">寄存器分配问题？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/26161033/answer/43447161" rel="noopener">如果变量在后面的代码中不再被引用, 在生存期内, 它的寄存器可以被编译器挪为他用吗? - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>逆向工程（reverse engineering）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/51704944/answer/128318923" rel="noopener">csapp lab2 bomb实验求教？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/38330356/answer/75904466" rel="noopener">高级语言写代码时就能够想到对应的汇编代码是怎样一种体验？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>GCC</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/27090458/answer/35226469" rel="noopener">GCC中-O1 -O2 -O3 优化的原理是什么？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/23233548" rel="noopener">[C++] GCC对C++虚函数调用的一个优化 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+<li>Clang / LLVM</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/41999500/answer/93243408" rel="noopener">对于LLVM之类的编译器是如何实现在构造SSA形式的IR的时候，计算出def-use链？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/24845946" rel="noopener">[链接] Dart-on-LLVM - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+<li>Microsoft C/C++ Optimizing Compiler （MSVC / CL）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/56201049/answer/148107642" rel="noopener">函数的局部变量在栈中是如何分布的？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>C4（C in four functions）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/28249756/answer/84307453" rel="noopener">有哪些关于c4 - C in four function 编译器的文章？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>TCC（Tiny C Compiler）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/42098477/answer/93589612" rel="noopener">Tiny C Compiler是个怎样的编译器？有人更新吗？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/24755584" rel="noopener">tcc -O2会做什么？ - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+</ul>
+<strong>JIT编译器（Just-in-Time Compiler），动态编译器（Dynamic Compiler）</strong>
+<ul>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/19977592" rel="noopener">JIT编译，动态编译与自适应动态编译 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/54748092/answer/141903877" rel="noopener">有哪些常用 JIT 算法？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/37389356/answer/73820511" rel="noopener">为什么 JVM 不用 JIT 全程编译？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/43690819/answer/97085788" rel="noopener">HotSpot VM JIT的编译产出，理论上能否被复用？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/19954031" rel="noopener">JIT编译器杂谈#1：JIT编译器的血缘（一） - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li>On-Stack Replacement（OSR），Deoptimization</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/45910849/answer/100636125" rel="noopener">OSR（On-Stack Replacement）是怎样的机制？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/44153482/answer/96977278" rel="noopener">HSimulate这条Hydrogen里的instruction到底是什么意思？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+</ul>
+<p><strong>解释器</strong></p>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/55209741/answer/143329882" rel="noopener">什么语言最适合写编译器/解释器？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/20456466/answer/18634426" rel="noopener">解释器里出错打印调用堆栈是怎么实现的？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/34814%23post-231982" rel="noopener" target="_blank">关于虚拟机里的stack caching（栈顶缓存）的随笔 - 高级语言虚拟机 - ITeye群组</a></li>
+</ul>
+<p><strong>自动内存管理，垃圾回收（GC，garbage collection），引用计数（reference counting）</strong></p>
+<ul>
+<li>基础概念讨论</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/21539353/answer/18596488" rel="noopener">垃圾回收机制中，引用计数法是如何维护所有对象引用的？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/44381%23post-272188" rel="noopener" target="_blank">G1 GC的讨论 - 高级语言虚拟机 - ITeye群组</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/34341582/answer/58444959" rel="noopener">这段 Java 代码中的局部变量能够被提前回收吗？编译器或 VM 能够实现如下的人工优化吗？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/51244545/answer/126055789" rel="noopener">Java 中, 为什么一个对象的实例方法在执行完成之前其对象可以被 GC 回收? - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/42353634/answer/94460053" rel="noopener">Go1.6中的gc pause已经完全超越JVM了吗? - RednaxelaFX的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/24987815" rel="noopener">[新闻] WebKit的新并发GC：Riptide - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+<p><strong>元循环求值器（metacircular evaluator），元循环VM，元循环解释器</strong></p>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/20004379/answer/18600484" rel="noopener">用 JavaScript 写成的 JavaScript 解释器，意义是什么？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/49176184/answer/116675413" rel="noopener">JavaScript的功能是不是都是靠C或者C++这种编译语言提供的？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<strong>C++</strong>
+<ul>
+<li>对象模型（Object Model）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/27459122/answer/36736246" rel="noopener">为什么bs虚函数表的地址（int*）(&amp;bs)与虚函数地址（int*）*(int*)(&amp;bs) 不是同一个？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+</ul>
+<p><strong>Java，JVM，Dalvik，Android Runtime（ART）</strong></p>
+<ul>
+<li>Java语言与Java源码层编译器</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/24849247/answer/29196807" rel="noopener">怎样算是学好了 Java？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/19824911/answer/18596604" rel="noopener">java编译器对编译后class以及其内部变量的命名规则是什么？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/24915091/answer/29722150" rel="noopener">Activity 源码中的「private static final boolean DEBUG_LIFECYCLE = false;」有什么作用？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/24940549/answer/29524181" rel="noopener">Java 中 for 和 while 的区别是什么？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/56192227/answer/148110120" rel="noopener">Java中两个new的对象对==做比较可以返回true吗？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/21762917/answer/19239387" rel="noopener">JVM对于声明为final的局部变量（local var）做了哪些性能优化？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/55118939/answer/142923951" rel="noopener">为什么 Eclipse 要使用自己开发的编译器(ECJ) 而不用 Javac？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/24695819" rel="noopener">[HotSpot VM] 关于包可访问的虚方法被覆写的一个例子 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/20928981/answer/40030129" rel="noopener">java为什么不支持泛型数组？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/28665443/answer/118148143" rel="noopener">Java不能实现真正泛型的原因？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/34621277/answer/59440954" rel="noopener">Reifiable generics与Type erasure generics各有怎样的优点与缺点？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/55565290/answer/145355951" rel="noopener">Java 类名.class与类名.this 的区别? - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/55857335/answer/146837989" rel="noopener">谁来解释下基本类型变量的class,如int.class.什么时候会使用它们? - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/55923763/answer/146928825" rel="noopener">为什么Android的Void实现和JDK有区别？ - RednaxelaFX的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/27831730/answer/38266643" rel="noopener">如何理解ByteCode、IL、汇编等底层语言与上层语言的对应关系？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/31522987/answer/52515561" rel="noopener">Java可以像C++内嵌汇编语言一样，内嵌Java字节码吗？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>JVM综合问题</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/20097631/answer/32360831" rel="noopener">Java JVM怎么学习啊？从哪方面入手？</a><a class="internal" href="https://www.zhihu.com/question/20324312/answer/29519204" rel="noopener"> - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/20163831/answer/18629722" rel="noopener">Java 平台中的 JVM 和 .Net 平台下的 CLR 分别是用什么语言写的？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/20324312/answer/29519204" rel="noopener">各个操作系统下的 JVM 是谁开发出来的？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/19566470/answer/29505035" rel="noopener">Twitter 使用的是什么 JVM? - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/24195289/answer/29776044" rel="noopener">JVM 和 LLVM 为什么没有硬件实现？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/51380338/answer/125701717" rel="noopener">写个编译器，把C++代码编译到JVM的字节码可不可行？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/24346893" rel="noopener">[链接] 把C编译到JVM上运行的编译器 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/47485041/answer/106956106" rel="noopener">IR和ByteCode有什么区别？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/37682%23post-244280" rel="noopener" target="_blank">JVM规范与HotSpot VM实现里final static常量的初始化时机 - 高级语言虚拟机 - ITeye群组</a></li>
+</ul>
+<li>类加载（class loading）与链接（linking）</li>
+<ul>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/23297569" rel="noopener">[Java] 动态生成类的场景的考察 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/28833796/answer/42310417" rel="noopener">Java是否可以做到修改类而不用重启JVM？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>对象系统，对象布局</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/30300585/answer/51335493" rel="noopener">JVM里的符号引用如何存储？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/50258991/answer/120450561" rel="noopener">JVM符号引用转换直接引用的过程? - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/21574535/answer/18998914" rel="noopener">Java instanceof 关键字是如何实现的？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/24695819" rel="noopener">[HotSpot VM] 关于包可访问的虚方法被覆写的一个例子 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/38068%23post-247677" rel="noopener" target="_blank">HotSpot VM对象布局里继承边界上的对齐的例子 - 高级语言虚拟机 - ITeye群组</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/27459122/answer/36736246" rel="noopener">为什么bs虚函数表的地址（int*）(&amp;bs)与虚函数地址（int*）*(int*)(&amp;bs) 不是同一个？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>反射（reflection）</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/blog/548536" rel="noopener" target="_blank">关于反射调用方法的一个log - Script Ahead, Code Behind</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/56048289/answer/147686499" rel="noopener">java中，当父类属于抽象类的时候利用反射技术是自动调用子类的方法吗？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>GC</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/19854641/answer/18596179" rel="noopener">java System.gc() 与 Runtime.getRuntime().gc() 有什么区别？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/21663879/answer/19007323" rel="noopener">Java 等语言的 GC 为什么不实时释放内存？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/33210180/answer/56348818" rel="noopener">JVM GC遍历一次新生代所有对象是否可达需要多久？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/44381%23post-272188" rel="noopener" target="_blank">G1 GC的讨论 - 高级语言虚拟机 - ITeye群组</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/34341582/answer/58444959" rel="noopener">这段 Java 代码中的局部变量能够被提前回收吗？编译器或 VM 能够实现如下的人工优化吗？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/51244545/answer/126055789" rel="noopener">Java 中, 为什么一个对象的实例方法在执行完成之前其对象可以被 GC 回收? - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/56538259/answer/149400767" rel="noopener">在TLAB中创建的对象，如何被其他线程共享？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/56538875/answer/149401924" rel="noopener">Java在创建对象时，如果恰巧碰到GC导致的STW时，会出现什么情况，对象能正确分配成功吗？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/42353634/answer/94460053" rel="noopener">Go1.6中的gc pause已经完全超越JVM了吗? - RednaxelaFX的回答 - 知乎</a></li>
+</ul>
+<li>JIT编译器（Just-in-Time Compiler），AOT编译器（Ahead-of-Time Compiler）</li>
+<ul>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/23247204" rel="noopener">[新闻] Oracle开源了其Java AOT编译器 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/37389356/answer/73820511" rel="noopener">为什么 JVM 不用 JIT 全程编译？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/43690819/answer/97085788" rel="noopener">HotSpot VM JIT的编译产出，理论上能否被复用？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>线程模型（threading model）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/23096638/answer/29617153" rel="noopener">JVM中的线程模型是用户级的么？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>Java Native Interface（JNI）</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/37604%23post-243981" rel="noopener" target="_blank">关于HotSpot VM对JNI native方法调用的实现 - 高级语言虚拟机 - ITeye群组</a></li>
+</ul>
+<li>多租户（multitenancy）与资源管理</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/21776758/answer/19285132" rel="noopener">有什么方法可以限制JVM中单个线程使用的资源呢？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>Java与JVM的配套工具</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/22767427/answer/29785555" rel="noopener">jstack如何区分JVM级别线程和用户级别线程？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>HotSpot VM</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//www.valleytalk.org/wp-content/uploads/2011/05/Java_Program_in_Action_20110727.pdf" rel="noopener" target="_blank">Java Program in Action—Java程序的编译、加载与执行</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/35385%23post-236056" rel="noopener" target="_blank">OpenJDK代码的“阅读线索”简介，外加HotSpot VM类加载子系统的超简单介绍 - 高级语言虚拟机 - ITeye群组</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/56538259/answer/149400767" rel="noopener">在TLAB中创建的对象，如何被其他线程共享？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/56538875/answer/149401924" rel="noopener">Java在创建对象时，如果恰巧碰到GC导致的STW时，会出现什么情况，对象能正确分配成功吗？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/43690819/answer/97085788" rel="noopener">HotSpot VM JIT的编译产出，理论上能否被复用？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/24695819" rel="noopener">[HotSpot VM] 关于包可访问的虚方法被覆写的一个例子 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/28833796/answer/42310417" rel="noopener">Java是否可以做到修改类而不用重启JVM？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/34341582/answer/58444959" rel="noopener">这段 Java 代码中的局部变量能够被提前回收吗？编译器或 VM 能够实现如下的人工优化吗？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/51102308/answer/124441115" rel="noopener">如何理解《深入理解java虚拟机》第二版中对String.intern()方法的讲解中所举的例子？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/51244545/answer/126055789" rel="noopener">Java 中, 为什么一个对象的实例方法在执行完成之前其对象可以被 GC 回收? - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/blog/790864" rel="noopener" target="_blank">用Java获取full GC的次数？（2） - Script Ahead, Code Behind</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/blog/796343" rel="noopener" target="_blank">通过jstat工具来查看jvmstat monitor的值 - Script Ahead, Code Behind</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/25478502" rel="noopener">[Java][HotSpot VM] jstat -compiler的输出的含义 -&nbsp; 首发于 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li>HotSpot Mostly-Concurrent Mark-Sweep GC（CMS GC）</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/38223%23post-248757" rel="noopener" target="_blank">CMS与mark-sweep/mark-compact/copying GC的关系 - 高级语言虚拟机 - ITeye群组</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/42353634/answer/94460053" rel="noopener">Go1.6中的gc pause已经完全超越JVM了吗? - RednaxelaFX的回答 - 知乎</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/blog/1108768" rel="noopener" target="_blank">jstat显示的full GC次数与CMS周期的关系 - Script Ahead, Code Behind</a></li>
+</ul>
+<li>HotSpot Garbage-First GC（G1 GC）</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/44381%23post-272188" rel="noopener" target="_blank">G1 GC的讨论 - 高级语言虚拟机 - ITeye群组</a></li>
+</ul>
+<li>HotSpot Client Compiler（HotSpot C1）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/41959902/answer/93087273" rel="noopener">过程间和过程内的数据流分析算法在类似LLVM的IR或HotSpot C1的HIR中，是如何实现的？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>HotSpot Server Compiler（HotSpot C2）</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/39493%23post-258162" rel="noopener" target="_blank">回复：想研究HotSpot C2编译器编译过程，请教如何入手？ - 高级语言虚拟机 - ITeye群组</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/34932%23post-232535" rel="noopener" target="_blank">使用IdealGraphVisualizer观察HotSpot Server Compiler编译过程的一个例子 - 高级语言虚拟机 - ITeye群组</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/51544127/answer/127846837" rel="noopener">如何评价《王垠：C 编译器优化过程中的 Bug》？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/41009%23post-266034" rel="noopener" target="_blank">HotSpot C2寄存器分配中OptoReg的意义 - 高级语言虚拟机 - ITeye群组</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/blog/1038324" rel="noopener" target="_blank">JIT编译找不到类？ - Script Ahead, Code Behind</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/blog/1022095" rel="noopener" target="_blank">JDK6u25跑Eclipse变快了？——多层编译模式 - Script Ahead, Code Behind</a></li>
+</ul>
+<li>HotSpot VM解释器</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/34814%23post-231982" rel="noopener" target="_blank">关于虚拟机里的stack caching（栈顶缓存）的随笔 - 高级语言虚拟机 - ITeye群组</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/blog/1007251" rel="noopener" target="_blank">HotSpot VM里的解释器在client与server模式上的一点区别 - 高级语言虚拟机 - ITeye群组</a></li>
+</ul>
+<li>对象模型（Object Model） / 对象布局（Object Layout）</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/38068%23post-247677" rel="noopener" target="_blank">HotSpot VM对象布局里继承边界上的对齐的例子 - 高级语言虚拟机 - ITeye群组</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/27459122/answer/36736246" rel="noopener">为什么bs虚函数表的地址（int*）(&amp;bs)与虚函数地址（int*）*(int*)(&amp;bs) 不是同一个？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>Java Native Interface（JNI）</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/37604%23post-243981" rel="noopener" target="_blank">关于HotSpot VM对JNI native方法调用的实现 - 高级语言虚拟机 - ITeye群组</a></li>
+</ul>
+</ul>
+<li>J9 VM，Eclipse OMR（IBM OMR）</li>
+<ul>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/20631665" rel="noopener">[新闻] IBM OMR项目正式开源 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/22506697" rel="noopener">[新闻] IBM/Eclipse OMR的编译器部分也已开源，以及IBM即将开源J9 VM - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/22550958" rel="noopener">[新闻] IBM J9 JVM开源的消息正式宣布了——OpenJ9 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/22508731" rel="noopener">[OMR/TR] Testarossa的IL设计 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/38480772/answer/76715935" rel="noopener">如何评价 IBM 的 Ruby + OMR？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/20581695" rel="noopener">[新闻] CPython / 微软 Pyjion / IBM Python+OMR - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+<li>JRockit</li>
+<ul>
+<li>对象模型</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/27459122/answer/36736246" rel="noopener">为什么bs虚函数表的地址（int*）(&amp;bs)与虚函数地址（int*）*(int*)(&amp;bs) 不是同一个？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+</ul>
+<li>Dalvik VM</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/20424907/answer/34774044" rel="noopener">Android多线程对私有属性访问为何会导致JIT unchain for all on thread 11 ？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>Android Runtime（ART）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/27440163/answer/43368145" rel="noopener">ART没有了Java虚拟机，能支持的了JNI吗？比如Java和C++互调用，还有ART不用解释器了那有没有可能放弃Java呢? - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/37786499/answer/73508277" rel="noopener">Android ART虚拟机中 boot.art 和 boot.oat 之间什么关系? - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/48996839/answer/113801448" rel="noopener">ART是如何保证checkpoint 点一定会被跑到的? - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/41771108/answer/93603681" rel="noopener">ART和JIT的除了编译的时机区别以外，对于编译的方式有什么区别吗？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/42025150/answer/93506625" rel="noopener">Android 5.0的ART是如何为方法调用开辟栈空间的？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/48135628/answer/129821680" rel="noopener">Android5.0中ARM指令中对于类方法的调用的实际跳转地址的计算方法？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/38172404/answer/75184932" rel="noopener">ART虚拟机中跳转函数为什么要用汇编做一次中转?为什么不直接跳转到C/C++函数呢? - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/26646049/answer/36455706" rel="noopener">Android 中的 LLVM 主要做什么？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/35252982/answer/65236034" rel="noopener">为啥ART会删除了所有基于LLVM的后端? - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/20491978" rel="noopener">[新闻] ART有了新的汇编写的解释器 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/22253472" rel="noopener">[新闻] Android Runtime（ART）的一些新动态，2016-08 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+</ul>
+<p><strong>.NET，C#，CLR（Common Language Runtime），CoreCLR，MSIL / CIL，.NET Native，CoreRT，RyuJIT，LLILC</strong></p>
+<ul>
+<li>C#语言综合问题</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/55157798/answer/142991387" rel="noopener">如果 C#/.NET 是 MSR 那群搞 PLT 的人（比如 SPJ）设计的，那么会变成怎样？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/34621277/answer/59440954" rel="noopener">Reifiable generics与Type erasure generics各有怎样的优点与缺点？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/38149436/answer/85871770" rel="noopener">如果C#开放了值类型的继承，会有什么问题发生？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>MSIL（Microsoft Intermediate Language） / CIL（Common Intermediate Language）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/22159888/answer/29770366" rel="noopener">通用中间语言 (CIL) 怎么学习？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>CLR / CoreCLR</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/43559" rel="noopener" target="_blank">[CLR] 关于微软开源.NET与其中的CoreCLR - 讨论 - 高级语言虚拟机 - ITeye群组</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/27634924/answer/40854909" rel="noopener">C#泛型(MSIL)的内部是怎么实现的? - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>LLILC</li>
+<ul>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/21602080" rel="noopener">[八卦] LLILC项目貌似挂了… - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+<li>.NET Native / CoreRT</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/27997478/answer/38978762" rel="noopener">如何看待 .NET Native，真能达到 C++ 的性能、C# 的生产效率吗？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+</ul>
+<p><strong>JavaScript与JavaScript引擎</strong></p>
+<ul>
+<li>JavaScript语言综合问题</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/26881145/answer/34399545" rel="noopener">关于JavaScript的原型链问题？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>JavaScript引擎综合问题</li>
+<ul>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/20505562" rel="noopener">新手上路学习JavaScript引擎实现——路线图 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//hllvm.group.iteye.com/group/topic/37596" rel="noopener" target="_blank">[链接帖] 各JavaScript引擎的简介，及相关资料/博客收集帖 - 资料 - 高级语言虚拟机 - ITeye群组</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/21628109/answer/18818671" rel="noopener">JavaScript 里 new 出来的对象 怎么销毁它？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/22967613/answer/23379991" rel="noopener">为什么至今没有一本JavaScript引擎作者写的书？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>Google V8</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/39014659/answer/79249076" rel="noopener">新手应该如何读Google V8引擎源代码？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/44153482/answer/96977278" rel="noopener">HSimulate这条Hydrogen里的instruction到底是什么意思？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>Chakra / ChakraCore</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/20620476/answer/18596696" rel="noopener">JavaScript 可以开发 Windows 8 应用，但为什么它不是直接运行在 CLR 上，而又重新弄了一个虚拟机 Chakra？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/20498427" rel="noopener">[新闻] 微软如期开源ChakraCore JavaScript引擎 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+<li>WebKit JavaScriptCore （又名Nitro）</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/21320960/answer/18628710" rel="noopener">苹果为何又如何在 iOS 上禁止 Safari 之外的应用使用 Nitro JIT 编译？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/20577490" rel="noopener">[新闻][JavaScript引擎] WebKit JavaScriptCore用新的B3编译器后端替代FTL JIT中的LLVM - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/24987815" rel="noopener">[新闻] WebKit的新并发GC：Riptide - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+</ul>
+<strong>Ruby</strong>
+<ul>
+<li>Ruby VM综合问题</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/38480772/answer/76715935" rel="noopener">如何评价 IBM 的 Ruby + OMR？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>CRuby（Ruby MRI）</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/blog/344763" rel="noopener" target="_blank">YARV和JIT，还有JRuby…… - Script Ahead, Code Behind</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/54500937/answer/140120436" rel="noopener">Ruby多重赋值的底层原理是什么？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>JRuby</li>
+<ul>
+<li><a class=" wrap external" href="http://link.zhihu.com/?target=http%3A//rednaxelafx.iteye.com/blog/344763" rel="noopener" target="_blank">YARV和JIT，还有JRuby…… - Script Ahead, Code Behind</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/39593194/answer/82321371" rel="noopener">造成Ruby和JRuby执行性能上存在差异的原因是什么？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/54500937/answer/140120436" rel="noopener">Ruby多重赋值的底层原理是什么？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>mruby</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/54500937/answer/140120436" rel="noopener">Ruby多重赋值的底层原理是什么？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+</ul>
+<p><strong>Python</strong></p>
+<ul>
+<li>CPython</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/29089863/answer/53970119" rel="noopener">python idle 解释和直接 python script.py 解释有什么差别？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/38380754/answer/78427276" rel="noopener">为什么 Python 工程师很少像 Java 工程师那样讨论垃圾回收？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>Pyjion</li>
+<ul>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/20581695" rel="noopener">[新闻] CPython / 微软 Pyjion / IBM Python+OMR - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/20591139" rel="noopener">Pyjion的代码质量一例 [20160221] - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+<li>PyPy</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/19588346/answer/131977984" rel="noopener">PyPy 为什么会比 CPython 还要快？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/41083103/answer/95332619" rel="noopener">用Python能实现Python解释器吗？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+<li>Pyston</li>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/19588346/answer/131977984" rel="noopener">PyPy 为什么会比 CPython 还要快？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/25057100" rel="noopener">[新闻] Pyston 0.6.1的发布与Pyston的…咳咳 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+</ul>
+<p><strong>Dart</strong></p>
+<ul>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/24845946" rel="noopener">[链接] Dart-on-LLVM - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+<p><strong>Hack</strong></p>
+<ul>
+<li><a class="internal" href="https://zhuanlan.zhihu.com/p/19969441" rel="noopener">Hack Tech Talk 2015/03/05 - 编程语言与高级语言虚拟机杂谈（仮） - 知乎专栏</a></li>
+</ul>
+<p><strong>Go</strong>（Golang）</p>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/42353634/answer/94460053" rel="noopener">Go1.6中的gc pause已经完全超越JVM了吗? - RednaxelaFX的回答 - 知乎</a></li>
+</ul>
+<p><strong>PHP</strong></p>
+<ul>
+<li><a class="internal" href="https://www.zhihu.com/question/19749926/answer/18628283" rel="noopener">PHP引擎中有没有使用JIT技术？如果没有，为什么？ - RednaxelaFX 的回答 - 知乎</a></li>
+<li><a class="internal" href="https://www.zhihu.com/question/24980312/answer/29725693" rel="noopener">为什么FaceBook的HipHop要把PHP转换成了C++而不是把PHP改成编译型的语言，直接执行编译后的文件不是更快么？ - RednaxelaFX 的回答 - 知乎</a></li>
+</ul>
+</div>
+</div>
+<div class="clear"></div>
+<div id="blog_post_info_block" role="contentinfo"><div id="BlogPostCategory">
+    分类: 
+            <a href="https://www.cnblogs.com/WCFGROUP/category/890989.html" target="_blank">JVM </a></div>
+
+
+    <div id="blog_post_info">
+<div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(6511485,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+        <a id="green_channel_follow" onclick="follow(&#39;8d32420b-63cf-dd11-9e4d-001cf0cd104b&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./RednaxelaFX-chapters_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./RednaxelaFX-chapters_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/WCFGROUP/" target="_blank"><img src="./RednaxelaFX-chapters_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/WCFGROUP/">暖风的风</a><br>
+            <a href="https://home.cnblogs.com/u/WCFGROUP/followers/">粉丝 - <span class="follower-count">117</span></a>
+            <a href="https://home.cnblogs.com/u/WCFGROUP/followees/">关注 - <span class="following-count">161</span></a><br>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow" class="follow-tip">
+                <a href="javascript:void(0);" onclick="follow(&#39;8d32420b-63cf-dd11-9e4d-001cf0cd104b&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(6511485,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">1</span>
+    </div>
+    <div class="buryit" onclick="votePost(6511485,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+    <div class="clear"></div>
+    <div id="post_next_prev">
+
+    <a href="https://www.cnblogs.com/WCFGROUP/p/6511454.html" class="p_n_p_prefix">« </a> 上一篇：    <a href="https://www.cnblogs.com/WCFGROUP/p/6511454.html" data-featured-image="" title="发布于 2017-03-06 19:03">tcp connection</a>
+    <br>
+    <a href="https://www.cnblogs.com/WCFGROUP/p/6511552.html" class="p_n_p_prefix">» </a> 下一篇：    <a href="https://www.cnblogs.com/WCFGROUP/p/6511552.html" data-featured-image="" title="发布于 2017-03-06 19:36">thread-local-allocation-buffers</a>
+
+</div>
+</div>
+        </div>
+        <p class="postfoot">
+            posted on 
+<span id="post-date">2017-03-06 19:20</span>&nbsp;
+<a href="https://www.cnblogs.com/WCFGROUP/">暖风的风</a>&nbsp;
+阅读(<span id="post_view_count">2090</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=6511485" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(6511485);return false;">收藏</a>&nbsp;
+<a href="javascript:void(0)" onclick="reportManager.report({ currentUserId: &#39;&#39;, targetType: &#39;blogPost&#39;, targetId: &#39;6511485&#39;, targetLink: &#39;https://www.cnblogs.com/WCFGROUP/p/6511485.html&#39;, title: &#39;RednaxelaFX写的文章/回答的导航帖&#39; })">举报</a>
+        </p>
+    </div>
+</div>
+
+
+<script>
+    var cb_entryId = 6511485, cb_entryCreatedDate = '2017-03-06 19:20', cb_postType = 1, cb_postTitle = 'RednaxelaFX写的文章/回答的导航帖';
+    var allowComments = true, cb_blogId = 35082, cb_blogApp = 'WCFGROUP', cb_blogUserGuid = '8d32420b-63cf-dd11-9e4d-001cf0cd104b';
+    mermaidRender.render()
+    markdown_highlight()
+    zoomManager.apply("#cnblogs_post_body img:not(.code_img_closed):not(.code_img_opened)");
+    updatePostStats(
+            [cb_entryId],
+            function(id, count) { $("#post_view_count").text(count) },
+            function(id, count) { $("#post_comment_count").text(count) })
+</script>
+<a id="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html#top">返回顶部</a></div>
+    <div id="comment_form_container" style="visibility: visible;"><div class="login_tips">
+    登录后才能查看或发表评论，立即 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return account.login(&#39;!comments&#39;);">登录</a> 或者
+    <a href="https://www.cnblogs.com/">逛逛</a> 博客园首页
+</div>
+</div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+        <div id="cnblogs_ch"><a href="https://www.cnblogs.com/MASA/p/16543600.html" target="_blank" onclick="gtag(&#39;event&#39;, &#39;click&#39;, {&#39;event_category&#39;: &#39;ad&#39;, &#39;event_label&#39;: &#39;T2-MASA&#39;})">【推荐】MASA Framework 开启全新的.NET应用开发体验</a><br><a href="https://brands.cnblogs.com/specdd" target="_blank" onclick="gtag(&#39;event&#39;, &#39;click&#39;, {&#39;event_category&#39;: &#39;ad&#39;, &#39;event_label&#39;: &#39;T2-SpecDD专区&#39;})">【推荐】下一步，敏捷！云可达科技SpecDD敏捷开发专区</a><br><a href="https://curl.qcloud.com/k19RDMHo" target="_blank" onclick="gtag(&#39;event&#39;, &#39;click&#39;, {&#39;event_category&#39;: &#39;ad&#39;, &#39;event_label&#39;: &#39;T2-腾讯云&#39;})">【推荐】腾讯云多款云产品1折起，买云服务器送免费机器</a><br></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="under-post-card">
+            <div id="div-gpt-ad-1592365906576-0" style="width: 300px; height: 250px;" data-google-query-id="CMCEnd625vkCFfYBrQYd2nsHJA"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none; display: inline-block; width: 300px; height: 250px;"><iframe frameborder="0" src="./RednaxelaFX-chapters_files/container.html" id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" width="300" height="250" data-is-safeframe="true" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" role="region" aria-label="Advertisement" tabindex="0" data-google-container-id="1" style="border: 0px; vertical-align: bottom;" data-load-complete="true"></iframe></div></div>
+    </div>
+    <div id="under_post_card1"><div class="under-post-card">
+<b>编辑推荐：</b>
+<br>
+
+· <a href="https://www.cnblogs.com/yexiaochai/p/16624721.html" target="_blank">技术管理进阶——技术Leader需要数据思维</a>
+    <br>
+· <a href="https://www.cnblogs.com/ilovejaney/p/16623227.html" target="_blank">一个奇葩的线上问题，导致我排查了一天</a>
+    <br>
+· <a href="https://www.cnblogs.com/jackyfei/p/16602676.html" target="_blank">如何使用 .NET 6 的 IHostedService 和 BackgroundService？</a>
+    <br>
+· <a href="https://www.cnblogs.com/coco1s/p/16615333.html" target="_blank">纯 CSS 实现拼图游戏 </a>
+    <br>
+· <a href="https://www.cnblogs.com/artech/p/inside-asp-net-core-6-33x.html" target="_blank">ASP.NET Core 6 框架揭秘实例演示：异常处理高阶用法</a>
+    <br>
+</div></div>
+    <div id="under_post_card2"><div class="itnews under-post-card">
+    <b>最新新闻</b>：
+    <br>
+ ·          <a href="https://news.cnblogs.com/n/727280/" target="_blank">Oracle 首席执行官 Larry Ellison 陷入新官司：吹过的牛，变成了砸自己脚的石头</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/727279/" target="_blank">蔚来独立调查结果出炉：灰熊报告相关指控均无事实依据</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/727278/" target="_blank">腾讯给二创开了扇窗，但又没完全开</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/727277/" target="_blank">47款App遭通报！涉零跑、宝沃等，被指强制、频繁、过度索取权限</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/727276/" target="_blank">别被快手“骗”了</a>
+        <br>
+    » <a href="https://news.cnblogs.com/" title="IT 新闻" target="_blank">更多新闻...</a>
+</div></div>
+    <div id="HistoryToday" class="under-post-card"></div>
+    <script type="text/javascript">
+        var commentManager = new blogCommentManager();
+        commentManager.renderComments(0);
+        fixPostBody();
+
+            window.tocManager.displayDisableTocTips = false;
+            window.tocManager.generateToc();
+            
+                setTimeout(function() { countViews(cb_blogId, cb_entryId); }, 50);
+            
+            deliverT2();
+            deliverC1C2();
+            loadNewsAndKb();
+            
+                LoadPostCategoriesTags(cb_blogId, cb_entryId);
+            
+            LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+            GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+            loadOptUnderPost();
+            GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+                </script>
+</div>
+
+
+
+</div>
+</div>
+<div id="leftmenu">
+
+
+<h3>导航</h3>
+<ul>
+    <li>
+        <a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+
+    </li>
+    <li>
+        
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/WCFGROUP/">
+首页</a>
+
+    </li>
+    <li>
+        
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+
+    </li>
+    <li>
+        
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E6%9A%96%E9%A3%8E%E7%9A%84%E9%A3%8E">
+联系</a>
+    </li>
+    <li>
+        
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/WCFGROUP/rss/">
+订阅</a>
+        
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/WCFGROUP/rss/">
+    <img src="./RednaxelaFX-chapters_files/xml.gif" alt="订阅">
+</a>
+    </li>
+    <li>
+        
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+
+    </li>
+</ul>
+
+
+<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+<div id="sidebar_news" class="newsItem"><meta name="vs_showGrid" content="False">
+<h3>公告</h3>
+
+<div id="blog-news">
+    
+    <div id="profile_block">
+        昵称：
+        <a href="https://home.cnblogs.com/u/WCFGROUP/">
+            暖风的风
+        </a>
+        <br>
+        园龄：
+        <a href="https://home.cnblogs.com/u/WCFGROUP/" title="入园时间：2008-03-27">
+            14年5个月
+        </a>
+        <br>
+        粉丝：
+        <a class="follower-count" href="https://home.cnblogs.com/u/WCFGROUP/followers/">
+            117
+        </a>
+        <br>
+        关注：
+        <a class="folowing-count" href="https://home.cnblogs.com/u/WCFGROUP/followees/">
+            161
+        </a>
+        <div id="p_b_follow" class="follow-tip">
+<a href="javascript:void(0)" onclick="follow(&#39;8d32420b-63cf-dd11-9e4d-001cf0cd104b&#39;)">+加关注</a></div>
+        <script>getFollowStatus('8d32420b-63cf-dd11-9e4d-001cf0cd104b');</script>
+    </div>
+</div>
+
+</div>
+<div id="sidebar_c3"></div>
+<div id="blog-sidecolumn"><!-- 搜索 -->
+<div id="sidebar_search" class="sidebar-block">
+    <div id="sidebar_search" class="mySearch">
+        <h3 class="catListTitle">搜索</h3>
+        <div id="sidebar_search_box">
+            <div id="widget_my_zzk" class="div_my_zzk">
+                <input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk">
+            </div>
+            <div id="widget_my_google" class="div_my_zzk">
+                <input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 常用链接 -->
+<div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">
+常用链接
+</h3>
+<ul>
+    <li><a href="https://www.cnblogs.com/WCFGROUP/p/" title="我的博客的随笔列表">我的随笔</a></li>
+<li><a href="https://www.cnblogs.com/WCFGROUP/MyComments.html" title="我的发表过的评论列表">我的评论</a></li>
+<li><a href="https://www.cnblogs.com/WCFGROUP/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li>
+<li><a href="https://www.cnblogs.com/WCFGROUP/comments" title="我的博客的评论列表">最新评论</a></li>
+<li><a href="https://www.cnblogs.com/WCFGROUP/tag/" title="我的博客的标签列表">我的标签</a></li>
+
+</ul>
+</div>
+
+<!-- 最新随笔 -->
+<div id="sidebar_recentposts" class="sidebar-block">
+<h3 class="catListTitle">最新随笔</h3>
+<div class="RecentComment" id="RecentPosts">
+    <ul style="word-break:break-all">
+                <li>
+                    
+<a href="https://www.cnblogs.com/WCFGROUP/p/12688700.html">1.Flink Deployment and Process Model - Standalone, Yarn, Mesos, Kubernetes, etc.</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/WCFGROUP/p/12405952.html">2.MySQL多版本并发控制机制(MVCC)-源码浅析</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/WCFGROUP/p/12389169.html">3.MYsql  ps源码</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/WCFGROUP/p/12382443.html">4.lsm-tree</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/WCFGROUP/p/12364829.html">5.MySQL 全表 COUNT(*) 简述</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/WCFGROUP/p/12354630.html">6.MySQL线程池 </a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/WCFGROUP/p/12323798.html">7.源码解读 Spring Boot Profiles</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/WCFGROUP/p/12323795.html">8.Spring注解标签详解@Autowired @Qualifier</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/WCFGROUP/p/12320778.html">9.lombok</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/WCFGROUP/p/12317926.html">10.testing-data-transfer-object-and-rest-controllers</a>
+
+                </li>
+    </ul>
+</div></div>
+
+<!-- 我的标签 -->
+<div id="sidebar_toptags" class="sidebar-block"></div>
+
+<!-- 积分与排名 -->
+<div id="sidebar_scorerank" class="sidebar-block"><h3>积分与排名</h3>
+<ul>
+    <li>
+        积分 - 
+374729
+    </li>
+    <li>
+        排名 - 
+1843
+    </li>
+</ul></div>
+
+<!-- 随笔分类、随笔档案、文章分类、新闻分类、相册、链接 -->
+<div id="sidebar_categories">
+
+    <h3>
+        
+    <a class="sidebar-card-title-a" href="https://www.cnblogs.com/WCFGROUP/categories">随笔分类</a>
+
+
+
+    </h3>
+    <ul>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/908628.html" class="category-item-link" rel="" target="">AI(74)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1291389.html" class="category-item-link" rel="" target="">AKKA(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1314238.html" class="category-item-link" rel="" target="">Assembly(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1165321.html" class="category-item-link" rel="" target="">bitcoin(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/919810.html" class="category-item-link" rel="" target="">C/C++(4)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/906749.html" class="category-item-link" rel="" target="">Chronos(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/938083.html" class="category-item-link" rel="" target="">compiler(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/968352.html" class="category-item-link" rel="" target="">compiling technology(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/819752.html" class="category-item-link" rel="" target="">concurrent&amp; multi thread(10)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/775996.html" class="category-item-link" rel="" target="">Debugging(13)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/902716.html" class="category-item-link" rel="" target="">Docker(4)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/902710.html" class="category-item-link" rel="" target="">DTrace(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/902712.html" class="category-item-link" rel="" target="">ElasticSearch(10)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1156982.html" class="category-item-link" rel="" target="">ELK(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/142817.html" class="category-item-link" rel="" target="">English&amp;&amp;计算机词汇(6)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/979177.html" class="category-item-link" rel="" target="">Flink(34)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1239276.html" class="category-item-link" rel="" target="">Flink源码分析(24)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/961174.html" class="category-item-link" rel="" target="">GC(4)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1005205.html" class="category-item-link" rel="" target="">git(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1161356.html" class="category-item-link" rel="" target="">Go language(6)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/979174.html" class="category-item-link" rel="" target="">Hadoop(9)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/902713.html" class="category-item-link" rel="" target="">Hbase(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/979173.html" class="category-item-link" rel="" target="">Hive(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/979348.html" class="category-item-link" rel="" target="">HTTP(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1127703.html" class="category-item-link" rel="" target="">Interview(14)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1127647.html" class="category-item-link" rel="" target="">Java(10)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/890990.html" class="category-item-link" rel="" target="">Java Debugging(9)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/890989.html" class="category-item-link" rel="" target="">JVM (48)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1000925.html" class="category-item-link" rel="" target="">kafka(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1291339.html" class="category-item-link" rel="" target="">Kubernates(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/895869.html" class="category-item-link" rel="" target="">Linux(48)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/908659.html" class="category-item-link" rel="" target="">Linux kernel(33)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1159041.html" class="category-item-link" rel="" target="">Lstio(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1086469.html" class="category-item-link" rel="" target="">Lua(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/979416.html" class="category-item-link" rel="" target="">machine learning(7)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1082298.html" class="category-item-link" rel="" target="">Math(4)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/902753.html" class="category-item-link" rel="" target="">maven&amp;&amp;gradle(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/902751.html" class="category-item-link" rel="" target="">Mesos(3)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1141533.html" class="category-item-link" rel="" target="">MicroService(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/384914.html" class="category-item-link" rel="" target="">MySQL(58)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/989838.html" class="category-item-link" rel="" target="">netty(3)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/917709.html" class="category-item-link" rel="" target="">NETWORK(15)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/921214.html" class="category-item-link" rel="" target="">nginx(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1161936.html" class="category-item-link" rel="" target="">OS(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/775994.html" class="category-item-link" rel="" target="">Parallel, Multi threading(7)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1130101.html" class="category-item-link" rel="" target="">performance turning(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1197776.html" class="category-item-link" rel="" target="">Python(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/775989.html" class="category-item-link" rel="" target="">redis memcached mongodb(4)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1302682.html" class="category-item-link" rel="" target="">RocketMQ(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/994347.html" class="category-item-link" rel="" target="">Scala(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1138219.html" class="category-item-link" rel="" target="">Search Engines(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1159040.html" class="category-item-link" rel="" target="">ServiceMesh(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/902714.html" class="category-item-link" rel="" target="">Spark(23)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1115138.html" class="category-item-link" rel="" target="">Spring(7)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/138438.html" class="category-item-link" rel="" target="">SQL Server(6)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1139466.html" class="category-item-link" rel="" target="">stackoverflow(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/902752.html" class="category-item-link" rel="" target="">Storm(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1011735.html" class="category-item-link" rel="" target="">Streaming(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1091897.html" class="category-item-link" rel="" target="">TesnorFlow(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/890992.html" class="category-item-link" rel="" target="">Tomcat(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/128584.html" class="category-item-link" rel="" target="">WCF&amp;WebService(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1291340.html" class="category-item-link" rel="" target="">Zookeeper(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1006575.html" class="category-item-link" rel="" target="">分布式系统算法&amp;论文(6)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/138445.html" class="category-item-link" rel="" target="">数据结构与算法(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/982327.html" class="category-item-link" rel="" target="">数学(5)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/category/1027826.html" class="category-item-link" rel="" target="">算法(1)</a>
+
+            </li>
+        <li><a href="javascript:void(0)" onclick="sideColumnManager.loadMore(this)">更多</a></li>
+    </ul>
+    <h3>
+        
+随笔档案
+
+
+    </h3>
+    <ul>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2020/04.html" class="category-item-link" rel="" target="">2020年4月(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2020/03.html" class="category-item-link" rel="" target="">2020年3月(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2020/02.html" class="category-item-link" rel="" target="">2020年2月(9)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2020/01.html" class="category-item-link" rel="" target="">2020年1月(4)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2019/12.html" class="category-item-link" rel="" target="">2019年12月(4)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2019/11.html" class="category-item-link" rel="" target="">2019年11月(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2019/10.html" class="category-item-link" rel="" target="">2019年10月(4)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2019/09.html" class="category-item-link" rel="" target="">2019年9月(4)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2019/08.html" class="category-item-link" rel="" target="">2019年8月(15)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2019/07.html" class="category-item-link" rel="" target="">2019年7月(25)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2019/06.html" class="category-item-link" rel="" target="">2019年6月(5)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2019/05.html" class="category-item-link" rel="" target="">2019年5月(3)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2019/04.html" class="category-item-link" rel="" target="">2019年4月(3)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2019/03.html" class="category-item-link" rel="" target="">2019年3月(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2019/02.html" class="category-item-link" rel="" target="">2019年2月(10)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2019/01.html" class="category-item-link" rel="" target="">2019年1月(29)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2018/12.html" class="category-item-link" rel="" target="">2018年12月(6)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2018/11.html" class="category-item-link" rel="" target="">2018年11月(21)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2018/10.html" class="category-item-link" rel="" target="">2018年10月(11)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2018/09.html" class="category-item-link" rel="" target="">2018年9月(19)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2018/08.html" class="category-item-link" rel="" target="">2018年8月(27)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2018/07.html" class="category-item-link" rel="" target="">2018年7月(17)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2018/06.html" class="category-item-link" rel="" target="">2018年6月(10)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2018/05.html" class="category-item-link" rel="" target="">2018年5月(23)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2018/04.html" class="category-item-link" rel="" target="">2018年4月(4)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2018/03.html" class="category-item-link" rel="" target="">2018年3月(8)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2018/02.html" class="category-item-link" rel="" target="">2018年2月(16)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2018/01.html" class="category-item-link" rel="" target="">2018年1月(12)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2017/12.html" class="category-item-link" rel="" target="">2017年12月(17)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2017/11.html" class="category-item-link" rel="" target="">2017年11月(12)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2017/10.html" class="category-item-link" rel="" target="">2017年10月(21)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2017/09.html" class="category-item-link" rel="" target="">2017年9月(23)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2017/08.html" class="category-item-link" rel="" target="">2017年8月(12)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2017/07.html" class="category-item-link" rel="" target="">2017年7月(6)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2017/06.html" class="category-item-link" rel="" target="">2017年6月(18)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2017/05.html" class="category-item-link" rel="" target="">2017年5月(12)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2017/04.html" class="category-item-link" rel="" target="">2017年4月(27)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2017/03.html" class="category-item-link" rel="" target="">2017年3月(26)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2017/02.html" class="category-item-link" rel="" target="">2017年2月(6)</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2017/01.html" class="category-item-link" rel="" target="">2017年1月(29)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2016/12.html" class="category-item-link" rel="" target="">2016年12月(23)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2016/11.html" class="category-item-link" rel="" target="">2016年11月(29)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2016/10.html" class="category-item-link" rel="" target="">2016年10月(38)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2016/09.html" class="category-item-link" rel="" target="">2016年9月(28)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2016/08.html" class="category-item-link" rel="" target="">2016年8月(30)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2016/07.html" class="category-item-link" rel="" target="">2016年7月(19)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2016/06.html" class="category-item-link" rel="" target="">2016年6月(8)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2016/05.html" class="category-item-link" rel="" target="">2016年5月(21)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2016/04.html" class="category-item-link" rel="" target="">2016年4月(26)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2016/03.html" class="category-item-link" rel="" target="">2016年3月(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2016/02.html" class="category-item-link" rel="" target="">2016年2月(6)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2016/01.html" class="category-item-link" rel="" target="">2016年1月(7)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2015/12.html" class="category-item-link" rel="" target="">2015年12月(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2015/11.html" class="category-item-link" rel="" target="">2015年11月(4)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2015/10.html" class="category-item-link" rel="" target="">2015年10月(7)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2015/09.html" class="category-item-link" rel="" target="">2015年9月(3)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2015/08.html" class="category-item-link" rel="" target="">2015年8月(3)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2015/07.html" class="category-item-link" rel="" target="">2015年7月(2)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2015/05.html" class="category-item-link" rel="" target="">2015年5月(3)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2015/04.html" class="category-item-link" rel="" target="">2015年4月(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2014/11.html" class="category-item-link" rel="" target="">2014年11月(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2014/08.html" class="category-item-link" rel="" target="">2014年8月(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2014/07.html" class="category-item-link" rel="" target="">2014年7月(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2014/05.html" class="category-item-link" rel="" target="">2014年5月(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2014/01.html" class="category-item-link" rel="" target="">2014年1月(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2013/08.html" class="category-item-link" rel="" target="">2013年8月(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2013/01.html" class="category-item-link" rel="" target="">2013年1月(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2012/09.html" class="category-item-link" rel="" target="">2012年9月(1)</a>
+
+            </li>
+            <li data-category-list-item-visible="false" style="display: none">
+                
+<a href="https://www.cnblogs.com/WCFGROUP/archive/2012/05.html" class="category-item-link" rel="" target="">2012年5月(3)</a>
+
+            </li>
+        <li><a href="javascript:void(0)" onclick="sideColumnManager.loadMore(this)">更多</a></li>
+    </ul>
+    <h3>
+        
+UML
+
+
+    </h3>
+    <ul>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="http://www.uml.org.cn/" class="category-item-link" rel="nofollow noopener noreferrer" target="">uml.org</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="http://blog.csdn.net/haibodotnet/archive/2003/11/16/21515.aspx" class="category-item-link" rel="" target="">水晶报表BLOG</a>
+
+            </li>
+            <li data-category-list-item-visible="true" style="display: block">
+                
+<a href="http://www.w3school.com.cn/" class="category-item-link" rel="nofollow noopener noreferrer" target="">w3school</a>
+
+            </li>
+        
+    </ul>
+</div>
+
+<!-- 最新评论 -->
+<!-- 阅读排行榜 -->
+<div id="sidebar_topviewedposts" class="sidebar-block">
+<div id="topview_posts_wrap">
+    <h3 class="catListTitle">
+        <a href="https://www.cnblogs.com/WCFGROUP/most-viewed" class="sidebar-card-title-a">
+    阅读排行榜
+</a>
+
+    </h3>
+    <div id="TopViewPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/9539547.html">
+                            1. How To Download Youtube Videos Without any software(105308)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6806635.html">
+                            2. elasticsearch 索引延迟 一致性问题等(3199)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5136703.html">
+                            3. Rewrite MSIL Code on the Fly with the .NET Framework Profiling API(3088)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html">
+                            4. RednaxelaFX写的文章/回答的导航帖(2090)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7406367.html">
+                            5. CNN(卷积神经网络)、RNN(循环神经网络)、DNN，LSTM(1775)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7490592.html">
+                            6. 机器学习(Machine Learning)&amp;深度学习(Deep Learning)资料(1557)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/9206746.html">
+                            7. Flink的keyby延时源码(1502)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5545895.html">
+                            8. 机器学习&amp;人工智能书籍(1324)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6942594.html">
+                            9. Flink源码分析(1269)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/9241884.html">
+                            10. Flink SQL与 SQL Parser ，calcite(1237)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5858517.html">
+                            11. Redis   GEO ，GEOHASH，Spatial_index(1228)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/9356417.html">
+                            12. flink-jdbc sink(1217)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/9390667.html">
+                            13. rocketmq-flink(1161)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5935221.html">
+                            14. 机器学习算法基础（Python和R语言实现）(1133)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/9770095.html">
+                            15. Java 汇编代码(1100)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/11204569.html">
+                            16. TCP 滑动窗口和 拥塞窗口(1062)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/archive/2012/05/18/2507940.html">
+                            17. 更新INCLUDE indexes中的非键列会引起索引碎片吗？(1021)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7743069.html">
+                            18. 【深度学习Deep Learning】资料大全(969)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7677320.html">
+                            19. How do I learn machine learning?(946)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/4454895.html">
+                            20. compiler(934)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6472581.html">
+                            21. OOP KLASSOOP, instanceklass(922)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5745834.html">
+                            22. debugging tools(888)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7573902.html">
+                            23. Lua官方文档与源码分析(871)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5774756.html">
+                            24. CLR thread pool(863)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7589401.html">
+                            25. Redis source code analysis(856)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7692243.html">
+                            26. Deep Reinforcement Learning(842)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6945446.html">
+                            27. flinkML(839)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7797915.html">
+                            28. How do I learn mathematics for machine learning?(825)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/3242135.html">
+                            29. SQL Debugging(819)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7797769.html">
+                            30. 机器学习应该准备哪些数学预备知识？(811)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5539051.html">
+                            31. Docker Resources(792)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/10023267.html">
+                            32. https://www.liepin.com/company/9288808/(791)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6889181.html">
+                            33. 分布式系统论文(776)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6644465.html">
+                            34. MYSQL COST optimizer(760)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7753340.html">
+                            35. 贝叶斯机器学习路线图(749)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/9204640.html">
+                            36. Flink sink to Oracle\MYSQL(731)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5185651.html">
+                            37. C#compiler(730)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5775293.html">
+                            38. Improve Scalability With New Thread Pool APIs(715)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5735136.html">
+                            39. windbg(703)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/3829328.html">
+                            40. NETMON&amp;  Message Analyzer(703)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div></div>
+
+<!-- 评论排行榜 -->
+<div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+    <h3 class="catListTitle">
+        <a href="https://www.cnblogs.com/WCFGROUP/most-commented" class="sidebar-card-title-a">评论排行榜</a>
+
+    </h3>
+    <div id="TopFeedbackPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/3242135.html">
+                            1. SQL Debugging(11)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/11116636.html">
+                            2. HTTP 请求头中的 X-Forwarded-For(9)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/archive/2012/05/18/2507940.html">
+                            3. 更新INCLUDE indexes中的非键列会引起索引碎片吗？(7)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/archive/2013/01/25/2876152.html">
+                            4. Debugging Tips(5)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6644465.html">
+                            5. MYSQL COST optimizer(4)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/archive/2012/05/07/2487475.html">
+                            6. Here we go&amp;&amp;Here you are(4)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7354820.html">
+                            7. 机器学习好文章(3)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/10448400.html">
+                            8. http://web.stanford.edu/~jurafsky/slp3/(2)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/9539547.html">
+                            9. How To Download Youtube Videos Without any software(2)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7730231.html">
+                            10. Why does deep learning work?(2)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7341071.html">
+                            11. 线性,逻辑回归(2)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6363641.html">
+                            12. JVM building(2)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/12320778.html">
+                            13. lombok(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/11203580.html">
+                            14. TCPRT(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/10050876.html">
+                            15. EPOLL AND Nonblocking I/O(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/9155640.html">
+                            16. prometheus-dashboard-to-grafana(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/9129653.html">
+                            17. apache-flink-training-metrics-monitoring(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/8597390.html">
+                            18. 量子力学 量子场论(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/8567051.html">
+                            19. ES performance(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/8437382.html">
+                            20. Analyzing the Go runtime scheduler from source code perspective(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/8144629.html">
+                            21. ES monitoring(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7692243.html">
+                            22. Deep Reinforcement Learning(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7490592.html">
+                            23. 机器学习(Machine Learning)&amp;深度学习(Deep Learning)资料(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/7406367.html">
+                            24. CNN(卷积神经网络)、RNN(循环神经网络)、DNN，LSTM(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6942594.html">
+                            25. Flink源码分析(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6592939.html">
+                            26. Lattice(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6552693.html">
+                            27. javaperformanceoptimization(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6541444.html">
+                            28. linux io architecture(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6518374.html">
+                            29. GC(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/6259303.html">
+                            30. perfbook(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5987932.html">
+                            31. chronos(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5971631.html">
+                            32. spring 官方文档(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5863725.html">
+                            33. Storm  API,Tutorial,Trident,Windowing BOOKS(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/5774756.html">
+                            34. CLR thread pool(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/4931536.html">
+                            35. perfview(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/WCFGROUP/p/4531955.html">
+                            36. Exception(1)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div></div>
+
+<!-- 推荐排行榜 -->
+<div id="sidebar_topdiggedposts" class="sidebar-block">
+<div id="topdigg_posts_wrap">
+    <div class="catListView">
+        <h3 class="catListTitle">
+            <a href="https://www.cnblogs.com/WCFGROUP/most-liked" class="sidebar-card-title-a">推荐排行榜</a>
+
+        </h3>
+        <div id="TopDiggPostsBlock">
+            <ul style="word-break: break-all">
+                        <li>
+                            <a href="https://www.cnblogs.com/WCFGROUP/p/7462835.html">
+                                1. online learning(1)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html">
+                                2. RednaxelaFX写的文章/回答的导航帖(1)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/WCFGROUP/p/5724158.html">
+                                3. HttpWebRequest's Timeout and ReadWriteTimeout — What do these mean for the underlying TCP connection?(1)
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+</div></div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap" class="RecentComment">
+    <h3 class="catListTitle"><a href="https://www.cnblogs.com/WCFGROUP/comments" class="sidebar-card-title-a">最新评论</a></h3>    
+    <div class="RecentCommentBlock">
+        <ul>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/9539547.html">1. Re:How To Download Youtube Videos Without any software</a></li>
+                <li class="recent_comment_body">You can download videos from AmoyShare Free Video Finder It supports video download from YouTube, Da...</li>
+                <li class="recent_comment_author">--clint069</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/9539547.html">2. Re:How To Download Youtube Videos Without any software</a></li>
+                <li class="recent_comment_body">The best way to download videos from YouTube, Facebook, Twitter, Instagram: 4K Video Downloader...</li>
+                <li class="recent_comment_author">--livemessenge</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/11116636.html">3. Re:HTTP 请求头中的 X-Forwarded-For</a></li>
+                <li class="recent_comment_body"><p>set global long_query_time=0.1</p>
+</li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/11116636.html">4. Re:HTTP 请求头中的 X-Forwarded-For</a></li>
+                <li class="recent_comment_body">res= cur_utime - thd-&gt;utime_after_lock; if (res &gt; thd-&gt;variables.long_query_time) thd-&gt;server_status...</li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/11116636.html">5. Re:HTTP 请求头中的 X-Forwarded-For</a></li>
+                <li class="recent_comment_body">UPDATE performance_schema.setup_consumers SET ENABLED = 'YES'; SELECT * FROM performance_schema.even...</li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/11116636.html">6. Re:HTTP 请求头中的 X-Forwarded-For</a></li>
+                <li class="recent_comment_body">select * from information_schema.processlist ; select * from performance_schema.threads ; SET @THREA...</li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/11116636.html">7. Re:HTTP 请求头中的 X-Forwarded-For</a></li>
+                <li class="recent_comment_body"><p><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html"></a></p>
+</li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/11116636.html">8. Re:HTTP 请求头中的 X-Forwarded-For</a></li>
+                <li class="recent_comment_body">'wait/synch/mutex/innodb/srv_innodb_monitor_mutex', 'NO', 'NO'</li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/11116636.html">9. Re:HTTP 请求头中的 X-Forwarded-For</a></li>
+                <li class="recent_comment_body">srv_export_innodb_status</li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/11116636.html">10. Re:HTTP 请求头中的 X-Forwarded-For</a></li>
+                <li class="recent_comment_body">Not building keyring_vault, could not find library: CURL</li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/11116636.html">11. Re:HTTP 请求头中的 X-Forwarded-For</a></li>
+                <li class="recent_comment_body">percona ZLIB_LIBRARY The following variables are used in this project, but they are set to NOTFOUND....</li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/12320778.html">12. Re:lombok</a></li>
+                <li class="recent_comment_body"> <a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a> </li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/6259303.html">13. Re:perfbook</a></li>
+                <li class="recent_comment_body"> <a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a> </li>
+                <li class="recent_comment_author">--布吉刀</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/11203580.html">14. Re:TCPRT</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/10050876.html">15. Re:EPOLL AND Nonblocking I/O</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/10448400.html">16. Re:http://web.stanford.edu/~jurafsky/slp3/</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/10448400.html">17. Re:https://pan.baidu.com/s/1LNwJBEdW7BUc1_4xBX2QRw</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--暖风的风</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/7490592.html">18. Re:机器学习(Machine Learning)&amp;深度学习(Deep Learning)资料</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--shafiqrehman01</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/9155640.html">19. Re:prometheus-dashboard-to-grafana</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--明星级程序员</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/9129653.html">20. Re:apache-flink-training-metrics-monitoring</a></li>
+                <li class="recent_comment_body">:8081/taskmanagers/3994d0c768bdbed7c7646778338cbdbf/metrics.scope.tm.Status.JVM.CPU.Load...</li>
+                <li class="recent_comment_author">--明星级程序员</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/8567051.html">21. Re:ES performance</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--明星级程序员</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/8597390.html">22. Re:量子力学 量子场论</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--明星级程序员</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/8437382.html">23. Re:analysis of the Go runtime scheduler</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--明星级程序员</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/8144629.html">24. Re:ES monitoring</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--明星级程序员</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/7730231.html">25. Re:Why does deep learning work?</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--明星级程序员</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/7730231.html">26. Re:Why does deep learning work?</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--明星级程序员</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/7692243.html">27. Re:Deep Reinforcement Learning</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a>=2pWv7GOvuf0</li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/7406367.html">28. Re:CNN N</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/7354820.html">29. Re:机器学习好文章</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/7354820.html">30. Re:机器学习好文章</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/7354820.html">31. Re:机器学习好文章</a></li>
+                <li class="recent_comment_body">剃度<br><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/7341071.html">32. Re:线性,逻辑回归</a></li>
+                <li class="recent_comment_body">Introduction to Gradient Descent Algorithm (along with variants) in Machine Learning</li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/7341071.html">33. Re:线性,逻辑回归</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/6644465.html">34. Re:MYSQL COST optimizer</a></li>
+                <li class="recent_comment_body">mysql-server-5.7\bld&gt;cmake .. -DDOWNLOAD_BOOST=1 -DWITH_BOOST=D:/Downloads/</li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/6644465.html">35. Re:MYSQL COST optimizer</a></li>
+                <li class="recent_comment_body">编译<br><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/6644465.html">36. Re:MYSQL COST optimizer</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/6644465.html">37. Re:MYSQL COST optimizer</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/6942594.html">38. Re:Flink源码分析</a></li>
+                <li class="recent_comment_body">import org.apache.flink.api.common.state.ValueState;import org.apache.flink.api.common.state.ValueSt...</li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/6592939.html">39. Re:Lattice</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--LEX123</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/WCFGROUP/p/6552693.html">40. Re:javaperformanceoptimization</a></li>
+                <li class="recent_comment_body"><a href="https://www.cnblogs.com/WCFGROUP/p/6511485.html" target="_blank"></a></li>
+                <li class="recent_comment_author">--LEX123</li>
+        </ul>
+    </div>
+</div></div>
+
+
+</div>
+                    <script>loadBlogSideColumn();</script>
+
+</div>
+</div>
+<div class="clear"></div>
+<div id="footer">
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a href="https://www.cnblogs.com/" id="footer_site_link">博客园</a>
+	<br>
+	Copyright © 2022 暖风的风
+<br><span id="poweredby">Powered by .NET 6 on Kubernetes</span>
+
+</p>
+
+
+</div>
+</div>
+
+
+
+
+
+<input type="hidden" id="antiforgery_token" value="CfDJ8EOBBtWq0dNFoDS-ZHPSe50jU-KLBcoYuprcwZddkz8N5quAeCYaeuCpDq95fXaMqYkCMPxDbapFA4oRFsCbt9j-R_1w0K97ue1hCCyKuysp0GFESyMMb37IQZBWmEmaNordhoTJHzLesfrTFh9-lF4">
+<script async="" src="./RednaxelaFX-chapters_files/js"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var kv = getGACustom();
+    if (kv) {
+        gtag('set', kv);
+    }
+    gtag('config', 'UA-476124-1');
+</script>
+<script defer="" src="./RednaxelaFX-chapters_files/hm.js"></script><iframe src="./RednaxelaFX-chapters_files/container(1).html" style="visibility: hidden; display: none;"></iframe>
+
+<iframe src="./RednaxelaFX-chapters_files/aframe.html" width="0" height="0" style="display: none;"></iframe></body><div style="all: initial;"><div id="__hcfy__" style="all: initial;"></div></div></html>
