@@ -1,0 +1,1 @@
+https://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html
