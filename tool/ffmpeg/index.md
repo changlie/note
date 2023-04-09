@@ -7,4 +7,6 @@ ffmpeg -f concat -i filelist.txt -c copy output.mkv
 file 'a.mkv'
 file 'b.mkv'
 ```
+## mkv 转 mp4
 
+ffmpeg -i a.mkv -vcodec copy -acodec copy a.mp4
