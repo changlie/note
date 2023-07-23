@@ -72,4 +72,6 @@ openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out s
 
 [数字证书信任链](https://www.zybuluo.com/blueGhost/note/805491)
 
+[https 证书](https://www.cnblogs.com/benwu/articles/4891758.html)
 
+[]()
